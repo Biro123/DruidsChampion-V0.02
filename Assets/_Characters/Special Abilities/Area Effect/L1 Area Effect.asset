@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f70cc3275b076a744bb5994bded91570, type: 3}
+  m_Name: L1 Area Effect
+  m_EditorClassIdentifier: 
+  staminaCost: 35
+  particlePrefab: {fileID: 1606462035129914, guid: c74949da1d8d5ad4c8e112bcd0507f92,
+    type: 2}
+  audioClips:
+  - {fileID: 8300000, guid: d261d5fc8420f024fbd7b0e1d950d3ae, type: 3}
+  abilityAnimation: {fileID: 7400000, guid: d5884d86bb6597044b2b75dcef7d603d, type: 3}
+  extraDamage: 50
+  radius: 6

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
+  m_Name: Wooden Club
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4689537459407266, guid: 0ea8322622c42cf4a8ed187640c56b8c,
+    type: 2}
+  weaponPrefab: {fileID: 1285728164963844, guid: 1553fff436c6751408196999c04fd91a,
+    type: 2}
+  swingAnimation: {fileID: 7400000, guid: 158f3770cb63f864e9917904a4c1c9f1, type: 3}
+  thrustAnimation: {fileID: 7400000, guid: 685af2d0ecf553c45bede47bc1157b32, type: 3}
+  weaponSpecificAnimations: {fileID: 22100000, guid: a29d86ec3492f2640ae1a763a248f174,
+    type: 2}
+  parrySound: {fileID: 8300000, guid: 0805de7e4fb0f4d03a30ae90e7c64311, type: 3}
+  quality: 0.8
+  condition: 0.8
+  timeBetweenAnimationCycles: 1.5
+  damageDelay: 0.5
+  attackRange: 2.5
+  bladeDamageModifier: 0
+  bluntDamageModifier: 0.91
+  pierceDamageModifier: 0

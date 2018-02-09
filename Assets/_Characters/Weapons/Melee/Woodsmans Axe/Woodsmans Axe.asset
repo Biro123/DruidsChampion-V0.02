@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
+  m_Name: Woodsmans Axe
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4689537459407266, guid: 7d8e995a5da50c54894ea6d2c5420d2c,
+    type: 2}
+  weaponPrefab: {fileID: 100000, guid: ee04c8e479165444cacd1a3a7b02cad1, type: 2}
+  swingAnimation: {fileID: 7400000, guid: f94c62a8b96f5a7469ce0da8ccac09b3, type: 3}
+  thrustAnimation: {fileID: 7400000, guid: f9a41b3feea198048b4d8a29a9268d72, type: 3}
+  parrySound: {fileID: 8300000, guid: 34aca9e3f1ade4802b9062b1380aa523, type: 3}
+  quality: 0.8
+  condition: 0.8
+  timeBetweenAnimationCycles: 1
+  damageDelay: 0.5
+  attackRange: 3
+  bladeDamageModifier: 1
+  bluntDamageModifier: 0.9
+  pierceDamageModifier: 0

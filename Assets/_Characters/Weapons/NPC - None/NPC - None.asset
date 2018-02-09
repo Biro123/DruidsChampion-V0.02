@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
+  m_Name: NPC - None
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4917214913903806, guid: a5ec484949d8a5241baecded1bf2aac9,
+    type: 2}
+  weaponPrefab: {fileID: 1274797246840802, guid: cc0dbe33ee8adbe4eb124e2d95d37fe4,
+    type: 2}
+  swingAnimation: {fileID: 7400000, guid: 053ec18f067de0a4c9650802e1995cb6, type: 3}
+  thrustAnimation: {fileID: 7400000, guid: 053ec18f067de0a4c9650802e1995cb6, type: 3}
+  parrySound: {fileID: 0}
+  quality: 0.8
+  condition: 0.8
+  timeBetweenAnimationCycles: 1
+  damageDelay: 0.5
+  attackRange: 0.001
+  bladeDamageModifier: 0.5
+  bluntDamageModifier: 0.5
+  pierceDamageModifier: 0.5

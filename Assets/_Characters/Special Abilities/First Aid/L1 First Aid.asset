@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c7a5a61d44a3b469e644b3fbc3de0e, type: 3}
+  m_Name: L1 First Aid
+  m_EditorClassIdentifier: 
+  staminaCost: 20
+  particlePrefab: {fileID: 1606462035129914, guid: f8102786fd0215d42a118d7244132dd4,
+    type: 2}
+  audioClips:
+  - {fileID: 8300000, guid: 3d9914c57d37e704c9b1f1f57c7e6809, type: 3}
+  abilityAnimation: {fileID: 7400000, guid: fd2eda3550a6f1344866db46a225eea7, type: 3}
+  healAmount: 100
+  safeRadius: 15

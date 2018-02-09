@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
+  m_Name: Pointy Stick
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4917214913903806, guid: b9b2857e1dd34cf49920ec2120a16298,
+    type: 2}
+  weaponPrefab: {fileID: 1274797246840802, guid: 9cee90508e1538a41a9c647abea067d7,
+    type: 2}
+  swingAnimation: {fileID: 7400000, guid: 61065193c26728447a9b2d420699cc2e, type: 3}
+  thrustAnimation: {fileID: 7400000, guid: 96f8270c0e4678d4580d41b43babe823, type: 3}
+  weaponSpecificAnimations: {fileID: 22100000, guid: cb2b5c576761a15469275b5aedd14c55,
+    type: 2}
+  parrySound: {fileID: 8300000, guid: 0805de7e4fb0f4d03a30ae90e7c64311, type: 3}
+  quality: 0.8
+  condition: 0.8
+  timeBetweenAnimationCycles: 0.1
+  damageDelay: 0.2
+  attackRange: 3.5
+  bladeDamageModifier: 0
+  bluntDamageModifier: 0.25
+  pierceDamageModifier: 0.3

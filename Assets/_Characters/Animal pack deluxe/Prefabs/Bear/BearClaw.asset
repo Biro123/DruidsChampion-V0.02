@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
+  m_Name: BearClaw
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4917214913903806, guid: eec8393306b8bfa4590e947a1316e8de,
+    type: 2}
+  weaponPrefab: {fileID: 1059373861044202, guid: eec8393306b8bfa4590e947a1316e8de,
+    type: 2}
+  swingAnimation: {fileID: 7400000, guid: f0de5c62a6c14df4c946f81e4cee9a01, type: 3}
+  thrustAnimation: {fileID: 7400000, guid: f0de5c62a6c14df4c946f81e4cee9a01, type: 3}
+  weaponSpecificAnimations: {fileID: 22100000, guid: 86d9a8e33893a5943877389b5a034b7b,
+    type: 2}
+  parrySound: {fileID: 8300000, guid: b76357a42d03a4722afcba74c3073136, type: 3}
+  quality: 0.8
+  condition: 0.8
+  timeBetweenAnimationCycles: 1
+  damageDelay: 0.5
+  attackRange: 3
+  bladeDamageModifier: 0.5
+  bluntDamageModifier: 0.5
+  pierceDamageModifier: 0

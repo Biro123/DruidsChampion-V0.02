@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
+  m_Name: DirtyOldHoe
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4689537459407266, guid: 0b9be8500a2b2bd4397f4a5669110064,
+    type: 2}
+  weaponPrefab: {fileID: 1274797246840802, guid: cc0dbe33ee8adbe4eb124e2d95d37fe4,
+    type: 2}
+  attackAnimation: {fileID: 7400000, guid: 5382c9f3a528413448fc27554dd73d74, type: 3}
+  quality: 0.8
+  condition: 0.8
+  timeBetweenHits: 2.5
+  damageDelay: 0.7
+  attackRange: 2
+  bladeDamageModifier: 1
+  bluntDamageModifier: 0.9
+  pierceDamageModifier: 0

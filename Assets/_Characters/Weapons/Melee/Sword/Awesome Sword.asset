@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
+  m_Name: Awesome Sword
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4917214913903806, guid: 3049540a655cf304e9264568ddec7c8c,
+    type: 2}
+  weaponPrefab: {fileID: 1427361354784342, guid: dc8bc3c8dae102547b4a319ebbd68327,
+    type: 2}
+  swingAnimation: {fileID: 7400000, guid: d82669b37833c5f4db716b82428a5ad6, type: 3}
+  thrustAnimation: {fileID: 7400000, guid: 841b2c438c95c83479a59db0d737063d, type: 3}
+  weaponSpecificAnimations: {fileID: 22100000, guid: 31de11351dc94564b99bf6ad065049d9,
+    type: 2}
+  parrySound: {fileID: 8300000, guid: 07c38e0499aea4acd81b44991c0e4d07, type: 3}
+  quality: 1
+  condition: 1
+  timeBetweenAnimationCycles: 0.2
+  damageDelay: 0.5
+  attackRange: 3
+  bladeDamageModifier: 0.75
+  bluntDamageModifier: 0.25
+  pierceDamageModifier: 0.5
