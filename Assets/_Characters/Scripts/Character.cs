@@ -99,6 +99,12 @@ namespace RPG.Characters
         public void Kill()
         {
             navMeshAgent.isStopped = true;
+            navMeshAgent.radius = 0.1f;
+            var collider = GetComponent<CapsuleCollider>();
+            if (collider)
+            {
+                collider.enabled = false;
+            }
             isAlive = false;
         }
 

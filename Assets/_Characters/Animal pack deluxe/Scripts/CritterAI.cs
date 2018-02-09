@@ -24,9 +24,11 @@ namespace RPG.Characters
         int opponentLayerMask = 0;
         int waypointIndex;
         Vector3 nextWaypointPos;
+        bool isFleeing;
 
         private void Start()
         {
+            isFleeing = false;
             character = GetComponent<Character>(); 
 
             // Set up the layermask of opponents to look for.
@@ -37,7 +39,6 @@ namespace RPG.Characters
 
             if (isDomestic && patrolPath)
             {
-                Debug.Log(Time.time + " " + gameObject.name + " Starting Coroutine");
                 StartCoroutine(Patrol());
             }       
         }
@@ -51,11 +52,26 @@ namespace RPG.Characters
             if (target)
             {
                 var distanceToTarget = (transform.position - target.transform.position).magnitude;
-                if (distanceToTarget <= distanceBeforeRun)
+                if (distanceToTarget <= distanceBeforeRun )
                 {
-                    CycleWaypoint();
+                    if (!isFleeing)
+                    {
+                        isFleeing = true;
+                        StartCoroutine(Patrol());
+                    }
+                }
+                else
+                {
+                    isFleeing = false;
+                    StopAllCoroutines();
                 }
             }
+            else
+            {
+                isFleeing = false;
+                StopAllCoroutines();
+            }
+
         }
 
         IEnumerator Patrol()
