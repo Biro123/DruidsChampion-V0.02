@@ -62,7 +62,7 @@ namespace RPG.Characters
             }
             else
             {
-                StopAllCoroutines();
+                StopAttacking();
             }
         }
 
@@ -104,6 +104,11 @@ namespace RPG.Characters
 
         IEnumerator AttackTargetRepeatedly()
         {
+            if(GetComponent<EnemyAI>())   // slightly delay start of enemy attacking
+            {
+                yield return new WaitForSeconds(currentWeaponConfig.GetDamageDelay());
+            }
+
             while (attackerIsAlive && targetIsAlive)
             {
                 var animationClip = currentWeaponConfig.GetSwingAnimClip();

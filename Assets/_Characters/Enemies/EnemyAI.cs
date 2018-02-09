@@ -83,10 +83,10 @@ namespace RPG.Characters
 
             if(inAttackRange)
             {
-                StopAllCoroutines();
-                state = State.attacking;
-                character.SetDestination(transform.position);
-                weaponSystem.AttackTarget(target.gameObject);
+                 StopAllCoroutines();
+                 state = State.attacking;
+                 character.SetDestination(transform.position);
+                 weaponSystem.AttackTarget(target.gameObject);
             }
         }
 
