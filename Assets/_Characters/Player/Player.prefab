@@ -3367,7 +3367,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400500621032120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -126.98, y: 0.41, z: -225.32}
+  m_LocalPosition: {x: 50.75, y: 8, z: -236.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4827194604900974}
@@ -5288,7 +5288,7 @@ MonoBehaviour:
   recovPerSecond: 5
   outOfStamClip: {fileID: 0}
   abilities:
-  - {fileID: 11400000, guid: 10544503d4a61a440b98cb687075d28f, type: 2}
+  - {fileID: 11400000, guid: 42d2c7118eb0ef34c88416e6f28b9a0e, type: 2}
   - {fileID: 11400000, guid: 7581dccdad17cca4a873932b11548798, type: 2}
   - {fileID: 11400000, guid: fa12904743eb32f49b4d48a427744012, type: 2}
 --- !u!114 &114992957174461168
@@ -5305,7 +5305,7 @@ MonoBehaviour:
   attackBonus: 100
   parryBonus: 100
   baseDamage: 250
-  currentWeaponConfig: {fileID: 11400000, guid: 56775f97211f3164ebdc486f3dc8fbdc,
+  currentWeaponConfig: {fileID: 11400000, guid: 0bc23fb4994beda46899e4d70d5aaf72,
     type: 2}
 --- !u!137 &137166622535503550
 SkinnedMeshRenderer:
@@ -5570,7 +5570,7 @@ SkinnedMeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1921185563214522}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -6055,7 +6055,7 @@ SkinnedMeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1596376865315144}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
