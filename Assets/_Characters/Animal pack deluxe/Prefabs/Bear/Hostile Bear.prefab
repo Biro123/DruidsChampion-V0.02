@@ -1003,8 +1003,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1579087591703866}
-  m_LocalRotation: {x: -0, y: 0.9998864, z: -0, w: -0.015077866}
-  m_LocalPosition: {x: -15.01387, y: 8.002197, z: -208.64557}
+  m_LocalRotation: {x: -0, y: 0.81629294, z: -0, w: 0.57763815}
+  m_LocalPosition: {x: -9.51, y: 7.99, z: -206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224447586950243922}
@@ -1012,7 +1012,7 @@ Transform:
   - {fileID: 4331999484093622}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 181.728, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 109.43101, z: 0}
 --- !u!4 &4439162340060470
 Transform:
   m_ObjectHideFlags: 1
@@ -1374,8 +1374,8 @@ MonoBehaviour:
   stationaryTurnSpeed: 180
   attackTurnRate: 5
   navMeshAgentSteeringSpeed: 5
-  navMeshAgentStoppingDistance: 1
-  navMeshAgentAutoBraking: 0
+  navMeshAgentStoppingDistance: 0.5
+  navMeshAgentAutoBraking: 1
   rigidBodyMass: 80
 --- !u!114 &114327639611515928
 MonoBehaviour:
@@ -1388,7 +1388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e60e330f232df44a758cd84b3011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroDistance: 10
+  aggroDistance: 15
   patrolPath: {fileID: 0}
   waypointTolerance: 3
   waypointDwellTime: 0.5

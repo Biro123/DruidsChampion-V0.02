@@ -50,6 +50,7 @@ namespace RPG.Characters
             target = FindTargetInRange(Mathf.Max(aggroDistance, currentWeaponRange));
             distanceToTarget = 0f;
             bool inAttackRange = false;
+            bool inMaxAttackRange = false;
             bool inAggroRange = false;
 
             if (target)
@@ -57,11 +58,13 @@ namespace RPG.Characters
                 distanceToTarget = (transform.position - target.transform.position).magnitude;
                 inAttackRange = (distanceToTarget <= currentWeaponRange);
                 inAggroRange = (distanceToTarget <= aggroDistance && !inAttackRange);
+                inMaxAttackRange = (distanceToTarget <= currentWeaponRange + 0.5f);  // TODO magic number - not needed?
             }
             else
             {
                 inAttackRange = false;
                 inAggroRange = false;
+                inMaxAttackRange = false;
             }
 
             if (! inAttackRange && ! inAggroRange )
@@ -76,17 +79,27 @@ namespace RPG.Characters
             
             if (inAggroRange)
             {
-                StopAllCoroutines();
-                weaponSystem.StopAttacking();
-                StartCoroutine(ChaseTarget());
+                // avoid dipping in and out of combat with slight movements //TODO IS NEEDED?
+                //if (inMaxAttackRange && state == State.attacking) { return; }
+
+                if (state != State.chasing)
+                {
+                    StopAllCoroutines();
+                    Debug.Log(gameObject.name + " starting attack");
+                    weaponSystem.StopAttacking();
+                    StartCoroutine(ChaseTarget());
+                }
             }
 
             if(inAttackRange)
             {
-                 StopAllCoroutines();
-                 state = State.attacking;
-                 character.SetDestination(transform.position);
-                 weaponSystem.AttackTarget(target.gameObject);
+                if (state != State.attacking)
+                {
+                    StopAllCoroutines();
+                    state = State.attacking;
+                    character.SetDestination(transform.position);
+                    weaponSystem.AttackTarget(target.gameObject);
+                }
             }
         }
 

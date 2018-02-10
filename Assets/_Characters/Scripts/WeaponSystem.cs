@@ -52,12 +52,11 @@ namespace RPG.Characters
                 targetIsAlive = targetHealthSystem.healthAsPercentage >= Mathf.Epsilon;
 
                 float distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
-                targetInRange = (distanceToTarget <= currentWeaponConfig.GetAttackRange());
+                targetInRange = (distanceToTarget <= currentWeaponConfig.GetAttackRange() + 0.5f); // TODO magic number
             }
 
             if (targetIsAlive && attackerIsAlive && targetInRange)
             {
-                //FaceTarget();
                 transform.LookAt(target.transform);
             }
             else
@@ -201,15 +200,8 @@ namespace RPG.Characters
         {
             yield return new WaitForSecondsRealtime(delay);
             var audioSource = GetComponent<AudioSource>();
+            audioSource.volume = UnityEngine.Random.Range(0.5f, 1f);
             audioSource.PlayOneShot(currentWeaponConfig.GetParrySound());
-        }
-
-        private void FaceTarget()  // currently not used
-        {
-            var attackTurnSpeed = character.GetAttackTurnRate();
-            var amountToRotate = Quaternion.LookRotation(target.transform.position - this.transform.position);
-            var rotateSpeed = attackTurnSpeed * Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(transform.rotation, amountToRotate, rotateSpeed);
         }
 
         private float CalculateDamage(float damageAdj, float armourAvoidAdj)

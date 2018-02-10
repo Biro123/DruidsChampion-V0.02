@@ -26,7 +26,6 @@ namespace RPG.Characters
         [SerializeField] float animationSpeedMultiplier = 1f;
         [SerializeField] float movingTurnSpeed = 360;
         [SerializeField] float stationaryTurnSpeed = 180;
-        [SerializeField] float attackTurnRate = 4;
 
         [Header("Navigation")]
         [SerializeField] float navMeshAgentSteeringSpeed = 1.2f;
@@ -84,11 +83,6 @@ namespace RPG.Characters
             {
                 Move(Vector3.zero);
             }
-        }
-
-        public float GetAttackTurnRate()
-        {
-            return attackTurnRate;
         }
 
         public float GetAnimSpeedMultiplier()
