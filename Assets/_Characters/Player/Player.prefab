@@ -3367,7 +3367,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400500621032120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50.75, y: 8, z: -236.96}
+  m_LocalPosition: {x: -137.23, y: 0.24, z: -219.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4827194604900974}
@@ -5215,7 +5215,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9e4c5f2327fc67c49ac5c94471e3107a, type: 3}
   deathSounds:
   - {fileID: 8300000, guid: f03ca00748cc75c438092911536058b5, type: 3}
-  bloodSpurtPrefab: {fileID: 1439545716550898, guid: 60c5b585be4a9ec42865b35460bbb91c,
+  bloodSpurtPrefab: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc,
     type: 2}
 --- !u!114 &114850190350352662
 MonoBehaviour:
@@ -5252,7 +5252,6 @@ MonoBehaviour:
   animationSpeedMultiplier: 1
   movingTurnSpeed: 360
   stationaryTurnSpeed: 180
-  attackTurnRate: 5
   navMeshAgentSteeringSpeed: 1.2
   navMeshAgentStoppingDistance: 0.4
   navMeshAgentAutoBraking: 1
@@ -5305,7 +5304,7 @@ MonoBehaviour:
   attackBonus: 100
   parryBonus: 100
   baseDamage: 250
-  currentWeaponConfig: {fileID: 11400000, guid: 0bc23fb4994beda46899e4d70d5aaf72,
+  currentWeaponConfig: {fileID: 11400000, guid: d28d056d929445d4bb145b06db2a3edc,
     type: 2}
 --- !u!137 &137166622535503550
 SkinnedMeshRenderer:

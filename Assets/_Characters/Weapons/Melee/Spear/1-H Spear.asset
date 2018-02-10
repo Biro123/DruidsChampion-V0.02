@@ -13,7 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gripTransform: {fileID: 4917214913903806, guid: 5f496b27a7da494498661be4201f0255,
     type: 2}
-  weaponPrefab: {fileID: 100000, guid: bd54beb6d2ac6244783b660b1dc4975f, type: 3}
+  weaponPrefab: {fileID: 1660783077893030, guid: 2de75bc6c366ef24d8f8f04cb29d285c,
+    type: 2}
   swingAnimation: {fileID: 7400000, guid: 60077d0c659ea5441b8d46779caff80d, type: 3}
   thrustAnimation: {fileID: 7400000, guid: 96f8270c0e4678d4580d41b43babe823, type: 3}
   weaponSpecificAnimations: {fileID: 22100000, guid: cb2b5c576761a15469275b5aedd14c55,

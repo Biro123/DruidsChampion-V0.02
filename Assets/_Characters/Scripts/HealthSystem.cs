@@ -64,14 +64,22 @@ namespace RPG.Characters
         {
             currentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
             if (damage <= 0) { return; }  // don't play sound if being healed.
-            
-            float hitSoundVolume = (damage / maxHealthPoints * 2);   // anything over half health = full volume
-            PlayHitSound( Mathf.Clamp(hitSoundVolume, 0, 1) );
 
-            GameObject bloodSpurt = Instantiate(bloodSpurtPrefab, transform);
+            float hitSoundVolume = (damage / maxHealthPoints * 2);   // anything over half health = full volume
+            PlayHitSound(Mathf.Clamp(hitSoundVolume, 0, 1));
+
+            spawnBloodSpurt();
+        }
+
+        private void spawnBloodSpurt()
+        {
+            Vector3 heightAdjustment = new Vector3(0, 1f, 0);
+            Vector3 bloodSpurtPosition = this.transform.position + heightAdjustment;
+            float bloodSpurtYRot = UnityEngine.Random.Range(110f, 250f);
+            Quaternion bloodSpurtRotation = Quaternion.Euler(0f, bloodSpurtYRot, 0f);
+            GameObject bloodSpurt = Instantiate(bloodSpurtPrefab, bloodSpurtPosition, bloodSpurtRotation);
             bloodSpurt.GetComponent<ParticleSystem>().Play();  // TODO make size depend on damage done?
             Destroy(bloodSpurt, bloodSpurt.GetComponent<ParticleSystem>().main.duration);
-
         }
 
         private void PlayHitSound(float volume)
