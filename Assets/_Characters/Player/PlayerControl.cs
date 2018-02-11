@@ -11,6 +11,7 @@ namespace RPG.Characters
         Character character;
         WeaponSystem weaponSystem;
         GameObject currentTarget;
+        bool isStrafing = false;
         
         private void Start()
         {
@@ -32,6 +33,39 @@ namespace RPG.Characters
         private void Update()
         {
             ScanForAbilityKeyDown();
+            ScanForStrafeKey();
+        }
+
+        private void ScanForStrafeKey()
+        {
+            // GetKey is used rather than GetKeyDown to register while attack animation is underway 
+            if (Input.GetKey(KeyCode.A) && currentTarget && IsInRange(currentTarget))
+            {
+                isStrafing = true;
+                weaponSystem.StopAttacking();
+                character.StrafeLeft(true);
+                character.StrafeRight(false);
+            }
+            else if (Input.GetKey(KeyCode.D) && currentTarget && IsInRange(currentTarget))
+            {
+                isStrafing = true;
+                weaponSystem.StopAttacking();
+                character.StrafeRight(true);
+                character.StrafeLeft(false);
+            }
+            else
+            {
+                if (isStrafing)
+                {
+                    character.StrafeRight(false);
+                    character.StrafeLeft(false);
+                    isStrafing = false;
+                    if (currentTarget && IsInRange(currentTarget))
+                    {
+                        weaponSystem.AttackTarget(currentTarget);
+                    }
+                }
+            }
         }
 
         private void ScanForAbilityKeyDown()
@@ -89,7 +123,6 @@ namespace RPG.Characters
             if (enemy)
             {
                 currentTarget = enemy.gameObject;
-                Debug.Log("current target = " + currentTarget.name);
                 var targetReticule = currentTarget.GetComponentInChildren<TargetReticle>();
                 if (targetReticule)
                 {

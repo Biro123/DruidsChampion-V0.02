@@ -41,6 +41,13 @@ namespace RPG.Characters
         float turnAmount;
         float forwardAmount;
         bool isAlive = true;
+        bool isStrafingLeft = false;
+        bool isStrafingRight = false;
+
+        public float GetAnimSpeedMultiplier()
+        {
+            return animationSpeedMultiplier;
+        }
 
         private void Awake()
         {
@@ -76,7 +83,14 @@ namespace RPG.Characters
 
         private void Update()
         {
-            if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance && isAlive)            {
+            if (isStrafingLeft || isStrafingRight)
+            {
+                navMeshAgent.destination = transform.position;
+            }
+
+            if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance && isAlive)
+            {
+                navMeshAgent.isStopped = false;
                 Move(navMeshAgent.desiredVelocity);                
             }
             else
@@ -85,9 +99,16 @@ namespace RPG.Characters
             }
         }
 
-        public float GetAnimSpeedMultiplier()
+        public void StrafeLeft(bool isStrafingToSet)
         {
-            return animationSpeedMultiplier;
+            animator.SetBool("StrafeLeft", isStrafingToSet);            
+            isStrafingLeft = isStrafingToSet;            
+        }
+
+        public void StrafeRight(bool isStrafingToSet)
+        {
+            animator.SetBool("StrafeRight", isStrafingToSet);
+            isStrafingRight = isStrafingToSet;            
         }
 
         public void Kill()
