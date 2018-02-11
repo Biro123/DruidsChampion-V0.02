@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using RPG.CameraUI;    // For mouse events  
+using System;
 
 namespace RPG.Characters
 {
@@ -9,6 +10,7 @@ namespace RPG.Characters
         SpecialAbilities specialAbilities;
         Character character;
         WeaponSystem weaponSystem;
+        GameObject currentTarget;
         
         private void Start()
         {
@@ -47,13 +49,20 @@ namespace RPG.Characters
         {
             if (Input.GetMouseButton(0))
             {
+                StopAllCoroutines();
                 weaponSystem.StopAttacking();
                 character.SetDestination(targetLocation);
+                SetCurrentTarget(null);
             }
         }
 
         private void OnMouseOverEnemy(EnemyAI enemy)
         {
+            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+            {
+                SetCurrentTarget(enemy);
+            }
+
             if (Input.GetMouseButton(0) && IsInRange(enemy.gameObject))
             {
                 weaponSystem.AttackTarget(enemy.gameObject);
@@ -72,6 +81,30 @@ namespace RPG.Characters
             {
                 weaponSystem.SetTarget(enemy.gameObject);
                 StartCoroutine(MoveAndSpecial(0, enemy.gameObject));
+            }
+        }
+
+        private void SetCurrentTarget(EnemyAI enemy)
+        {
+            if (enemy)
+            {
+                currentTarget = enemy.gameObject;
+                Debug.Log("current target = " + currentTarget.name);
+                var targetReticule = currentTarget.GetComponentInChildren<TargetReticle>();
+                if (targetReticule)
+                {
+                    targetReticule.SetReticule(true);
+                }
+            }
+
+            if (!enemy && currentTarget )
+            {
+                var targetReticule = currentTarget.GetComponentInChildren<TargetReticle>();
+                if (targetReticule)
+                {
+                    targetReticule.SetReticule(false);
+                }
+                currentTarget = null;
             }
         }
 

@@ -14,7 +14,7 @@ namespace RPG.CameraUI
 
         const int WALKABLE_LAYER = 8;
         float maxRaycastDepth = 100f;  // Hard coded value
-                
+
         // Delegates allow other class to 'Subscribe' to them
         public delegate void OnMouseOverEnemy(EnemyAI enemy);     // Declare new delegate type
         public event OnMouseOverEnemy onMouseOverEnemy;         // Instantiate an observer set
@@ -56,7 +56,7 @@ namespace RPG.CameraUI
             if (enemyHit)
             {
                 Cursor.SetCursor(targetCursor, cursorHotspot, CursorMode.Auto);
-                onMouseOverEnemy(enemyHit);  // Broadcast Mouse over Enemy
+                onMouseOverEnemy(enemyHit);  // Broadcast Mouse over Enemy   
                 return true;
             }                
             return false;

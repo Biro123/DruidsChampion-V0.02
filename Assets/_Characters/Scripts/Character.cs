@@ -100,6 +100,12 @@ namespace RPG.Characters
                 collider.enabled = false;
             }
             isAlive = false;
+
+            var targetReticle = GetComponentInChildren<TargetReticle>();
+            if (targetReticle)
+            { 
+                targetReticle.SetReticule(false);
+            }
         }
 
         public void SetDestination(Vector3 worldPosition)
@@ -125,8 +131,7 @@ namespace RPG.Characters
             else
             {
                 return animatorOverrideController;
-            }
-            
+            }            
         }
 
         private void SetForwardAndTurn(Vector3 movement)
