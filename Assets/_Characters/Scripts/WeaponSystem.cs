@@ -17,6 +17,7 @@ namespace RPG.Characters
         GameObject weaponObject;
         Animator animator;
         Character character;
+        GlobalCombatConfig globalCombatConfig;
 
         float lastHitTime;
         bool attackerIsAlive;
@@ -31,6 +32,12 @@ namespace RPG.Characters
         {
             animator = GetComponent<Animator>();
             character = GetComponent<Character>();
+            globalCombatConfig = FindObjectOfType<GlobalCombatConfig>();
+
+            if(!globalCombatConfig)
+            {
+                Debug.LogError("Global Combat Config missing from scene");
+            }
 
             PutWeaponInHand(currentWeaponConfig);
             SetAttackAnimation(currentWeaponConfig.GetSwingAnimClip());
@@ -178,8 +185,11 @@ namespace RPG.Characters
         private bool TryToHit(float attackAdj)
         {
             float attackScore = UnityEngine.Random.Range(1, 100) + attackBonus + attackAdj;
-            float defenceScore = UnityEngine.Random.Range(1, 100) + target.GetComponent<WeaponSystem>().GetParryBonus();
 
+            float defenceBonus = target.GetComponent<WeaponSystem>().GetParryBonus();
+            float adjustedDefenceBonus = AdjustForAttackDirection(defenceBonus);
+            float defenceScore = UnityEngine.Random.Range(1, 100) + adjustedDefenceBonus;
+            
             if(attackScore > defenceScore)
             {
                 return true;
@@ -188,6 +198,29 @@ namespace RPG.Characters
             {
                 return false;
             }
+        }
+
+        private float AdjustForAttackDirection(float defenceBonus)
+        {
+            Vector3 targetDir = transform.position - target.transform.position;
+            float angleTargetAttackedFrom = Vector3.Angle(targetDir, target.transform.forward);
+            float defencePenalty = 0f;
+
+            if (angleTargetAttackedFrom <= 45)
+            {
+                defencePenalty = 0f;
+            }
+            else if (angleTargetAttackedFrom <= 135)
+            {
+                defencePenalty = globalCombatConfig.GetSideDefencePenalty;
+            }
+            else 
+            {
+                defencePenalty = globalCombatConfig.GetRearDefencePenalty;
+            }
+
+            float adjustedDefence = defenceBonus * (1 - defencePenalty);
+            return adjustedDefence;
         }
 
         IEnumerator DamageAfterDelay (float damage, float delay)
