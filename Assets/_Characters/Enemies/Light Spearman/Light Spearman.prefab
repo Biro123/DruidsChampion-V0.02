@@ -2370,7 +2370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0929f2459c8e3ac4e96e06a1ad74c8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackBonus: 40
+  attackBonus: 60
   parryBonus: 45
   baseDamage: 150
   currentWeaponConfig: {fileID: 11400000, guid: d28d056d929445d4bb145b06db2a3edc,
