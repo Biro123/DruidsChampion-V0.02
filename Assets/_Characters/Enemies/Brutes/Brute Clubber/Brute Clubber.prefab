@@ -2202,7 +2202,7 @@ MonoBehaviour:
   walkOrRun: 1
   audioVolume: 1
   colliderCentre: {x: 0, y: 0.9, z: 0}
-  colliderRadius: 0.3
+  colliderRadius: 0.8
   colliderHeight: 1.8
   moveSpeedMultiplier: 0.7
   animationSpeedMultiplier: 0.8

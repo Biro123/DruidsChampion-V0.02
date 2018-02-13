@@ -20,9 +20,9 @@ MonoBehaviour:
   weaponSpecificAnimations: {fileID: 22100000, guid: 86d9a8e33893a5943877389b5a034b7b,
     type: 2}
   parrySound: {fileID: 8300000, guid: b76357a42d03a4722afcba74c3073136, type: 3}
-  quality: 0.8
-  condition: 0.8
-  timeBetweenAnimationCycles: 1
+  quality: 1
+  condition: 1
+  timeBetweenAnimationCycles: 0.75
   damageDelay: 0.5
   attackRange: 3
   bladeDamageModifier: 0.5
