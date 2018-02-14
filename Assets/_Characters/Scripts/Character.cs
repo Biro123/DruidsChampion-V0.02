@@ -90,7 +90,6 @@ namespace RPG.Characters
 
             if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance && isAlive)
             {
-                navMeshAgent.isStopped = false;
                 Move(navMeshAgent.desiredVelocity);                
             }
             else

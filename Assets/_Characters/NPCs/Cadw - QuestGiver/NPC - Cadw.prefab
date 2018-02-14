@@ -2299,8 +2299,6 @@ MonoBehaviour:
   bodyArmourConfig: {fileID: 0}
   armArmourConfig: {fileID: 0}
   legArmourConfig: {fileID: 0}
-  bloodSpurtPrefab: {fileID: 1439545716550898, guid: 60c5b585be4a9ec42865b35460bbb91c,
-    type: 2}
 --- !u!114 &114107605370664466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2341,7 +2339,6 @@ MonoBehaviour:
   animationSpeedMultiplier: 1
   movingTurnSpeed: 360
   stationaryTurnSpeed: 180
-  attackTurnRate: 5
   navMeshAgentSteeringSpeed: 1.2
   navMeshAgentStoppingDistance: 1
   navMeshAgentAutoBraking: 0
@@ -2358,10 +2355,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: a4e8499c77975904ba8e26f9d0d278f3, type: 3}
-  layerFilter: 10
   triggerRadius: 8
   isOneTimeOnly: 1
-  hasPlayed: 0
+  volume: 1
 --- !u!114 &114441752751797894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2403,6 +2399,7 @@ MonoBehaviour:
   deathSounds:
   - {fileID: 8300000, guid: 0a14b81c9eeb97d42861fbdd686e65da, type: 3}
   - {fileID: 8300000, guid: f03ca00748cc75c438092911536058b5, type: 3}
+  bloodSpurtPrefab: {fileID: 0}
 --- !u!114 &114830486510136442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2623,7 +2620,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 194a8e2f6b2c9474ca67d01b0cd1f5cd, type: 2}
+  - {fileID: 2100000, guid: 086369f0d53e0dc4e8636e81bbc02955, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
