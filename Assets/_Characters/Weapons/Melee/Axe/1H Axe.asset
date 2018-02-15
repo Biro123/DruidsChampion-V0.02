@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
+  m_Name: 1H Axe
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4917214913903806, guid: 413fa36213272ba469a57b6f414e2242,
+    type: 2}
+  weaponPrefab: {fileID: 1501927137768688, guid: 0539189f5fd3a0747bc6558f995a8bc3,
+    type: 2}
+  swingAnimation: {fileID: 7400000, guid: 9e5d42c64f4181e4e92729d62fa2d0fd, type: 3}
+  thrustAnimation: {fileID: 7400000, guid: 1fc94e9b71f1f5e4f97b6a0021007bf5, type: 3}
+  weaponSpecificAnimations: {fileID: 22100000, guid: 31de11351dc94564b99bf6ad065049d9,
+    type: 2}
+  parrySounds:
+  - {fileID: 8300000, guid: 5ca1c7b56e224434ca2a97b9c64f4e08, type: 3}
+  - {fileID: 8300000, guid: b545b02783556493f811f82471c00734, type: 3}
+  - {fileID: 8300000, guid: 2bc8225a23eb945578cfd49d8ba0dd67, type: 3}
+  quality: 0.8
+  condition: 0.8
+  timeBetweenAnimationCycles: 0.5
+  damageDelay: 0.5
+  attackRange: 2
+  bladeDamageModifier: 0.7
+  bluntDamageModifier: 0.6
+  pierceDamageModifier: 0
