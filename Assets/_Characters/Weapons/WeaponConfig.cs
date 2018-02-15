@@ -13,7 +13,7 @@ namespace RPG.Characters
         [SerializeField] AnimationClip swingAnimation;
         [SerializeField] AnimationClip thrustAnimation;
         [SerializeField] AnimatorOverrideController weaponSpecificAnimations;
-        [SerializeField] AudioClip parrySound;
+        [SerializeField] AudioClip[] parrySounds;
         [Range(0.1f, 1.2f)] [SerializeField] float quality = 0.8f;
         [Range(0.1f, 1.0f)] [SerializeField] float condition = 0.8f;
         [SerializeField] float timeBetweenAnimationCycles = 1f;
@@ -47,7 +47,7 @@ namespace RPG.Characters
 
         public AudioClip GetParrySound()
         {
-            return parrySound;
+            return parrySounds[Random.Range(0, parrySounds.Length)];
         }
 
         public float GetTimeBetweenAnimationCycles()

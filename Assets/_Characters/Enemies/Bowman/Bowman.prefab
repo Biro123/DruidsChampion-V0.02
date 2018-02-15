@@ -1502,7 +1502,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1178135960366662}
   m_LocalRotation: {x: -0, y: 0.9053194, z: -0, w: 0.42473155}
-  m_LocalPosition: {x: -136.7276, y: 0, z: -218.50156}
+  m_LocalPosition: {x: 5.494766, y: 8.002197, z: -164.27332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4146321597482240}
@@ -2422,6 +2422,7 @@ MonoBehaviour:
   deathSounds:
   - {fileID: 8300000, guid: 0a14b81c9eeb97d42861fbdd686e65da, type: 3}
   - {fileID: 8300000, guid: f03ca00748cc75c438092911536058b5, type: 3}
+  - {fileID: 8300000, guid: dae9f3d3c3a42413f9f0e4687bbdfc42, type: 3}
   bloodSpurtPrefab: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc,
     type: 2}
 --- !u!114 &114490015196765986
@@ -2446,7 +2447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e60e330f232df44a758cd84b3011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroDistance: 10
+  aggroDistance: 15
   patrolPath: {fileID: 0}
   waypointTolerance: 3
   waypointDwellTime: 0.5

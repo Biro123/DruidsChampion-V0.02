@@ -5206,9 +5206,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealthPoints: 500
   healthBar: {fileID: 0}
-  deathVanishSeconds: 3
+  deathVanishSeconds: 5
   hitSounds:
-  - {fileID: 8300000, guid: 0a14b81c9eeb97d42861fbdd686e65da, type: 3}
+  - {fileID: 8300000, guid: 032a4f39620b7994aa36483d2e211ff1, type: 3}
   - {fileID: 8300000, guid: effc0d496f2c4e144a91033290aefb66, type: 3}
   - {fileID: 8300000, guid: 1734cebdf2bc02842a4652686c07cf90, type: 3}
   - {fileID: 8300000, guid: e5afb3612f411224887c2576b4f8a2db, type: 3}

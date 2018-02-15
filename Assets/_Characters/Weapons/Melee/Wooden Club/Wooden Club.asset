@@ -19,10 +19,12 @@ MonoBehaviour:
   thrustAnimation: {fileID: 7400000, guid: 685af2d0ecf553c45bede47bc1157b32, type: 3}
   weaponSpecificAnimations: {fileID: 22100000, guid: a29d86ec3492f2640ae1a763a248f174,
     type: 2}
-  parrySound: {fileID: 8300000, guid: 0805de7e4fb0f4d03a30ae90e7c64311, type: 3}
+  parrySounds:
+  - {fileID: 8300000, guid: 2bc8225a23eb945578cfd49d8ba0dd67, type: 3}
+  - {fileID: 8300000, guid: 5ca1c7b56e224434ca2a97b9c64f4e08, type: 3}
   quality: 0.8
   condition: 0.8
-  timeBetweenAnimationCycles: 1.5
+  timeBetweenAnimationCycles: 0.75
   damageDelay: 0.5
   attackRange: 2.5
   bladeDamageModifier: 0

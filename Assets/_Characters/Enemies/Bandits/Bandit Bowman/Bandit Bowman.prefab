@@ -1674,7 +1674,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1520110116698776}
   m_LocalRotation: {x: -0, y: 0.9053194, z: -0, w: 0.42473155}
-  m_LocalPosition: {x: 6.0102234, y: 8.002197, z: -163.3552}
+  m_LocalPosition: {x: -20.27835, y: 0, z: -31.373032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4202838410303572}
@@ -2414,7 +2414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealthPoints: 300
   healthBar: {fileID: 114847164371930926}
-  deathVanishSeconds: 3
+  deathVanishSeconds: 5
   hitSounds:
   - {fileID: 8300000, guid: 032a4f39620b7994aa36483d2e211ff1, type: 3}
   - {fileID: 8300000, guid: 9e4c5f2327fc67c49ac5c94471e3107a, type: 3}
@@ -2426,6 +2426,7 @@ MonoBehaviour:
   deathSounds:
   - {fileID: 8300000, guid: 0a14b81c9eeb97d42861fbdd686e65da, type: 3}
   - {fileID: 8300000, guid: f03ca00748cc75c438092911536058b5, type: 3}
+  - {fileID: 8300000, guid: dae9f3d3c3a42413f9f0e4687bbdfc42, type: 3}
   bloodSpurtPrefab: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc,
     type: 2}
 --- !u!114 &114567566615706734
