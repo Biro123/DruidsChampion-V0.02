@@ -87,6 +87,8 @@ namespace RPG.Characters
         {
             animator.StopPlayback();
             StopAllCoroutines();
+            //target = null;   // TODO fixed prob in enemy but broke player move n attack
+            //targetHealthSystem = null;
         }
 
         public void SetTarget(GameObject targetToSet) 

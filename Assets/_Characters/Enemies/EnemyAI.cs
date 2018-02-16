@@ -73,7 +73,10 @@ namespace RPG.Characters
                 {
                     StopAllCoroutines();
                     weaponSystem.StopAttacking();
-                    StartCoroutine(Patrol());
+                    if (patrolPath)
+                    {
+                        StartCoroutine(Patrol());
+                    }
                 }
             }
             
