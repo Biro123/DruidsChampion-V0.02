@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace RPG.Characters
@@ -10,7 +11,7 @@ namespace RPG.Characters
         AudioSource audioSource = null;
         AudioClip audioclip = null;
 
-        const float PARTICLE_CLEAN_UP_DELAY = 5f;
+        const float PARTICLE_CLEAN_UP_DELAY = 2f;
         const string ATTACK_TRIGGER = "Attack";
         const string DEFAULT_ATTACK = "DEFAULT ATTACK";
 
@@ -57,6 +58,21 @@ namespace RPG.Characters
             StartCoroutine(DestroyParticleWhenFinished(particlePrefab));
         }
 
+        protected void PlayWeaponTrail()
+        {
+            var trailAttachpoint = GetComponentInChildren<WeaponTrailAttach>();
+            if (!trailAttachpoint) { return; }
+
+            var abilityTrail = config.GetWeaponTrail();
+            if (!abilityTrail) { return; }
+
+            var trailPrefab = Instantiate(abilityTrail, trailAttachpoint.gameObject.transform);
+            abilityTrail.GetComponent<ParticleSystem>().Play();
+            
+            StartCoroutine(DestroyParticleWhenFinished(trailPrefab));
+        }
+
+
         IEnumerator DestroyParticleWhenFinished(GameObject particlePrefab)
         {
             while (particlePrefab.GetComponent<ParticleSystem>().isPlaying)
@@ -66,7 +82,5 @@ namespace RPG.Characters
             Destroy(particlePrefab);
             yield return new WaitForEndOfFrame();
         }
-
-
     }
 }

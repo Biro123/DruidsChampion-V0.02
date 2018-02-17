@@ -10,6 +10,7 @@ namespace RPG.Characters
         public override void Use(GameObject target)
         {
             DealDamage(target);
+            PlayWeaponTrail();
             PlayParticleEffect();
             PlayAbilityAudio();
             PlayAbilityAnimation();

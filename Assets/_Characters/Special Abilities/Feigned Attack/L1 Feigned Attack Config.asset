@@ -14,9 +14,11 @@ MonoBehaviour:
   staminaCost: 40
   particlePrefab: {fileID: 1264099519758138, guid: 02fa957fb7c1b504bb190af94d4d163d,
     type: 2}
+  weaponTrail: {fileID: 1243366866306480, guid: 7768cd75089fe804e86fbf3405021114,
+    type: 2}
   audioClips:
   - {fileID: 8300000, guid: c239f3ab8b0a645219252abc75b70d29, type: 3}
-  abilityAnimation: {fileID: 7400000, guid: 475796453e56ae447b098689c94bcfb5, type: 3}
+  abilityAnimation: {fileID: 7400000, guid: 841b2c438c95c83479a59db0d737063d, type: 3}
   damageAdj: 50
   attackAdj: 30
   armourAvoidAdj: -0.1

@@ -10,6 +10,7 @@ namespace RPG.Characters
         [Header("Special Ability General")]
         [SerializeField] float staminaCost = 20f;
         [SerializeField] GameObject particlePrefab = null;
+        [SerializeField] GameObject weaponTrail = null;
         [SerializeField] AudioClip[] audioClips = null;
         [SerializeField] AnimationClip abilityAnimation;
 
@@ -37,6 +38,11 @@ namespace RPG.Characters
         public GameObject GetParticlePrefab()
         {
             return particlePrefab;
+        }
+
+        public GameObject GetWeaponTrail()
+        {
+            return weaponTrail;
         }
 
         public AudioClip GetRandomAbilitySound()
