@@ -2860,7 +2860,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1301144879713818}
   m_LocalRotation: {x: 0.999733, y: 0.00000034645183, z: -0.00000021420409, w: 0.023112215}
-  m_LocalPosition: {x: 0.097, y: 0.057, z: -0.003}
+  m_LocalPosition: {x: 0.042, y: 0.073, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4774048886875356}
@@ -3367,7 +3367,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400500621032120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.03, y: 8.31, z: -237.43}
+  m_LocalPosition: {x: -100.4, y: 0.39, z: -188.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4827194604900974}
@@ -5304,7 +5304,7 @@ MonoBehaviour:
   attackBonus: 100
   parryBonus: 100
   baseDamage: 250
-  currentWeaponConfig: {fileID: 11400000, guid: d28d056d929445d4bb145b06db2a3edc,
+  currentWeaponConfig: {fileID: 11400000, guid: 56775f97211f3164ebdc486f3dc8fbdc,
     type: 2}
 --- !u!137 &137166622535503550
 SkinnedMeshRenderer:
