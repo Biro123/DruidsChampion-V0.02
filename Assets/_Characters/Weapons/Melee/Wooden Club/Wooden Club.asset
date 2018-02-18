@@ -24,9 +24,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ca1c7b56e224434ca2a97b9c64f4e08, type: 3}
   quality: 0.8
   condition: 0.8
-  timeBetweenAnimationCycles: 0.75
-  damageDelay: 0.5
-  attackRange: 2.5
+  timeBetweenAnimationCycles: 0.6
+  damageDelay: 0.7
+  attackRange: 3.2
   bladeDamageModifier: 0
   bluntDamageModifier: 0.91
   pierceDamageModifier: 0

@@ -27,7 +27,7 @@ MonoBehaviour:
   condition: 0.8
   timeBetweenAnimationCycles: 0.5
   damageDelay: 0.5
-  attackRange: 2
+  attackRange: 2.8
   bladeDamageModifier: 0.7
   bluntDamageModifier: 0.6
   pierceDamageModifier: 0
