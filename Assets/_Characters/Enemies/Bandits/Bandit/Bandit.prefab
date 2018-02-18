@@ -1073,7 +1073,7 @@ GameObject:
   - component: {fileID: 114310259329006632}
   - component: {fileID: 114802186839615088}
   - component: {fileID: 114761769975950950}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bandit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2553,6 +2553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e60e330f232df44a758cd84b3011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 1
   aggroDistance: 10
   patrolPath: {fileID: 0}
   waypointTolerance: 3

@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 114502635381064714}
   - component: {fileID: 114667463864343656}
   - component: {fileID: 114699497047841324}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spearman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5080,7 +5080,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1874870402382558}
-  m_LocalRotation: {x: 0.2940248, y: -0.07191089, z: -0.6052666, w: 0.7362273}
+  m_LocalRotation: {x: 0.29402483, y: -0.071910895, z: -0.60526663, w: 0.73622733}
   m_LocalPosition: {x: -0.07850078, y: -0.041947484, z: -0.018961621}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5506,6 +5506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e60e330f232df44a758cd84b3011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 1
   aggroDistance: 6
   patrolPath: {fileID: 0}
   waypointTolerance: 3

@@ -16,8 +16,7 @@ namespace RPG.Characters
         [Tooltip ("Domestic will follow patrol, Wild will use it to flee")]
         [SerializeField] bool isDomestic = false;
 
-        //TODO try to do this without layers
-        [SerializeField] int[] layersToRunFrom = { 10 };
+        const int COMBATANT_LAYER = 9;
 
         Character character;
         Transform target = null;
@@ -30,12 +29,7 @@ namespace RPG.Characters
         {
             isFleeing = false;
             character = GetComponent<Character>(); 
-
-            // Set up the layermask of opponents to look for.
-            foreach (var layer in layersToRunFrom)
-            {
-                opponentLayerMask = opponentLayerMask | (1 << layer);
-            }
+            opponentLayerMask = opponentLayerMask | (1 << COMBATANT_LAYER);
 
             if (isDomestic && patrolPath)
             {
@@ -47,7 +41,7 @@ namespace RPG.Characters
         {
             if (isDomestic) { return; }
 
-            target = FindTargetInRange(Mathf.Max(distanceBeforeRun ));
+            target = FindTargetInRange(distanceBeforeRun);
 
             if (target)
             {

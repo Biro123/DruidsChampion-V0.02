@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 114142013912338282}
   - component: {fileID: 114631841742060526}
   - component: {fileID: 114103414298929282}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bowman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2447,6 +2447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e60e330f232df44a758cd84b3011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 1
   aggroDistance: 15
   patrolPath: {fileID: 0}
   waypointTolerance: 3

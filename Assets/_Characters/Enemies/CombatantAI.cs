@@ -8,16 +8,16 @@ namespace RPG.Characters
     [RequireComponent(typeof(Character))]
     [RequireComponent(typeof(WeaponSystem))]
     [RequireComponent(typeof(HealthSystem))]
-    public class EnemyAI : MonoBehaviour
+    public class CombatantAI : MonoBehaviour
     {
+        [SerializeField] bool isEnemy = true;
         [Tooltip("Enemies within this range will move to attack range")]
         [SerializeField] float aggroDistance = 10f;
         [SerializeField] WaypointContainer patrolPath;
         [SerializeField] float waypointTolerance = 3f;
         [SerializeField] float waypointDwellTime = 0.5f;
 
-        //TODO try to do this without layers
-        [SerializeField] int[] layersToTarget = { 10, 11 };
+        const int COMBATANT_LAYER = 9;
 
         float currentWeaponRange;
 
@@ -32,17 +32,23 @@ namespace RPG.Characters
         enum State { attacking, chasing, idle, patrolling, returning };
         State state = State.idle;
 
+        public bool GetIsEnemy()
+        {
+            return isEnemy;
+        }
+
+        public void SetIsEnemy(bool isEnemyToSet)
+        {
+            this.isEnemy = isEnemyToSet;
+        }
+
         private void Start()
         {
             character = GetComponent<Character>();
             weaponSystem = GetComponent<WeaponSystem>();
             currentWeaponRange = weaponSystem.GetCurrentWeapon().GetAttackRange();
   
-            // Set up the layermask of opponents to look for.
-            foreach (var layer in layersToTarget)
-            {
-                opponentLayerMask = opponentLayerMask | (1 << layer);
-            }
+            opponentLayerMask = opponentLayerMask | (1 << COMBATANT_LAYER);
         }
 
         private void Update()
@@ -160,18 +166,56 @@ namespace RPG.Characters
             Collider closestTarget = null;
             foreach (var opponentInRange in opponentsInRange)
             {
-                if (target != null && opponentInRange.gameObject == target.gameObject)
-                {  // keep current target if still in range
-                    return opponentInRange.transform;
-                }
-                float currentRange = (transform.position - opponentInRange.transform.position).magnitude;
-                if (closestTarget == null || currentRange < closestRange)
+                if (CheckIfValidTarget(opponentInRange.gameObject) == true)
                 {
-                    closestTarget = opponentInRange;
-                    closestRange = currentRange;
+                    if (target != null && opponentInRange.gameObject == target.gameObject)
+                    {  // keep current target if still in range
+                        return opponentInRange.transform;
+                    }
+                    float currentRange = (transform.position - opponentInRange.transform.position).magnitude;
+                    if (closestTarget == null || currentRange < closestRange)
+                    {
+                        closestTarget = opponentInRange;
+                        closestRange = currentRange;
+                    }
                 }
             }
-            return closestTarget.transform;
+            if (closestTarget)
+            {
+                return closestTarget.transform;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private bool CheckIfValidTarget(GameObject opponentInRange)
+        {
+            var currentOpponentCombatantAI = opponentInRange.GetComponent<CombatantAI>();
+            
+            if (currentOpponentCombatantAI)
+            {
+                if (currentOpponentCombatantAI.GetIsEnemy() != isEnemy)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else  // player targetted
+            {
+                if (isEnemy)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         private void OnDrawGizmos()

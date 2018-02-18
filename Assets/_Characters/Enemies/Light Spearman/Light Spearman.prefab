@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 114038283514805448}
   - component: {fileID: 114304644477500404}
   - component: {fileID: 114891974816843462}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light Spearman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2522,6 +2522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e60e330f232df44a758cd84b3011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 1
   aggroDistance: 8
   patrolPath: {fileID: 0}
   waypointTolerance: 3

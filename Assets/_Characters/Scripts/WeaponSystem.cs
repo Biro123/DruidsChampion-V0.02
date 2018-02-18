@@ -110,7 +110,7 @@ namespace RPG.Characters
 
         IEnumerator AttackTargetRepeatedly()
         {
-            if(GetComponent<EnemyAI>())   // slightly delay start of enemy attacking
+            if(GetComponent<CombatantAI>())   // slightly delay start of enemy attacking
             {
                 yield return new WaitForSeconds(currentWeaponConfig.GetDamageDelay());
             }

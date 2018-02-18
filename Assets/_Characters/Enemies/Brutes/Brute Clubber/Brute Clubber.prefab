@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 114989840622155782}
   - component: {fileID: 114985701947934420}
   - component: {fileID: 114629754504258010}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Brute Clubber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2363,6 +2363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e60e330f232df44a758cd84b3011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 1
   aggroDistance: 8
   patrolPath: {fileID: 0}
   waypointTolerance: 3

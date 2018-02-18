@@ -90,7 +90,7 @@ namespace RPG.Characters
             }
         }
 
-        private void OnMouseOverEnemy(EnemyAI enemy)
+        private void OnMouseOverEnemy(CombatantAI enemy)
         {
             if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             {
@@ -118,7 +118,7 @@ namespace RPG.Characters
             }
         }
 
-        private void SetCurrentTarget(EnemyAI enemy)
+        private void SetCurrentTarget(CombatantAI enemy)
         {
             if (enemy)
             {
