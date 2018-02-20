@@ -25,7 +25,7 @@ MonoBehaviour:
   quality: 0.8
   condition: 0.8
   timeBetweenAnimationCycles: 0.6
-  damageDelay: 0.7
+  damageDelay: 0.75
   attackRange: 3.2
   bladeDamageModifier: 0
   bluntDamageModifier: 0.91

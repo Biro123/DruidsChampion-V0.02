@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 114013668298016420}
   - component: {fileID: 114890076999382948}
   m_Layer: 9
-  m_Name: Ally Caric
+  m_Name: Old Caric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

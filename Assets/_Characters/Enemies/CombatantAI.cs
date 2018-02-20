@@ -13,6 +13,8 @@ namespace RPG.Characters
         [SerializeField] bool isEnemy = true;
         [Tooltip("Enemies within this range will move to attack range")]
         [SerializeField] float aggroDistance = 10f;
+
+        [Header("Patrolling details")]
         [SerializeField] WaypointContainer patrolPath;
         [SerializeField] float waypointTolerance = 3f;
         [SerializeField] float waypointDwellTime = 0.5f;
@@ -28,6 +30,10 @@ namespace RPG.Characters
         int opponentLayerMask = 0;
         float distanceToTarget = 0f;
         int waypointIndex;
+        float currentAggroDistance;
+
+        Vector3 formationPosition = Vector3.zero;
+        Formation formation;
 
         enum State { attacking, chasing, idle, patrolling, returning };
         State state = State.idle;
@@ -42,6 +48,20 @@ namespace RPG.Characters
             this.isEnemy = isEnemyToSet;
         }
 
+        public void SetFormationPosition(Formation formationToSet, Vector3 position)
+        {
+            formationPosition = position;
+            if (position == Vector3.zero)   // leader is killed - rever to no-formation 
+            {
+                formation = null;
+                StopAllCoroutines();
+            }
+            else
+            {
+                formation = formationToSet;
+            }
+        }
+
         private void Start()
         {
             character = GetComponent<Character>();
@@ -53,7 +73,26 @@ namespace RPG.Characters
 
         private void Update()
         {
-            target = FindTargetInRange(Mathf.Max(aggroDistance, currentWeaponRange));
+            if (formationPosition == Vector3.zero)
+            {
+                currentAggroDistance = aggroDistance;
+                UpdateWithoutFormation();
+            }
+            else
+            {
+                currentAggroDistance = formation.GetFormationAggroDistance();
+                UpdateWithoutFormation();
+            }
+        }
+
+        private void UpdateWithFormation()
+        {
+            print(gameObject.name + " Updating with formation");
+        }
+
+        private void UpdateWithoutFormation()
+        {
+            target = FindTargetInRange(Mathf.Max(currentAggroDistance, currentWeaponRange));
             distanceToTarget = 0f;
             bool inAttackRange = false;
             bool inMaxAttackRange = false;
@@ -63,7 +102,7 @@ namespace RPG.Characters
             {
                 distanceToTarget = (transform.position - target.transform.position).magnitude;
                 inAttackRange = (distanceToTarget <= currentWeaponRange);
-                inAggroRange = (distanceToTarget <= aggroDistance && !inAttackRange);
+                inAggroRange = (distanceToTarget <= currentAggroDistance && !inAttackRange);
                 inMaxAttackRange = (distanceToTarget <= currentWeaponRange + 0.5f);  // TODO magic number - not needed?
             }
             else
@@ -73,7 +112,7 @@ namespace RPG.Characters
                 inMaxAttackRange = false;
             }
 
-            if (! inAttackRange && ! inAggroRange )
+            if (!inAttackRange && !inAggroRange)
             {
                 if (state != State.patrolling)
                 {
@@ -83,9 +122,13 @@ namespace RPG.Characters
                     {
                         StartCoroutine(Patrol());
                     }
+                    else
+                    {
+                        state = State.idle;
+                    }
                 }
             }
-            
+
             if (inAggroRange)
             {
                 // avoid dipping in and out of combat with slight movements //TODO IS NEEDED?
@@ -100,9 +143,13 @@ namespace RPG.Characters
                 }
             }
 
-            if(inAttackRange)
+            if (inAttackRange)
             {
-                if (state != State.attacking)
+                if (state == State.attacking)
+                {
+                    weaponSystem.ChangeTarget(target.gameObject); // handle target swap from ally to enemy
+                }
+                else
                 {
                     StopAllCoroutines();
                     state = State.attacking;
@@ -226,7 +273,7 @@ namespace RPG.Characters
 
             // Draw Move Sphere
             Gizmos.color = new Color(0f, 255f, 0f);
-            Gizmos.DrawWireSphere(transform.position, aggroDistance);
+            Gizmos.DrawWireSphere(transform.position, currentAggroDistance);
         }
     }
 }

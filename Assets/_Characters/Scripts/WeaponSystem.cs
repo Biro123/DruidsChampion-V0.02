@@ -96,6 +96,15 @@ namespace RPG.Characters
             targetHealthSystem = target.GetComponent<HealthSystem>();
         }
 
+        public void ChangeTarget(GameObject targetToSet)
+        {
+            if (target && target != targetToSet)
+            {
+                StopAllCoroutines();
+                AttackTarget(targetToSet);
+            }
+        }
+
         public void AttackTarget(GameObject targetToAttack)
         {
             SetTarget(targetToAttack);         
