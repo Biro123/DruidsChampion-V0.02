@@ -38,6 +38,7 @@ namespace RPG.Characters
         NavMeshAgent navMeshAgent;
         Animator animator;
         Rigidbody rigidBody;
+        Quaternion finalRotation;
         float turnAmount;
         float forwardAmount;
         bool isAlive = true;
@@ -95,6 +96,11 @@ namespace RPG.Characters
             else
             {
                 Move(Vector3.zero);
+                var combatantAI = GetComponent<CombatantAI>();
+                if (combatantAI && combatantAI.GetFormation())
+                {                    
+                    transform.rotation = combatantAI.GetFormation().transform.rotation;
+                }
             }
         }
 
@@ -130,7 +136,8 @@ namespace RPG.Characters
 
         public void SetDestination(Vector3 worldPosition)
         {
-            navMeshAgent.destination = worldPosition; 
+            navMeshAgent.destination = worldPosition;
+            finalRotation = Quaternion.identity;
         }
 
         private void Move(Vector3 movement)

@@ -24,9 +24,11 @@ namespace RPG.Characters
         int waypointIndex;
         Vector3 nextWaypointPos;
         bool isFleeing;
+        PlayerControl player;
 
         private void Start()
         {
+            player = FindObjectOfType<PlayerControl>();
             isFleeing = false;
             character = GetComponent<Character>(); 
             opponentLayerMask = opponentLayerMask | (1 << COMBATANT_LAYER);
@@ -41,23 +43,13 @@ namespace RPG.Characters
         {
             if (isDomestic) { return; }
 
-            target = FindTargetInRange(distanceBeforeRun);
-
-            if (target)
+            var distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            if (distanceToPlayer <= distanceBeforeRun)
             {
-                var distanceToTarget = (transform.position - target.transform.position).magnitude;
-                if (distanceToTarget <= distanceBeforeRun )
+                if (!isFleeing)
                 {
-                    if (!isFleeing)
-                    {
-                        isFleeing = true;
-                        StartCoroutine(Patrol());
-                    }
-                }
-                else
-                {
-                    isFleeing = false;
-                    StopAllCoroutines();
+                    isFleeing = true;
+                    StartCoroutine(Patrol());
                 }
             }
             else
@@ -65,7 +57,6 @@ namespace RPG.Characters
                 isFleeing = false;
                 StopAllCoroutines();
             }
-
         }
 
         IEnumerator Patrol()
@@ -96,32 +87,7 @@ namespace RPG.Characters
             nextWaypointPos = patrolPath.transform.GetChild(waypointIndex).position;
             character.SetDestination(nextWaypointPos);
         }
-
-        private Transform FindTargetInRange(float aggroRange)
-        {
-            // See what are in range
-            Collider[] opponentsInRange = Physics.OverlapSphere(this.transform.position, aggroRange, opponentLayerMask);
-            if (opponentsInRange.Length == 0) { return null; }
-
-            // Find closest in range
-            float closestRange = 0;
-            Collider closestTarget = null;
-            foreach (var opponentInRange in opponentsInRange)
-            {
-                if (target != null && opponentInRange.gameObject == target.gameObject)
-                {  // keep current target if still in range
-                    return opponentInRange.transform;
-                }
-                float currentRange = (transform.position - opponentInRange.transform.position).magnitude;
-                if (closestTarget == null || currentRange < closestRange)
-                {
-                    closestTarget = opponentInRange;
-                    closestRange = currentRange;
-                }
-            }
-            return closestTarget.transform;
-        }
-
+        
         private void OnDrawGizmos()
         {
             // Draw Move Sphere

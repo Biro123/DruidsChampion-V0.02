@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 224213773428479790}
   - component: {fileID: 222428438467766764}
   - component: {fileID: 114915164298555110}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 114718505780816646}
   - component: {fileID: 114327639611515928}
   - component: {fileID: 114730396840994700}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hostile Bear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1466,11 +1466,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e60e330f232df44a758cd84b3011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 1
   aggroDistance: 15
   patrolPath: {fileID: 0}
   waypointTolerance: 3
   waypointDwellTime: 0.5
-  layersToTarget: 0a0000000b000000
 --- !u!114 &114375138248588102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1528,17 +1528,9 @@ MonoBehaviour:
   maxHealthPoints: 1000
   healthBar: {fileID: 114915164298555110}
   deathVanishSeconds: 5
-  hitSounds:
-  - {fileID: 8300000, guid: 032a4f39620b7994aa36483d2e211ff1, type: 3}
-  - {fileID: 8300000, guid: 9e4c5f2327fc67c49ac5c94471e3107a, type: 3}
-  - {fileID: 8300000, guid: b3266b78b59e8f348a9e503484cf6e02, type: 3}
-  - {fileID: 8300000, guid: e5afb3612f411224887c2576b4f8a2db, type: 3}
-  - {fileID: 8300000, guid: 2d07eba8eab06cb45898cb11da4a54e2, type: 3}
-  - {fileID: 8300000, guid: 1734cebdf2bc02842a4652686c07cf90, type: 3}
-  - {fileID: 8300000, guid: effc0d496f2c4e144a91033290aefb66, type: 3}
+  hitSounds: []
   deathSounds:
-  - {fileID: 8300000, guid: 0a14b81c9eeb97d42861fbdd686e65da, type: 3}
-  - {fileID: 8300000, guid: ec9998b131518f740b7fba9f258b293f, type: 3}
+  - {fileID: 8300000, guid: 3b705a5057e634935b26c379f520fce2, type: 3}
   bloodSpurtPrefab: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc,
     type: 2}
 --- !u!114 &114718505780816646
@@ -1552,7 +1544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0929f2459c8e3ac4e96e06a1ad74c8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackBonus: 80
+  attackBonus: 90
   parryBonus: 20
   baseDamage: 300
   currentWeaponConfig: {fileID: 11400000, guid: f8de6a2e1869a1c4b9ac1413dae11d41,

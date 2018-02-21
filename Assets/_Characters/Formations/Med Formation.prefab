@@ -443,5 +443,5 @@ MonoBehaviour:
   - {fileID: 0}
   reformDistance: 15
   layersToTarget: 0a0000000b000000
-  formationAggroDistance: 3
+  formationAggroDistance: 5
   formationStopDistance: 0.5

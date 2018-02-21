@@ -32,7 +32,7 @@ namespace RPG.Characters
         int waypointIndex;
         float currentAggroDistance;
 
-        Vector3 formationPosition = Vector3.zero;
+        Transform formationTransform = null;
         Formation formation;
 
         enum State { attacking, chasing, idle, patrolling, returning };
@@ -48,10 +48,10 @@ namespace RPG.Characters
             this.isEnemy = isEnemyToSet;
         }
 
-        public void SetFormationPosition(Formation formationToSet, Vector3 position)
+        public void SetFormationPosition(Formation formationToSet, Transform positionToSet)
         {
-            formationPosition = position;
-            if (position == Vector3.zero)   // leader is killed - rever to no-formation 
+            formationTransform = positionToSet;
+            if (positionToSet == null)   // leader is killed - revert to no-formation 
             {
                 formation = null;
                 StopAllCoroutines();
@@ -60,6 +60,11 @@ namespace RPG.Characters
             {
                 formation = formationToSet;
             }
+        }
+
+        public Formation GetFormation()
+        {
+            return formation;
         }
 
         private void Start()
@@ -73,7 +78,7 @@ namespace RPG.Characters
 
         private void Update()
         {
-            if (formationPosition == Vector3.zero)
+            if (formationTransform == null)
             {
                 currentAggroDistance = aggroDistance;
                 UpdateWithoutFormation();
@@ -122,6 +127,10 @@ namespace RPG.Characters
                     {
                         StartCoroutine(Patrol());
                     }
+                    else if (formation)
+                    {
+                        ReturnToFormation();
+                    }
                     else
                     {
                         state = State.idle;
@@ -159,6 +168,18 @@ namespace RPG.Characters
             }
         }
 
+        private void ReturnToFormation()
+        {
+            state = State.idle;
+            character.SetDestination(formationTransform.position);
+            var distanceToFormationPos = Vector3.Distance(transform.position, formationTransform.position);
+            if (distanceToFormationPos <= 0.5f) // TODO magic number
+            {
+                //transform.rotation = formation.transform.rotation;
+
+            }
+        }
+
         IEnumerator Patrol()
         {
             if (patrolPath == null) { yield return null; }
@@ -181,7 +202,6 @@ namespace RPG.Characters
                     yield return null;
                 }
             }
-
         }
 
         private void CycleWaypoint()

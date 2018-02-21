@@ -49,10 +49,10 @@ namespace RPG.Characters
                 if (idx < troopers.Length)
                 {
                     var currentCombatantAI = troopers[idx];
-                    var currentTroopPosition = troopPositions[idx].transform.position;
-                    currentCombatantAI.transform.position = currentTroopPosition;
+                    var currentTroopTransform = troopPositions[idx].transform;
+                    currentCombatantAI.transform.position = currentTroopTransform.position;
                     currentCombatantAI.transform.rotation = transform.rotation;
-                    currentCombatantAI.SetFormationPosition(this, currentTroopPosition);
+                    currentCombatantAI.SetFormationPosition(this, currentTroopTransform);                  
                 }
             }
             rankSize = (troopPositions.Length - 1) / 2;
@@ -68,7 +68,7 @@ namespace RPG.Characters
                 {
                     if (combatantAI != null)
                     {
-                        combatantAI.SetFormationPosition(null, Vector3.zero);
+                        combatantAI.SetFormationPosition(null, null);
                     }
                 }
                 Destroy(gameObject);

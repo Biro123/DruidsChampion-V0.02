@@ -19,7 +19,8 @@ MonoBehaviour:
   thrustAnimation: {fileID: 7400000, guid: f0de5c62a6c14df4c946f81e4cee9a01, type: 3}
   weaponSpecificAnimations: {fileID: 22100000, guid: 86d9a8e33893a5943877389b5a034b7b,
     type: 2}
-  parrySounds: []
+  parrySounds:
+  - {fileID: 8300000, guid: 34aca9e3f1ade4802b9062b1380aa523, type: 3}
   quality: 1
   condition: 1
   timeBetweenAnimationCycles: 0.6
