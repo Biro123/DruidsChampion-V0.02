@@ -119,23 +119,7 @@ namespace RPG.Characters
 
             if (!inAttackRange && !inAggroRange)
             {
-                if (state != State.patrolling)
-                {
-                    StopAllCoroutines();
-                    weaponSystem.StopAttacking();
-                    if (patrolPath)
-                    {
-                        StartCoroutine(Patrol());
-                    }
-                    else if (formation)
-                    {
-                        ReturnToFormation();
-                    }
-                    else
-                    {
-                        state = State.idle;
-                    }
-                }
+                NoAggroMovement();
             }
 
             if (inAggroRange)
@@ -168,15 +152,32 @@ namespace RPG.Characters
             }
         }
 
+        private void NoAggroMovement()
+        {
+            if (patrolPath && state != State.patrolling)
+            {
+                StopAllCoroutines();
+                weaponSystem.StopAttacking();
+                StartCoroutine(Patrol());
+            }
+            else if (formation && state != State.returning)
+            {
+                ReturnToFormation();
+            }
+            else if (!patrolPath && !formation)
+            {
+                state = State.idle;
+            }
+        }
+
         private void ReturnToFormation()
         {
-            state = State.idle;
+            state = State.returning;
             character.SetDestination(formationTransform.position);
             var distanceToFormationPos = Vector3.Distance(transform.position, formationTransform.position);
             if (distanceToFormationPos <= 0.5f) // TODO magic number
             {
                 //transform.rotation = formation.transform.rotation;
-
             }
         }
 

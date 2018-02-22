@@ -84,9 +84,8 @@ namespace RPG.Characters
             if (Input.GetMouseButton(0))
             {
                 StopAllCoroutines();
-                weaponSystem.StopAttacking();
-                character.SetDestination(targetLocation);
                 SetCurrentTarget(null);
+                character.SetDestination(targetLocation);                
             }
         }
 
@@ -103,7 +102,6 @@ namespace RPG.Characters
             }
             else if (Input.GetMouseButton(0) && ! IsInRange(enemy.gameObject))
             {
-                weaponSystem.SetTarget(enemy.gameObject);
                 StartCoroutine(MoveAndAttack(enemy.gameObject));
             }
 
@@ -113,7 +111,6 @@ namespace RPG.Characters
             }
             else if (Input.GetMouseButtonDown(1) && !IsInRange(enemy.gameObject))
             {
-                weaponSystem.SetTarget(enemy.gameObject);
                 StartCoroutine(MoveAndSpecial(0, enemy.gameObject));
             }
         }
@@ -139,6 +136,7 @@ namespace RPG.Characters
                 }
                 currentTarget = null;
             }
+            weaponSystem.SetTarget(currentTarget);
         }
 
         IEnumerator MoveToTarget(GameObject target)

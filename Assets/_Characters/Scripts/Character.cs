@@ -96,13 +96,10 @@ namespace RPG.Characters
             else
             {
                 Move(Vector3.zero);
-                var combatantAI = GetComponent<CombatantAI>();
-                if (combatantAI && combatantAI.GetFormation())
-                {                    
-                    transform.rotation = combatantAI.GetFormation().transform.rotation;
-                }
+                FaceFrontIfInFormation();
             }
         }
+
 
         public void StrafeLeft(bool isStrafingToSet)
         {
@@ -138,6 +135,15 @@ namespace RPG.Characters
         {
             navMeshAgent.destination = worldPosition;
             finalRotation = Quaternion.identity;
+        }
+
+        private void FaceFrontIfInFormation()
+        {
+            var combatantAI = GetComponent<CombatantAI>();
+            if (combatantAI && combatantAI.GetFormation())
+            {
+                transform.rotation = combatantAI.GetFormation().transform.rotation;
+            }
         }
 
         private void Move(Vector3 movement)

@@ -66,10 +66,6 @@ namespace RPG.Characters
             {
                 transform.LookAt(target.transform);
             }
-            else
-            {
-                StopAttacking();
-            }
         }
 
         public void PutWeaponInHand(WeaponConfig weaponToUse)
@@ -85,15 +81,24 @@ namespace RPG.Characters
 
         public void StopAttacking()
         {
-            animator.StopPlayback();
+            Debug.Log(gameObject + "stopping attack");
             StopAllCoroutines();
+            animator.StopPlayback();            
         }
 
         public void SetTarget(GameObject targetToSet) 
         {
             // Required to ensure that co-routines are not immediately stopped when AttackTarget is called.
             target = targetToSet;
-            targetHealthSystem = target.GetComponent<HealthSystem>();
+            if (target)
+            {
+                targetHealthSystem = target.GetComponent<HealthSystem>();
+            }
+            else
+            {
+                targetHealthSystem = null;
+                StopAttacking();
+            }
         }
 
         public void ChangeTarget(GameObject targetToSet)
