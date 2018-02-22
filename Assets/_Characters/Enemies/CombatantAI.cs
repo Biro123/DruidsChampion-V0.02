@@ -100,7 +100,6 @@ namespace RPG.Characters
             target = FindTargetInRange(Mathf.Max(currentAggroDistance, currentWeaponRange));
             distanceToTarget = 0f;
             bool inAttackRange = false;
-            bool inMaxAttackRange = false;
             bool inAggroRange = false;
 
             if (target)
@@ -108,13 +107,11 @@ namespace RPG.Characters
                 distanceToTarget = (transform.position - target.transform.position).magnitude;
                 inAttackRange = (distanceToTarget <= currentWeaponRange);
                 inAggroRange = (distanceToTarget <= currentAggroDistance && !inAttackRange);
-                inMaxAttackRange = (distanceToTarget <= currentWeaponRange + 0.5f);  // TODO magic number - not needed?
             }
             else
             {
                 inAttackRange = false;
                 inAggroRange = false;
-                inMaxAttackRange = false;
             }
 
             if (!inAttackRange && !inAggroRange)
@@ -124,13 +121,9 @@ namespace RPG.Characters
 
             if (inAggroRange)
             {
-                // avoid dipping in and out of combat with slight movements //TODO IS NEEDED?
-                //if (inMaxAttackRange && state == State.attacking) { return; }
-
                 if (state != State.chasing)
                 {
                     StopAllCoroutines();
-                    Debug.Log(gameObject.name + " starting attack");
                     weaponSystem.StopAttacking();
                     StartCoroutine(ChaseTarget());
                 }
@@ -160,7 +153,7 @@ namespace RPG.Characters
                 weaponSystem.StopAttacking();
                 StartCoroutine(Patrol());
             }
-            else if (formation && state != State.returning)
+            else if (formation)
             {
                 ReturnToFormation();
             }
@@ -174,11 +167,6 @@ namespace RPG.Characters
         {
             state = State.returning;
             character.SetDestination(formationTransform.position);
-            var distanceToFormationPos = Vector3.Distance(transform.position, formationTransform.position);
-            if (distanceToFormationPos <= 0.5f) // TODO magic number
-            {
-                //transform.rotation = formation.transform.rotation;
-            }
         }
 
         IEnumerator Patrol()
@@ -264,25 +252,17 @@ namespace RPG.Characters
             
             if (currentOpponentCombatantAI)
             {
-                if (currentOpponentCombatantAI.GetIsEnemy() != isEnemy)
-                {
-                    return true;
-                }
+                if (currentOpponentCombatantAI.GetIsEnemy() != this.isEnemy)
+                { return true; }
                 else
-                {
-                    return false;
-                }
+                { return false; }
             }
             else  // player targetted
             {
-                if (isEnemy)
-                {
-                    return true;
-                }
+                if (this.isEnemy)   
+                { return true; }
                 else
-                {
-                    return false;
-                }
+                { return false; }
             }
         }
 

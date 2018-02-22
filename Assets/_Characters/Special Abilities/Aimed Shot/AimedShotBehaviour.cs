@@ -24,7 +24,8 @@ namespace RPG.Characters
                 target, 
                 (config as AimedShotConfig).GetAttackAdj(),
                 (config as AimedShotConfig).GetDamageAdj(),
-                (config as AimedShotConfig).GetArmourAvoidAdj() 
+                (config as AimedShotConfig).GetArmourAvoidAdj(),
+                (config as AimedShotConfig).GetAbilityAnimation()
                 );
         }
         

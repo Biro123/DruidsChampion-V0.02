@@ -78,7 +78,7 @@ namespace RPG.Characters
             float bloodSpurtYRot = UnityEngine.Random.Range(110f, 250f);
             Quaternion bloodSpurtRotation = Quaternion.Euler(0f, bloodSpurtYRot, 0f);
             GameObject bloodSpurt = Instantiate(bloodSpurtPrefab, bloodSpurtPosition, bloodSpurtRotation);
-            bloodSpurt.GetComponent<ParticleSystem>().Play();  // TODO make size depend on damage done?
+            bloodSpurt.GetComponent<ParticleSystem>().Play();  
             Destroy(bloodSpurt, bloodSpurt.GetComponent<ParticleSystem>().main.duration);
         }
 

@@ -38,7 +38,7 @@ namespace RPG.Characters
         NavMeshAgent navMeshAgent;
         Animator animator;
         Rigidbody rigidBody;
-        Quaternion finalRotation;
+
         float turnAmount;
         float forwardAmount;
         bool isAlive = true;
@@ -134,7 +134,6 @@ namespace RPG.Characters
         public void SetDestination(Vector3 worldPosition)
         {
             navMeshAgent.destination = worldPosition;
-            finalRotation = Quaternion.identity;
         }
 
         private void FaceFrontIfInFormation()
@@ -176,7 +175,6 @@ namespace RPG.Characters
                 movement.Normalize();
             }
             var localMove = transform.InverseTransformDirection(movement);
-            //   move = Vector3.ProjectOnPlane(move, m_GroundNormal);  Was this removal ok?
             turnAmount = Mathf.Atan2(localMove.x, localMove.z);
             forwardAmount = localMove.z;
         }

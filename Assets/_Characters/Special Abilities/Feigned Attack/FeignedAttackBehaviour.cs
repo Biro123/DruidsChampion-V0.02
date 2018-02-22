@@ -24,7 +24,8 @@ namespace RPG.Characters
                 target, 
                 (config as FeignedAttackConfig).GetAttackAdj(),
                 (config as FeignedAttackConfig).GetDamageAdj(),
-                (config as FeignedAttackConfig).GetArmourAvoidAdj() 
+                (config as FeignedAttackConfig).GetArmourAvoidAdj(), 
+                (config as FeignedAttackConfig).GetAbilityAnimation()
                 );
         }        
     }

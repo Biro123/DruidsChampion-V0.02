@@ -19,7 +19,6 @@ namespace RPG.Characters
         const int COMBATANT_LAYER = 9;
 
         Character character;
-        Transform target = null;
         int opponentLayerMask = 0;
         int waypointIndex;
         Vector3 nextWaypointPos;

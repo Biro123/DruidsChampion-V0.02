@@ -20,11 +20,7 @@ namespace RPG.Characters
         [Tooltip("Aggro distance while in formation")]
         [SerializeField]float formationAggroDistance = 3f;
 
-        [Tooltip("Stop Distance while going back to formation")]
-        [SerializeField] float formationStopDistance = 0.5f;
-
         private Transform[] troopPositions;
-        //private GameObject[] troopers;
         private GameObject leader;
         private int rankSize;
         
@@ -76,8 +72,8 @@ namespace RPG.Characters
             }
 
             // Set the formation position and rotation of the formnation to that of the leader
-            transform.position = troopers[0].transform.position;
-            transform.rotation = troopers[0].transform.rotation;
+            //transform.position = troopers[0].transform.position;
+            //transform.rotation = troopers[0].transform.rotation;
 
             //if (SafeToReform())
             //{
@@ -127,7 +123,6 @@ namespace RPG.Characters
                 if (j >= troopers.Length) { break; };   // Exit if all troopers placed
             }
 
-            // TODO - face front after reform.. may need to be elsewhere as can only pass transforms
         }
 
         public void FillGap()

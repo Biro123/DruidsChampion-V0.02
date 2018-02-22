@@ -25,6 +25,7 @@ namespace RPG.Characters
 
         const string ATTACK_TRIGGER = "Attack";
         const string DEFAULT_ATTACK = "DEFAULT ATTACK";
+        const float ATTACK_RANGE_TOLERANCE = 0.5f;
 
         public float GetParryBonus() {  return parryBonus; }
 
@@ -40,7 +41,7 @@ namespace RPG.Characters
             }
 
             PutWeaponInHand(currentWeaponConfig);
-            SetAttackAnimation(currentWeaponConfig.GetSwingAnimClip());
+            SetAttackAnimation(currentWeaponConfig.GetSwingAnimClip());   // TODO sets starting animation override - including movement
         }
 
         private void Update()
@@ -59,13 +60,18 @@ namespace RPG.Characters
                 targetIsAlive = targetHealthSystem.healthAsPercentage >= Mathf.Epsilon;
 
                 float distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
-                targetInRange = (distanceToTarget <= currentWeaponConfig.GetAttackRange() + 0.5f); // TODO magic number
+                targetInRange = (distanceToTarget <= currentWeaponConfig.GetAttackRange() + ATTACK_RANGE_TOLERANCE); 
             }
 
             if (targetIsAlive && attackerIsAlive && targetInRange)
             {
                 transform.LookAt(target.transform);
             }
+        }
+
+        public WeaponConfig GetCurrentWeapon()
+        {
+            return currentWeaponConfig;
         }
 
         public void PutWeaponInHand(WeaponConfig weaponToUse)
@@ -77,6 +83,17 @@ namespace RPG.Characters
             weaponObject = Instantiate(weaponPrefab, dominantHand.transform);
             weaponObject.transform.localPosition = currentWeaponConfig.gripTransform.localPosition;
             weaponObject.transform.localRotation = currentWeaponConfig.gripTransform.localRotation;
+        }
+
+        private GameObject RequestDominantHand()
+        {
+            var dominantHands = GetComponentsInChildren<DominantHand>();
+            int numberOfDominantHands = dominantHands.Length;
+
+            // Ensure either 1 dominant hand - or an error is returned. 
+            Assert.AreNotEqual(numberOfDominantHands, 0, "No Dominant Hand on " + gameObject.name);
+            Assert.IsFalse(numberOfDominantHands > 1, "Multiple Dominant Hands on " + gameObject.name);
+            return dominantHands[0].gameObject;
         }
 
         public void StopAttacking()
@@ -116,11 +133,12 @@ namespace RPG.Characters
             StartCoroutine(AttackTargetRepeatedly());
         }
 
-        public void SpecialAttack(GameObject targetToAttack, float attackAdj, float damageAdj, float armourAvoidAdj)
+        public void SpecialAttack(GameObject targetToAttack, float attackAdj, float damageAdj, float armourAvoidAdj, AnimationClip specialAttackAnimation = null)
         {
             SetTarget(targetToAttack);
-            AttackTargetOnce(attackAdj, damageAdj, armourAvoidAdj);
+            AttackTargetOnce(attackAdj, damageAdj, armourAvoidAdj, specialAttackAnimation);
         }
+
 
         IEnumerator AttackTargetRepeatedly()
         {
@@ -148,43 +166,13 @@ namespace RPG.Characters
             }            
         }
 
-        public WeaponConfig GetCurrentWeapon()
-        {
-            return currentWeaponConfig;
-        }
-        
-        private void SetAttackAnimation(AnimationClip weaponAnimation)
-        {
-            if (!character.GetAnimatorOverrideController())
-            {
-                Debug.Break();
-                Debug.LogAssertion("Please proved " + gameObject + " with an animator Override Controller");
-            }
-            else
-            {
-                var animatorOverrideController = character.GetAnimatorOverrideController();
-                animator.runtimeAnimatorController = animatorOverrideController;
-                animatorOverrideController[DEFAULT_ATTACK] = weaponAnimation; 
-            }
-        }
 
-        private GameObject RequestDominantHand()
+        private void AttackTargetOnce(float attackAdj = 0f, float damageAdj = 0f, float armourAvoidAdj = 0f, AnimationClip specialAttackAnimation = null)
         {
-            var dominantHands = GetComponentsInChildren<DominantHand>();
-            int numberOfDominantHands = dominantHands.Length;
-
-            // Ensure either 1 dominant hand - or an error is returned. 
-            Assert.AreNotEqual(numberOfDominantHands, 0, "No Dominant Hand on " + gameObject.name);
-            Assert.IsFalse(numberOfDominantHands > 1, "Multiple Dominant Hands on " + gameObject.name);
-            return dominantHands[0].gameObject;
-        }
-
-        private void AttackTargetOnce(float attackAdj = 0f, float damageAdj = 0f, float armourAvoidAdj = 0f)
-        {
-            if (targetHealthSystem == null) { return; }            
+            if (targetHealthSystem == null || !targetIsAlive) { return; }            
             
             float damageDelay = currentWeaponConfig.GetDamageDelay();
-            float damageDone = CalculateDamage(damageAdj, armourAvoidAdj);
+            float damageDone = CalculateDamage(damageAdj, armourAvoidAdj, specialAttackAnimation);
             animator.SetTrigger(ATTACK_TRIGGER);
             if (TryToHit(attackAdj) == true)
             {
@@ -251,25 +239,35 @@ namespace RPG.Characters
             audioSource.PlayOneShot(currentWeaponConfig.GetParrySound());
         }
 
-        private float CalculateDamage(float damageAdj, float armourAvoidAdj)
+        private float CalculateDamage(float damageAdj, float armourAvoidAdj, AnimationClip specialAttackAnimation)
         {
+            float damageDone = 0f;
+            AnimationClip animationToSet; 
             ArmourSystem.ArmourProtection targetArmour = new ArmourSystem.ArmourProtection();
             ArmourSystem targetArmourSystem = target.GetComponent<ArmourSystem>();
             if (targetArmourSystem)
             {
                 targetArmour = targetArmourSystem.CalculateArmour(armourAvoidAdj);
             }
-
+            
             if (UnityEngine.Random.Range(0f, 1f) <= currentWeaponConfig.GetChanceForSwing())
             {
-                SetAttackAnimation(currentWeaponConfig.GetSwingAnimClip());
-                return CalculateSwingDamage(targetArmour, damageAdj);
+                animationToSet = currentWeaponConfig.GetSwingAnimClip();
+                damageDone =  CalculateSwingDamage(targetArmour, damageAdj);
             }
             else
             {
-                SetAttackAnimation(currentWeaponConfig.GetThrustAnimClip());
-                return CalculateThrustDamage(targetArmour, damageAdj);
+                animationToSet = currentWeaponConfig.GetThrustAnimClip();
+                damageDone = CalculateThrustDamage(targetArmour, damageAdj);
             }
+
+            if (specialAttackAnimation)
+            {
+                animationToSet = specialAttackAnimation;
+            }
+
+            SetAttackAnimation(animationToSet);
+            return damageDone;
         }
 
         private float CalculateSwingDamage(ArmourSystem.ArmourProtection targetArmour, float damageAdj)
@@ -290,6 +288,21 @@ namespace RPG.Characters
             float pierceDamageTaken = Mathf.Clamp(pierceDamageDone - targetArmour.pierce, 0f, pierceDamageDone);
             // Debug.Log(Time.time + "Pierce Dmg on " + target + ": " + pierceDamageTaken);
             return pierceDamageTaken;
+        }
+
+        private void SetAttackAnimation(AnimationClip weaponAnimation)
+        {
+            if (!character.GetAnimatorOverrideController())
+            {
+                Debug.Break();
+                Debug.LogAssertion("Please proved " + gameObject + " with an animator Override Controller");
+            }
+            else
+            {
+                var animatorOverrideController = character.GetAnimatorOverrideController();
+                animator.runtimeAnimatorController = animatorOverrideController;
+                animatorOverrideController[DEFAULT_ATTACK] = weaponAnimation;
+            }
         }
     }
 }
