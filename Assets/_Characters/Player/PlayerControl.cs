@@ -115,11 +115,11 @@ namespace RPG.Characters
             }
         }
 
-        private void SetCurrentTarget(CombatantAI enemy)
+        private void SetCurrentTarget(CombatantAI targetToSet)
         {
-            if (enemy)
+            if (targetToSet)
             {
-                currentTarget = enemy.gameObject;
+                currentTarget = targetToSet.gameObject;
                 var targetReticule = currentTarget.GetComponentInChildren<TargetReticle>();
                 if (targetReticule)
                 {
@@ -127,7 +127,7 @@ namespace RPG.Characters
                 }
             }
 
-            if (!enemy && currentTarget )
+            if (!targetToSet && currentTarget )
             {
                 var targetReticule = currentTarget.GetComponentInChildren<TargetReticle>();
                 if (targetReticule)

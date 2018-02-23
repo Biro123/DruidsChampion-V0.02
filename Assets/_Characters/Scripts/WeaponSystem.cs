@@ -63,7 +63,7 @@ namespace RPG.Characters
                 targetInRange = (distanceToTarget <= currentWeaponConfig.GetAttackRange() + ATTACK_RANGE_TOLERANCE); 
             }
 
-            if (targetIsAlive && attackerIsAlive && targetInRange)
+            if (target && attackerIsAlive && targetInRange)
             {
                 transform.LookAt(target.transform);
             }
