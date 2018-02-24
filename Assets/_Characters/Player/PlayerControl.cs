@@ -12,13 +12,17 @@ namespace RPG.Characters
         WeaponSystem weaponSystem;
         GameObject currentTarget;
         bool isStrafing = false;
-        
+        int opponentLayerMask = 0;
+
+        const int COMBATANT_LAYER = 9;
+
         private void Start()
         {
             character = GetComponent<Character>();
             specialAbilities = GetComponent<SpecialAbilities>();
             weaponSystem = GetComponent<WeaponSystem>();
 
+            opponentLayerMask = opponentLayerMask | (1 << COMBATANT_LAYER);
             RegisterForMouseEvents();
         }
 
@@ -168,6 +172,23 @@ namespace RPG.Characters
         {
             float distanceToTarget = (target.transform.position - this.transform.position).magnitude;
             return distanceToTarget <= weaponSystem.GetCurrentWeapon().GetAttackRange();
-        }        
+        }
+
+        public bool IsSafeDistance(float safeRange)
+        {
+            // See what are in range
+            Collider[] opponentsInRange = Physics.OverlapSphere(this.transform.position, safeRange, opponentLayerMask);
+            if (opponentsInRange.Length == 0) { return true; }
+
+            foreach (var opponentInRange in opponentsInRange)
+            {
+                CombatantAI opponentCombatantAI = opponentInRange.GetComponent<CombatantAI>();
+                if (opponentCombatantAI && opponentCombatantAI.GetIsEnemy())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

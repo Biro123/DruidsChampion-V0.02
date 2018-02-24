@@ -9,18 +9,33 @@ namespace RPG.Characters
     public class FirstAidBehaviour : AbilityBehaviour
     {
         PlayerControl player;
+        CombatantAI combatantAI;
+        int remainingUses;
+        float safeRadius;
+        float healPercent;
+
+        public int GetRemainingUses ()
+        {
+            return remainingUses;
+        }
 
         private void Start()
         {
             player = GetComponent<PlayerControl>();
+            remainingUses = (config as FirstAidConfig).GetMaxUses();
+            safeRadius = (config as FirstAidConfig).GetSafeRadius();
+            healPercent = (config as FirstAidConfig).GetHealPercent();
         }
 
         public override void Use(GameObject target)
         {
-            HealPlayer();            
-            PlayParticleEffect();
-            PlayAbilityAudio();
-            PlayAbilityAnimation();
+            if ( player.IsSafeDistance(safeRadius) && remainingUses > 0)
+            {
+                HealPlayer();
+                PlayParticleEffect();
+                PlayAbilityAudio();
+                PlayAbilityAnimation();
+            }
         }
 
         private void HealPlayer()
@@ -28,9 +43,10 @@ namespace RPG.Characters
             var playerHealth = player.GetComponent<HealthSystem>();
             if (playerHealth != null)
             {
-                playerHealth.AdjustHealth( -(config as FirstAidConfig).GetHealAmount() );
+                // Heals a percentage of the health that has been lost.
+                playerHealth.AdjustHealthPercent( -healPercent, false);
+                remainingUses--;
             }            
         }
-        
     }
 }

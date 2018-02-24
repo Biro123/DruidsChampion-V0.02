@@ -8,8 +8,9 @@ namespace RPG.Characters
     public class FirstAidConfig : AbilityConfig
     {
         [Header("First Aid Specific")]
-        [SerializeField] float healAmount = 100f;
+        [SerializeField] [Range (0f, 1f)] float healPercent = 0.6f;
         [SerializeField] float safeRadius = 15f;
+        [SerializeField] int maxUses = 5;
 
         //public override void AttachComponentTo(GameObject gameObjectToAttachTo)
         //{
@@ -24,14 +25,17 @@ namespace RPG.Characters
             return objectToAttachTo.AddComponent<FirstAidBehaviour>();
         }
 
-        public float GetHealAmount()
+        public float GetHealPercent()
         {
-            return healAmount;
+            return healPercent;
         }
         public float GetSafeRadius()
         {
             return safeRadius;
         }
-
+        public int GetMaxUses()
+        {
+            return maxUses;
+        }
     }
 }

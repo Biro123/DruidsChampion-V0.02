@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c7a5a61d44a3b469e644b3fbc3de0e, type: 3}
   m_Name: L1 First Aid
   m_EditorClassIdentifier: 
-  staminaCost: 20
+  staminaCost: 0
   particlePrefab: {fileID: 1606462035129914, guid: f8102786fd0215d42a118d7244132dd4,
     type: 2}
+  weaponTrail: {fileID: 0}
   audioClips:
-  - {fileID: 8300000, guid: 3d9914c57d37e704c9b1f1f57c7e6809, type: 3}
-  abilityAnimation: {fileID: 7400000, guid: fd2eda3550a6f1344866db46a225eea7, type: 3}
-  healAmount: 100
+  - {fileID: 8300000, guid: 952256c9cd7cac04294819fcd117a776, type: 3}
+  abilityAnimation: {fileID: 7400000, guid: 90a8124a76c76fa4f952d6c63a21f618, type: 3}
+  healPercent: 0.6
   safeRadius: 15
+  maxUses: 5

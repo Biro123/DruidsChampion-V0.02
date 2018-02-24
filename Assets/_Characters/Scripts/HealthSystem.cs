@@ -29,6 +29,32 @@ namespace RPG.Characters
             get { return currentHealthPoints / maxHealthPoints; }
         }
 
+        public void AdjustHealth(float amount)
+        {
+            bool isDieingThisHit = (currentHealthPoints > 0); // must ask before reducing health
+            ReduceHealth(amount);
+            if (currentHealthPoints <= 0f && isDieingThisHit && amount > 0)
+            {
+                StartCoroutine(KillCharacter());
+            }
+        }
+
+        public void AdjustHealthPercent(float percentToAdjust, bool useRemainingHealth)
+        {
+            float healthToReduce = 0;
+
+            if (useRemainingHealth)
+            {
+                healthToReduce = currentHealthPoints * percentToAdjust;
+            }
+            else
+            {
+                healthToReduce = (maxHealthPoints - currentHealthPoints) * percentToAdjust;
+            }
+
+            AdjustHealth(healthToReduce);
+        }
+
         void Start()
         {
             animator = GetComponent<Animator>();
@@ -50,16 +76,6 @@ namespace RPG.Characters
             }
         }
 
-        public void AdjustHealth(float amount)
-        {
-            bool isDieingThisHit = (currentHealthPoints > 0); // must ask before reducing health
-            ReduceHealth(amount);
-            if (currentHealthPoints <= 0f && isDieingThisHit)
-            {
-                StartCoroutine(KillCharacter());
-            }
-        }
-
         private void ReduceHealth(float damage)
         {
             currentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
@@ -68,10 +84,10 @@ namespace RPG.Characters
             float hitSoundVolume = (damage / maxHealthPoints * 2);   // anything over half health = full volume
             PlayHitSound(Mathf.Clamp(hitSoundVolume, 0, 1));
 
-            spawnBloodSpurt();
+            SpawnBloodSpurt();
         }
 
-        private void spawnBloodSpurt()
+        private void SpawnBloodSpurt()
         {
             Vector3 heightAdjustment = new Vector3(0, 1f, 0);
             Vector3 bloodSpurtPosition = this.transform.position + heightAdjustment;
