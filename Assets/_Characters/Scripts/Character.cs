@@ -139,8 +139,8 @@ namespace RPG.Characters
         private void FaceFrontIfInFormation()
         {
             var combatantAI = GetComponent<CombatantAI>();
-            if (combatantAI && combatantAI.GetFormation())
-            {
+            if (combatantAI && combatantAI.GetFormation() && !combatantAI.GetTarget())
+            {       
                 transform.rotation = combatantAI.GetFormation().transform.rotation;
             }
         }

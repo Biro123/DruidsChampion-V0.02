@@ -38,6 +38,11 @@ namespace RPG.Characters
         enum State { attacking, chasing, idle, patrolling, returning };
         State state = State.idle;
 
+        public Transform GetTarget()
+        {
+            return target;
+        }
+
         public bool GetIsEnemy()
         {
             return isEnemy;

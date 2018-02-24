@@ -98,7 +98,6 @@ namespace RPG.Characters
 
         public void StopAttacking()
         {
-            Debug.Log(gameObject + "stopping attack");
             StopAllCoroutines();
             animator.StopPlayback();            
         }

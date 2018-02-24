@@ -161,6 +161,7 @@ namespace RPG.Characters
         {
             yield return StartCoroutine(MoveToTarget(target));
             specialAbilities.AttemptSpecialAbility(specialAbilityIndex, target.gameObject);
+            weaponSystem.AttackTarget(target.gameObject);
         }
               
         private bool IsInRange(GameObject target)
