@@ -26,6 +26,10 @@ namespace RPG.Characters
         protected void PlayAbilityAnimation()
         {
             var animatorOverrideController = GetComponent<Character>().GetAnimatorOverrideController();
+            var animationToPlay = config.GetAbilityAnimation();
+
+            if (!animationToPlay) { return; }
+
             if (!animatorOverrideController)
             {
                 Debug.Break();
@@ -35,7 +39,7 @@ namespace RPG.Characters
             {
                 Animator animator = GetComponent<Animator>();                
                 animator.runtimeAnimatorController = animatorOverrideController;
-                animatorOverrideController[DEFAULT_ATTACK] = config.GetAbilityAnimation();                
+                animatorOverrideController[DEFAULT_ATTACK] = animationToPlay;                
                 animator.SetTrigger(ATTACK_TRIGGER);
             }
         }

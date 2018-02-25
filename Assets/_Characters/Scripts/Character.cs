@@ -7,6 +7,8 @@ namespace RPG.Characters
     [SelectionBase]
     public class Character : MonoBehaviour
     {
+        [SerializeField] int level = 5;
+
         [Header("Animator")]
         [SerializeField] RuntimeAnimatorController animatorController;
         [SerializeField] AnimatorOverrideController animatorOverrideController;
@@ -44,6 +46,11 @@ namespace RPG.Characters
         bool isAlive = true;
         bool isStrafingLeft = false;
         bool isStrafingRight = false;
+
+        public int GetLevel()
+        {
+            return level;
+        }
 
         public float GetAnimSpeedMultiplier()
         {
