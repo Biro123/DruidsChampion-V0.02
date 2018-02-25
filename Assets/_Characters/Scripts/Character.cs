@@ -143,6 +143,17 @@ namespace RPG.Characters
             navMeshAgent.destination = worldPosition;
         }
 
+        public bool IsDestinationReachable(Vector3 destination)
+        {
+            NavMeshPath path = new NavMeshPath();
+            navMeshAgent.CalculatePath(destination, path);
+            if (path.status == NavMeshPathStatus.PathComplete)
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void FaceFrontIfInFormation()
         {
             var combatantAI = GetComponent<CombatantAI>();

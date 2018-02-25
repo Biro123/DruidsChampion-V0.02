@@ -11,7 +11,9 @@ namespace RPG.Characters
         [SerializeField] float level = 5f;
         [SerializeField] float radius = 8f;
         [SerializeField] float duration = 5f;
-        [SerializeField] GameObject fearDestinations; 
+        [SerializeField] GameObject fearDestinations;
+
+        const float MIN_DISTANCE_OF_DESTINATION = 25f;
 
         public override AbilityBehaviour GetBehaviour(GameObject objectToAttachTo)
         {
@@ -33,6 +35,10 @@ namespace RPG.Characters
         public GameObject GetFearDestinations()
         {
             return fearDestinations;
+        }
+        public float GetMinDistance()
+        {
+            return MIN_DISTANCE_OF_DESTINATION;
         }
     }
 }

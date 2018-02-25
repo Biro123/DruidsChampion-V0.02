@@ -9,10 +9,14 @@ namespace RPG.Characters
     public class BattleRoarBehaviour : AbilityBehaviour
     {
         private GameObject fearDestinations;
+        private float minDestinationDistance;
+        private float timeToFlee;
 
         private void Start()
         {
             fearDestinations = Instantiate( (config as BattleRoarConfig).GetFearDestinations());
+            minDestinationDistance = (config as BattleRoarConfig).GetMinDistance();
+            timeToFlee = (config as BattleRoarConfig).GetDuration();
         }
 
         public override void Use(GameObject target)
@@ -57,17 +61,29 @@ namespace RPG.Characters
         }
 
         private void RunAway(GameObject fearedTarget)
-        {        
-            GameObject selectedFearLocation;
-            foreach(Transform fearLocation in fearDestinations.transform)
+        {
+            Vector3 selectedFearLocation = Vector3.zero;
+            
+            foreach (Transform fearLocation in fearDestinations.transform)
             {
-                // TODO check if far enough away
-                // TODO check if reachable (possible hit)
-                // TODO check if in good direction (definite hit)
-                selectedFearLocation = fearLocation.gameObject;
-                Debug.Log(fearedTarget.name + " is running to " + selectedFearLocation);
-                // call combatantAI to flee (needs new methods.logic)
-                break;
+                if ((transform.position - fearLocation.position).magnitude >= minDestinationDistance)
+                {
+                    if (fearedTarget.GetComponent<Character>().IsDestinationReachable(fearLocation.position))
+                    {
+                        selectedFearLocation = fearLocation.position;  // Possible destination                        
+                        var distToFearDest = (fearLocation.position - transform.position).magnitude;
+                        var distTargetToFearDest = (fearLocation.position - fearedTarget.transform.position).magnitude;
+                        if (distToFearDest > distTargetToFearDest)
+                        {
+                            selectedFearLocation = fearLocation.position; // Definte destination
+                            break;
+                        }
+                    }
+                }
+            }
+            if (selectedFearLocation != Vector3.zero)
+            {
+                fearedTarget.GetComponent<CombatantAI>().StartFleeing(selectedFearLocation, timeToFlee);
             }
         }
     }
