@@ -27,6 +27,7 @@ namespace RPG.Characters
         Transform target = null;
         WeaponSystem weaponSystem;
         Vector3 nextWaypointPos;
+        FearDestinations fearDestinations;
         int opponentLayerMask = 0;
         float distanceToTarget = 0f;
         int waypointIndex;
@@ -72,15 +73,18 @@ namespace RPG.Characters
             return formation;
         }
 
-        public void StartFleeing(Vector3 destinationToSet, float timeToFlee)
+        public void StartFleeing(GameObject sourceOfFear, float timeToFlee)
         {
-            if (formationTransform == null)
+            if (!fearDestinations) { return; }
+
+            Vector3 selectedDestination = fearDestinations.GetDestination(this.gameObject, sourceOfFear);
+            if (selectedDestination != Vector3.zero )
             {
                 StopAllCoroutines();
                 weaponSystem.SetTarget(null);
                 weaponSystem.StopAttacking();
                 state = State.fleeing;
-                StartCoroutine(Flee(destinationToSet, target.transform.position, timeToFlee));
+                StartCoroutine(Flee(selectedDestination, transform.position, timeToFlee));                
                 target = null;
             }
         }
@@ -98,6 +102,7 @@ namespace RPG.Characters
         {
             character = GetComponent<Character>();
             weaponSystem = GetComponent<WeaponSystem>();
+            fearDestinations = FindObjectOfType<FearDestinations>();
             currentWeaponRange = weaponSystem.GetCurrentWeapon().GetAttackRange();
   
             opponentLayerMask = opponentLayerMask | (1 << COMBATANT_LAYER);

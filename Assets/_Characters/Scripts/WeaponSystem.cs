@@ -294,7 +294,7 @@ namespace RPG.Characters
             if (!character.GetAnimatorOverrideController())
             {
                 Debug.Break();
-                Debug.LogAssertion("Please proved " + gameObject + " with an animator Override Controller");
+                Debug.LogAssertion("Please provide " + gameObject + " with an animator Override Controller");
             }
             else
             {

@@ -51,7 +51,6 @@ namespace RPG.Characters
         private bool IsArmourHit(float armourAvoidAdj)
         {
             float chanceToHitArmour = Mathf.Clamp(armourConfigHit.GetArmourCoverage() - armourAvoidAdj, 0f, 1f);
-            Debug.Log("ChanceToHitArmour " + chanceToHitArmour); 
             return UnityEngine.Random.Range(0f, 1f) <= chanceToHitArmour;
         }
     }

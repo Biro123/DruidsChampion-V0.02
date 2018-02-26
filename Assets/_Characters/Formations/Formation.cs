@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RPG.Core;  
+using RPG.Core;
+using System;
 
 namespace RPG.Characters
 {
@@ -9,9 +10,12 @@ namespace RPG.Characters
     {
         [Header("Setup")]
         [SerializeField] GameObject leaderPrefab;
-        [SerializeField] CombatantAI[] troopers; 
+        [SerializeField] CombatantAI[] troopers;
 
         [Header("Formation Behaviour")]
+        [Tooltip("Casualties Percent taken before fleeing")]
+        [SerializeField] [Range(0f, 1f)] float morale = 0.5f;
+
         [Tooltip("Distance from enemy to reform")]
         [SerializeField] float reformDistance = 15f;
         [SerializeField] int[] layersToTarget = { 10, 11 };
@@ -71,6 +75,8 @@ namespace RPG.Characters
                 return;
             }
 
+            MoraleCheck();
+
             // Set the formation position and rotation of the formnation to that of the leader
             //transform.position = troopers[0].transform.position;
             //transform.rotation = troopers[0].transform.rotation;
@@ -83,6 +89,36 @@ namespace RPG.Characters
             //{
             //    FillGap();
             //}
+        }
+
+        private void MoraleCheck()
+        {
+            float remainingTroops = 0f;
+            foreach(var trooper in troopers)
+            {
+                if (trooper)
+                {
+                    remainingTroops++;
+                }
+            }
+
+            float casualtyPercent = (1.0f - remainingTroops / troopers.Length);
+            float fleeChance = casualtyPercent - morale;
+            if (fleeChance > 0f)
+            {
+                print ("RunAway! " + fleeChance);
+                foreach (var survivingTrooper in troopers)
+                {
+                    if (survivingTrooper)
+                    {
+                        if (UnityEngine.Random.Range(0f,1f) <= fleeChance)
+                        {
+                            //survivingTrooper.StartFleeing();
+                        }
+                    }
+                }
+            }
+
         }
 
         bool SafeToReform()

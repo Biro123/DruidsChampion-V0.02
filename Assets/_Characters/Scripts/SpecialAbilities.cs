@@ -63,7 +63,6 @@ namespace RPG.Characters
             if (staminaCost <= currentStamina)
             {
                 UseStamina(staminaCost);
-                print("using special ability " + abilityIndex);
                 abilities[abilityIndex].Use(target);
             }
             else
