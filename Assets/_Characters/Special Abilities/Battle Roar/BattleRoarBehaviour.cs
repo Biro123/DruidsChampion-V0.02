@@ -38,7 +38,8 @@ namespace RPG.Characters
                 if (IsFearable(colliderInRange.gameObject))
                 {
                     int targetLevel = colliderInRange.GetComponent<Character>().GetLevel();
-                    float chanceToFear = Mathf.Pow((fearLevel + 1 - targetLevel), 2) / 10;
+                    //float chanceToFear = Mathf.Pow((fearLevel + 1 - targetLevel), 2) / 10;
+                    float chanceToFear = (fearLevel + 0.5f - targetLevel)*2 / 10;
                     Debug.Log(colliderInRange.gameObject.name + " chanceToFear = " + chanceToFear);
                     if (UnityEngine.Random.Range(0f, 1f) <= chanceToFear)
                     {
@@ -75,7 +76,7 @@ namespace RPG.Characters
                         var distTargetToFearDest = (fearLocation.position - fearedTarget.transform.position).magnitude;
                         if (distToFearDest > distTargetToFearDest)
                         {
-                            selectedFearLocation = fearLocation.position; // Definte destination
+                            selectedFearLocation = fearLocation.position; // Definite destination
                             break;
                         }
                     }
@@ -84,6 +85,10 @@ namespace RPG.Characters
             if (selectedFearLocation != Vector3.zero)
             {
                 fearedTarget.GetComponent<CombatantAI>().StartFleeing(selectedFearLocation, timeToFlee);
+            }
+            else
+            {
+                Debug.LogWarning("Fear Destinatoin not found");
             }
         }
     }

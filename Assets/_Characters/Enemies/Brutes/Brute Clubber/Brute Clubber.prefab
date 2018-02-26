@@ -2195,6 +2195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5182dfadbd26a4983545f22de1530b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 4
   animatorController: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
   animatorOverrideController: {fileID: 22100000, guid: a29d86ec3492f2640ae1a763a248f174,
     type: 2}
@@ -2368,7 +2369,6 @@ MonoBehaviour:
   patrolPath: {fileID: 0}
   waypointTolerance: 3
   waypointDwellTime: 0.5
-  layersToTarget: 0a0000000b000000
 --- !u!114 &114989840622155782
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -11,12 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db8f1ccfe7540343b437bda8de81041, type: 3}
   m_Name: L5 Battle Roar
   m_EditorClassIdentifier: 
-  staminaCost: 30
+  staminaCost: 35
   particlePrefab: {fileID: 1606462035129914, guid: e29d0f117493f4849ae907bb5188bbe2,
     type: 2}
   weaponTrail: {fileID: 0}
   audioClips:
-  - {fileID: 8300000, guid: b1ba006b9769640c39bac4c88e176f09, type: 3}
+  - {fileID: 8300000, guid: 879548901d701be43a67c05776e0a009, type: 3}
   abilityAnimation: {fileID: 0}
   level: 5
   radius: 8

@@ -74,20 +74,24 @@ namespace RPG.Characters
 
         public void StartFleeing(Vector3 destinationToSet, float timeToFlee)
         {
-            target = null;
-            StopAllCoroutines();
-            weaponSystem.SetTarget(null);
-            weaponSystem.StopAttacking();
-            state = State.fleeing;
-            StartCoroutine(Flee(destinationToSet, timeToFlee));
+            if (formationTransform == null)
+            {
+                StopAllCoroutines();
+                weaponSystem.SetTarget(null);
+                weaponSystem.StopAttacking();
+                state = State.fleeing;
+                StartCoroutine(Flee(destinationToSet, target.transform.position, timeToFlee));
+                target = null;
+            }
         }
 
-        private IEnumerator Flee(Vector3 destinationToSet, float timeToFlee)
+        private IEnumerator Flee(Vector3 destinationToSet, Vector3 returnDestination, float timeToFlee)
         {
             yield return new WaitForSeconds(0.5f);
             character.SetDestination(destinationToSet);
             yield return new WaitForSeconds(timeToFlee);
-            state = State.idle;
+            state = State.returning;
+            character.SetDestination(returnDestination);
         }
 
         private void Start()
