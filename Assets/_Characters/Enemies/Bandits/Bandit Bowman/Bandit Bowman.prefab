@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 224363396529670828}
   - component: {fileID: 222101846945613524}
   - component: {fileID: 114847164371930926}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,7 +666,7 @@ GameObject:
   - component: {fileID: 114128533980985706}
   - component: {fileID: 114687093598551658}
   - component: {fileID: 114324378698088226}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bandit Bowman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3035,7 +3035,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -6.1}
+  m_AnchoredPosition: {x: 0, y: -3}
   m_SizeDelta: {x: 20, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224698422530867016
@@ -3054,6 +3054,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.786}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 2.6}
+  m_SizeDelta: {x: 20, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}

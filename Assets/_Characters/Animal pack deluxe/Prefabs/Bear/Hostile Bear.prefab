@@ -1438,6 +1438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5182dfadbd26a4983545f22de1530b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 8
   animatorController: {fileID: 9100000, guid: 7eae18c682e3a744ba4f382720d82498, type: 2}
   animatorOverrideController: {fileID: 22100000, guid: 86d9a8e33893a5943877389b5a034b7b,
     type: 2}
@@ -1759,7 +1760,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -6.1}
+  m_AnchoredPosition: {x: 0, y: -3}
   m_SizeDelta: {x: 20, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224447586950243922
@@ -1778,6 +1779,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.91}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 2.757}
+  m_SizeDelta: {x: 20, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}

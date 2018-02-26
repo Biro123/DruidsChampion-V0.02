@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 4246501218744958}
   - component: {fileID: 33098690593527002}
   - component: {fileID: 23875416577214242}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BlackShield Buckler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 224498867522599492}
   - component: {fileID: 222433991490441626}
   - component: {fileID: 114132155044677650}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2233,7 +2233,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1482385840520280}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.0750885, y: 0, z: -22.03601}
+  m_LocalPosition: {x: -110.185425, y: 0, z: -170.5484}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 4165130917727786}
@@ -2524,7 +2524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 1
-  aggroDistance: 8
+  aggroDistance: 10
   patrolPath: {fileID: 0}
   waypointTolerance: 3
   waypointDwellTime: 0.5
@@ -3106,8 +3106,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.91}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 2.81}
+  m_SizeDelta: {x: 20, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224498867522599492
 RectTransform:
@@ -3124,6 +3124,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -6.1}
+  m_AnchoredPosition: {x: 0, y: -3}
   m_SizeDelta: {x: 20, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -52,6 +52,10 @@ namespace RPG.Characters
         public void SetIsEnemy(bool isEnemyToSet)
         {
             this.isEnemy = isEnemyToSet;
+            StopAllCoroutines();
+            weaponSystem.StopAttacking();
+            target = null;
+            weaponSystem.SetTarget(null);
         }
 
         public void SetFormationPosition(Formation formationToSet, Transform positionToSet)
@@ -73,7 +77,7 @@ namespace RPG.Characters
             return formation;
         }
 
-        public void StartFleeing(float timeToFlee, GameObject sourceOfFear = null)
+        public void StartFleeing(float timeToFlee, bool toReturn, GameObject sourceOfFear = null)
         {
             if (!fearDestinations) { return; }
             if (!sourceOfFear) { sourceOfFear = this.gameObject; }
@@ -85,18 +89,25 @@ namespace RPG.Characters
                 weaponSystem.SetTarget(null);
                 weaponSystem.StopAttacking();
                 state = State.fleeing;
-                StartCoroutine(Flee(selectedDestination, transform.position, timeToFlee));                
+                StartCoroutine(Flee(selectedDestination, transform.position, timeToFlee, toReturn));                
                 target = null;
             }
         }
 
-        private IEnumerator Flee(Vector3 destinationToSet, Vector3 returnDestination, float timeToFlee)
+        private IEnumerator Flee(Vector3 destinationToSet, Vector3 returnDestination, float timeToFlee, bool toReturn)
         {
             yield return new WaitForSeconds(0.5f);
             character.SetDestination(destinationToSet);
             yield return new WaitForSeconds(timeToFlee);
-            state = State.returning;
-            character.SetDestination(returnDestination);
+            if (toReturn)
+            {
+                state = State.returning;
+                character.SetDestination(returnDestination);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }            
         }
 
         private void Start()

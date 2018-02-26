@@ -10,12 +10,13 @@ namespace RPG.Characters
 
         PlayerControl playerControl;
         CombatantAI combatantAI;
+        Formation formation;
 
         // Use this for initialization
         void Start()
         {
             playerControl = FindObjectOfType<PlayerControl>();
-            combatantAI = GetComponent<CombatantAI>();
+            combatantAI = GetComponent<CombatantAI>();            
         }
 
         // Update is called once per frame
@@ -25,11 +26,34 @@ namespace RPG.Characters
             if (combatantAI.GetIsEnemy() == false) { return; }
 
             var distanceToPlayer = (this.transform.position - playerControl.transform.position).magnitude;
+            formation = combatantAI.GetFormation();
 
-            if (distanceToPlayer <= activateRange)
+            if (distanceToPlayer <= activateRange || IsInAlliedFormation())
             {
-                combatantAI.SetIsEnemy(false);
-            }            
+                combatantAI.SetIsEnemy(false);                
+            }
+            
+            if(distanceToPlayer <= activateRange && !IsInAlliedFormation())
+            {
+                SetFormationToAllied();
+            }
+        }
+
+        bool IsInAlliedFormation()
+        {
+            if (formation && !formation.GetIsEnemy() )
+            {
+                return true;
+            }
+            return false;
+        }
+
+        void SetFormationToAllied()
+        {
+            if (formation)
+            {
+                formation.SetIsEnemy(false);
+            }
         }
     }
 }

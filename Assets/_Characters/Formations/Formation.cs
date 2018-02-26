@@ -8,34 +8,44 @@ namespace RPG.Characters
 {
     public class Formation : MonoBehaviour
     {
-        [Header("Setup")]
-        [SerializeField] GameObject leaderPrefab;
+        [Header("General")]
         [SerializeField] CombatantAI[] troopers;
 
-        [Header("Formation Behaviour")]
         [Tooltip("Casualties Percent taken before fleeing")]
         [SerializeField] [Range(0f, 1f)] float morale = 0.5f;
 
-        [Tooltip("Distance from enemy to reform")]
-        [SerializeField] float reformDistance = 15f;
-        [SerializeField] int[] layersToTarget = { 10, 11 };
+        [Tooltip("Aggro distance of troopers while in formation")]
+        [SerializeField]float formationAggroDistance = 3f;    
 
-        [Header("Individual Troop settings")]
-        [Tooltip("Aggro distance while in formation")]
-        [SerializeField]float formationAggroDistance = 3f;
+        [Header("Initial Move")]
+        [SerializeField] Vector3 positionToMoveTo = Vector3.zero;
+        [SerializeField] float moveDelay = 3f;
+        [SerializeField] float distanceToStartMove = 10f;
 
         private Transform[] troopPositions;
-        private GameObject leader;
-        private int rankSize;
-        
+        private PlayerControl player;
+        private bool hasMovementTriggerred = false;
+        private bool isEnemy = true;   // Only used for allies
+
 
         public float GetFormationAggroDistance()
         {
             return formationAggroDistance;
         }
 
+        public bool GetIsEnemy()
+        {
+            return isEnemy;
+        }
+        public void SetIsEnemy(bool isEnemyToSet)
+        {
+            isEnemy = isEnemyToSet;
+            StopFormationAttacking();
+        }
+
         void Start()
         {
+            player = FindObjectOfType<PlayerControl>();
             troopPositions = GetComponentsInChildren<Transform>();
 
             if (troopers.Length > troopPositions.Length)
@@ -55,7 +65,6 @@ namespace RPG.Characters
                     currentCombatantAI.SetFormationPosition(this, currentTroopTransform);                  
                 }
             }
-            rankSize = (troopPositions.Length - 1) / 2;
         }
 
 
@@ -77,18 +86,30 @@ namespace RPG.Characters
 
             MoraleCheck();
 
+            if(positionToMoveTo != Vector3.zero && !hasMovementTriggerred)
+            {
+                MoveIfInRange();
+            }
+
             // Set the formation position and rotation of the formnation to that of the leader
             //transform.position = troopers[0].transform.position;
             //transform.rotation = troopers[0].transform.rotation;
+        }
 
-            //if (SafeToReform())
-            //{
-            //    Reform();
-            //}
-            //else
-            //{
-            //    FillGap();
-            //}
+        private void MoveIfInRange()
+        {
+            float distanceToPlayer = (transform.position - player.transform.position).magnitude;
+            if(distanceToPlayer <= distanceToStartMove)
+            {
+                hasMovementTriggerred = true;
+                StartCoroutine(MoveAfterDelay());
+            }
+        }
+
+        private IEnumerator MoveAfterDelay()
+        {
+            yield return new WaitForSeconds(moveDelay);
+            transform.position = positionToMoveTo;
         }
 
         private void MoraleCheck()
@@ -113,68 +134,20 @@ namespace RPG.Characters
                     {
                         if (UnityEngine.Random.Range(0f,1f) <= fleeChance*Time.deltaTime)
                         {
-                            survivingTrooper.StartFleeing(5f);  //TODO Magic Number time to flee
+                            survivingTrooper.StartFleeing(10f, false);  //TODO Magic Number time to flee
                         }
                     }
                 }
             }
-
         }
 
-        bool SafeToReform()
+        private void StopFormationAttacking()
         {
-            // Set up the layermask to check - ie. look for player or his allies.
-            int opponentLayerMask = 0;
-            foreach (var layer in layersToTarget)
+            foreach (var trooper in troopers)
             {
-                opponentLayerMask = opponentLayerMask | (1 << layer);
-            }
-
-            // See what are in range
-            Collider[] opponentsInRange = Physics.OverlapSphere(this.transform.position, reformDistance, opponentLayerMask);
-
-            if (opponentsInRange.Length == 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        void Reform()
-        {   //  When safe - reform to plug gaps and fill from front/centre
-            int j = 1;
-            for (int i = 1; i <= troopPositions.Length; i++) // Leader is always on index 0
-            {
-                if (troopers[j] != null)    // Trooper still alive
+                if (trooper)
                 {
-                    // Move last trooper to first, and set its target to that position
-                    troopers[i] = troopers[j];   // ensure index matches with position
-                    //troopers[i].GetComponent<Enemy>().SetOrder(UnitOrder.Reform, troopPositions[i]);
-                }
-                else
-                {
-                    i--;     // try same position again with next trooper
-                }
-                j++;
-                if (j >= troopers.Length) { break; };   // Exit if all troopers placed
-            }
-
-        }
-
-        public void FillGap()
-        {   // When opponents near, simply move from rear to front if there is a gap.
-            //if (row2Trooper == null) { return; }
-
-            // See if gap in front
-            for (int i = 1; i < rankSize; i++)
-            {
-                if (troopers[i] == null)
-                {
-                    if (troopers[i + rankSize] != null)
-                    { // if so, move from back
-                        troopers[i] = troopers[i + rankSize];   // ensure index matches with position
-                        //troopers[i].GetComponent<Enemy>().SetFormationPos(troopPositions[i]);
-                    }
+                    trooper.SetIsEnemy(false);
                 }
             }
         }

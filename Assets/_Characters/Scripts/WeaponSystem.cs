@@ -99,7 +99,9 @@ namespace RPG.Characters
         public void StopAttacking()
         {
             StopAllCoroutines();
-            animator.StopPlayback();            
+            animator.StopPlayback();
+            target = null;
+            targetHealthSystem = null;
         }
 
         public void SetTarget(GameObject targetToSet) 

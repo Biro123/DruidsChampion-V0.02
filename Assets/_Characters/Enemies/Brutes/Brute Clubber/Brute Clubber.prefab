@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 224448927097697694}
   - component: {fileID: 222321464570647260}
   - component: {fileID: 114612563289777852}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2013,8 +2013,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1374544487445980}
   m_LocalRotation: {x: -0, y: -0.55037767, z: -0, w: 0.8349159}
-  m_LocalPosition: {x: 9.21, y: 8.021278, z: -112.42}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalPosition: {x: -114.64882, y: 0, z: -170.25258}
+  m_LocalScale: {x: 1.2000005, y: 1.2, z: 1.2000005}
   m_Children:
   - {fileID: 4795518968399166}
   - {fileID: 224456470924943136}
@@ -2195,7 +2195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5182dfadbd26a4983545f22de1530b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 4
+  level: 6
   animatorController: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
   animatorOverrideController: {fileID: 22100000, guid: a29d86ec3492f2640ae1a763a248f174,
     type: 2}
@@ -2365,7 +2365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 1
-  aggroDistance: 8
+  aggroDistance: 10
   patrolPath: {fileID: 0}
   waypointTolerance: 3
   waypointDwellTime: 0.5
@@ -2897,7 +2897,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -6.1}
+  m_AnchoredPosition: {x: 0, y: -3}
   m_SizeDelta: {x: 20, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224456470924943136
@@ -2916,6 +2916,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.91}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 2.59}
+  m_SizeDelta: {x: 20, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}

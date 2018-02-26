@@ -1624,7 +1624,7 @@ GameObject:
   - component: {fileID: 4766049330906402}
   - component: {fileID: 33141781528260772}
   - component: {fileID: 23503857775138018}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: BlackShield S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2530,7 +2530,7 @@ GameObject:
   - component: {fileID: 224262042329741092}
   - component: {fileID: 222973925765119348}
   - component: {fileID: 114335074404390310}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4939,8 +4939,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1099889863005208}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3418274, y: 0, z: -23.107239}
+  m_LocalRotation: {x: -0, y: 0.41295296, z: -0, w: 0.9107524}
+  m_LocalPosition: {x: -164.60728, y: 0, z: -171.75745}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4361862595880304}
@@ -4949,7 +4949,7 @@ Transform:
   - {fileID: 4969342234081922}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 48.781002, z: 0}
 --- !u!4 &4872766845878358
 Transform:
   m_ObjectHideFlags: 1
@@ -5364,6 +5364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5182dfadbd26a4983545f22de1530b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 5
   animatorController: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
   animatorOverrideController: {fileID: 22100000, guid: cb2b5c576761a15469275b5aedd14c55,
     type: 2}
@@ -5511,7 +5512,6 @@ MonoBehaviour:
   patrolPath: {fileID: 0}
   waypointTolerance: 3
   waypointDwellTime: 0.5
-  layersToTarget: 0a0000000b000000
 --- !u!114 &114699497047841324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6743,7 +6743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -6.1}
+  m_AnchoredPosition: {x: 0, y: -3}
   m_SizeDelta: {x: 20, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224950960343525582
@@ -6762,6 +6762,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.91}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 2.706}
+  m_SizeDelta: {x: 20, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
