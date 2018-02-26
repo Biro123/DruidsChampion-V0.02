@@ -73,9 +73,10 @@ namespace RPG.Characters
             return formation;
         }
 
-        public void StartFleeing(GameObject sourceOfFear, float timeToFlee)
+        public void StartFleeing(float timeToFlee, GameObject sourceOfFear = null)
         {
             if (!fearDestinations) { return; }
+            if (!sourceOfFear) { sourceOfFear = this.gameObject; }
 
             Vector3 selectedDestination = fearDestinations.GetDestination(this.gameObject, sourceOfFear);
             if (selectedDestination != Vector3.zero )

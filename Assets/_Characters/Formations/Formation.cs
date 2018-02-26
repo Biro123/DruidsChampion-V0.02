@@ -111,9 +111,9 @@ namespace RPG.Characters
                 {
                     if (survivingTrooper)
                     {
-                        if (UnityEngine.Random.Range(0f,1f) <= fleeChance)
+                        if (UnityEngine.Random.Range(0f,1f) <= fleeChance*Time.deltaTime)
                         {
-                            //survivingTrooper.StartFleeing();
+                            survivingTrooper.StartFleeing(5f);  //TODO Magic Number time to flee
                         }
                     }
                 }

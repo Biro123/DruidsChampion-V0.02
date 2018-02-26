@@ -41,7 +41,7 @@ namespace RPG.Characters
                     float chanceToFear = (fearLevel + 0.5f - targetLevel)*2 / 10;
                     if (UnityEngine.Random.Range(0f, 1f) <= chanceToFear)
                     {
-                        colliderInRange.GetComponent<CombatantAI>().StartFleeing(this.gameObject, timeToFlee);                      
+                        colliderInRange.GetComponent<CombatantAI>().StartFleeing(timeToFlee, this.gameObject);                      
                     }
                 }
             }
