@@ -158,6 +158,17 @@ namespace RPG.Characters
             {
                 Gizmos.DrawSphere(troopPosition.position, 0.2f);
             }
+
+            Gizmos.color = Color.cyan;
+            if (positionToMoveTo != Vector3.zero)
+            {
+                foreach (Transform troopPosition in transform)
+                {
+                    Vector3 moveToPosition = positionToMoveTo - transform.position + troopPosition.position;
+                    Gizmos.DrawSphere(moveToPosition, 0.2f);
+                }
+                Gizmos.DrawWireSphere(transform.position, distanceToStartMove);
+            }
         }
     }
 }

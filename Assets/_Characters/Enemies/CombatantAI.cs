@@ -80,7 +80,14 @@ namespace RPG.Characters
         public void StartFleeing(float timeToFlee, bool toReturn, GameObject sourceOfFear = null)
         {
             if (!fearDestinations) { return; }
-            if (!sourceOfFear) { sourceOfFear = this.gameObject; }
+            if (!sourceOfFear)
+            {
+                sourceOfFear = FindTargetInRange(aggroDistance).gameObject;
+                if (!sourceOfFear)
+                {
+                    sourceOfFear = this.gameObject;
+                }
+            }
 
             Vector3 selectedDestination = fearDestinations.GetDestination(this.gameObject, sourceOfFear);
             if (selectedDestination != Vector3.zero )

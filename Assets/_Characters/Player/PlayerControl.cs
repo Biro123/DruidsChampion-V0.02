@@ -121,25 +121,29 @@ namespace RPG.Characters
 
         private void SetCurrentTarget(CombatantAI targetToSet)
         {
-            if (targetToSet)
-            {
-                currentTarget = targetToSet.gameObject;
-                var targetReticule = currentTarget.GetComponentInChildren<TargetReticle>();
-                if (targetReticule)
-                {
-                    targetReticule.SetReticule(true);
-                }
-            }
-
-            if (!targetToSet && currentTarget )
+            if (currentTarget && (!targetToSet || targetToSet.GetInstanceID() != currentTarget.GetInstanceID() ) )
             {
                 var targetReticule = currentTarget.GetComponentInChildren<TargetReticle>();
                 if (targetReticule)
                 {
                     targetReticule.SetReticule(false);
                 }
+            }
+
+            if (targetToSet)
+            {
+                var targetReticule = targetToSet.GetComponentInChildren<TargetReticle>();
+                if (targetReticule)
+                {
+                    targetReticule.SetReticule(true);
+                }
+                currentTarget = targetToSet.gameObject;
+            }
+            else
+            {
                 currentTarget = null;
             }
+
             weaponSystem.SetTarget(currentTarget);
         }
 

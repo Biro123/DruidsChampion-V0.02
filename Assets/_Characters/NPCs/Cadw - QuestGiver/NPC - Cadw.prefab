@@ -371,6 +371,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1172806627771882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4864434134377104}
+  - component: {fileID: 114536212739614890}
+  m_Layer: 0
+  m_Name: DialogueTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1186157109826754
 GameObject:
   m_ObjectHideFlags: 1
@@ -1586,6 +1602,7 @@ Transform:
   m_Children:
   - {fileID: 4696707033144280}
   - {fileID: 4606828171737334}
+  - {fileID: 4864434134377104}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2145,6 +2162,19 @@ Transform:
   m_Father: {fileID: 4793737649169352}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4864434134377104
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1172806627771882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4363264493440866}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4866033776137012
 Transform:
   m_ObjectHideFlags: 1
@@ -2310,11 +2340,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04e60e330f232df44a758cd84b3011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 0
   aggroDistance: 2
   patrolPath: {fileID: 0}
   waypointTolerance: 3
   waypointDwellTime: 5
-  layersToTarget: 0a0000000b000000
 --- !u!114 &114399490953119390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2326,6 +2356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5182dfadbd26a4983545f22de1530b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 5
   animatorController: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
   animatorOverrideController: {fileID: 22100000, guid: 8ba12b8788ed6524e979fb9614f0f241,
     type: 2}
@@ -2374,6 +2405,24 @@ MonoBehaviour:
   baseDamage: 150
   currentWeaponConfig: {fileID: 11400000, guid: 0f01aca0a2f00414285579087f19e614,
     type: 2}
+--- !u!114 &114536212739614890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1172806627771882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8fa915e9c2d06443821bebfdcc54ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBox: {fileID: 0}
+  textLinesToDisplay:
+  - HELP ME!
+  - There are raiders everywhere. Caric is in trouble at the logging camp.
+  displayTime: 2
+  triggerRadius: 7
+  isOneTimeOnly: 1
 --- !u!114 &114555164422880548
 MonoBehaviour:
   m_ObjectHideFlags: 1
