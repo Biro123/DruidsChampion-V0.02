@@ -22,6 +22,7 @@ namespace RPG.Characters
         float lastHitTime;
         bool attackerIsAlive;
         bool targetIsAlive;
+        bool isAttacking;
 
         const string ATTACK_TRIGGER = "Attack";
         const string DEFAULT_ATTACK = "DEFAULT ATTACK";
@@ -67,6 +68,13 @@ namespace RPG.Characters
             {
                 transform.LookAt(target.transform);
             }
+            else
+            {
+                if (isAttacking)
+                {
+                    StopAttacking();
+                }
+            }
         }
 
         public WeaponConfig GetCurrentWeapon()
@@ -102,6 +110,7 @@ namespace RPG.Characters
             animator.StopPlayback();
             target = null;
             targetHealthSystem = null;
+            isAttacking = false;
         }
 
         public void SetTarget(GameObject targetToSet) 
@@ -130,22 +139,36 @@ namespace RPG.Characters
 
         public void AttackTarget(GameObject targetToAttack)
         {
-            SetTarget(targetToAttack);         
-            StartCoroutine(AttackTargetRepeatedly());
+            SetTarget(targetToAttack);
+            if (!isAttacking)
+            {
+                float startDelay = 0f;
+                if (GetComponent<CombatantAI>()) // slightly delay start of enemy attacking
+                {
+                    startDelay = currentWeaponConfig.GetDamageDelay();
+                }
+                StartCoroutine(AttackTargetRepeatedly(startDelay));
+            }
         }
 
         public void SpecialAttack(GameObject targetToAttack, float attackAdj, float damageAdj, float armourAvoidAdj, AnimationClip specialAttackAnimation = null)
         {
             SetTarget(targetToAttack);
             AttackTargetOnce(attackAdj, damageAdj, armourAvoidAdj, specialAttackAnimation);
+
+            if (!isAttacking)
+            {
+                StartCoroutine(AttackTargetRepeatedly(specialAttackAnimation.length));
+            }
         }
 
 
-        IEnumerator AttackTargetRepeatedly()
+        IEnumerator AttackTargetRepeatedly(float startDelay)
         {
-            if(GetComponent<CombatantAI>())   // slightly delay start of enemy attacking
+            isAttacking = true;
+            if(startDelay != 0f)   
             {
-                yield return new WaitForSeconds(currentWeaponConfig.GetDamageDelay());
+                yield return new WaitForSeconds(startDelay);
             }
 
             while (attackerIsAlive && targetIsAlive)
@@ -164,7 +187,8 @@ namespace RPG.Characters
                     lastHitTime = Time.time;
                 }
                 yield return new WaitForSeconds(timeToWait);
-            }            
+            }
+            isAttacking = false;
         }
 
 
