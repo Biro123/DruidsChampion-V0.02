@@ -257,7 +257,7 @@ namespace RPG.Characters
         IEnumerator ChaseTarget()
         {
             state = State.chasing;
-            while(distanceToTarget >= currentWeaponRange )
+            while(target && distanceToTarget >= currentWeaponRange )
             {
                 character.SetDestination(target.position);
                 yield return new WaitForEndOfFrame();

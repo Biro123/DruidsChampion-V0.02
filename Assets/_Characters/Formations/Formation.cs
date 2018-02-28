@@ -127,14 +127,15 @@ namespace RPG.Characters
             float fleeChance = casualtyPercent - morale;
             if (fleeChance > 0f)
             {
-                print ("RunAway! " + fleeChance);
-                foreach (var survivingTrooper in troopers)
+                //foreach (var survivingTrooper in troopers)
+                for (int i = 0; i < troopers.Length; i++)
                 {
-                    if (survivingTrooper)
+                    if (troopers[i])
                     {
                         if (UnityEngine.Random.Range(0f,1f) <= fleeChance*Time.deltaTime)
                         {
-                            survivingTrooper.StartFleeing(10f, false);  //TODO Magic Number time to flee
+                            troopers[i].StartFleeing(10f, false);  //TODO Magic Number time to flee
+                            troopers[i] = null;
                         }
                     }
                 }

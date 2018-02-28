@@ -52,7 +52,6 @@ namespace RPG.CameraUI
 
             if (shouldBeTransparent)  // Fading Out
             {
-                Debug.Log("Fading Out");
                 if (transparency >= targetTransparency)
                 {
                     transparency -= ((1.0f - targetTransparency) * Time.deltaTime) / fallOff;

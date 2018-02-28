@@ -19,6 +19,18 @@ namespace RPG.Characters
             return remainingUses;
         }
 
+        public void AddMoreUses(int usesToAdd)
+        {
+            if (remainingUses + usesToAdd <= (config as FirstAidConfig).GetMaxUses())
+            {
+                remainingUses = remainingUses + usesToAdd;
+            }
+            else
+            {
+                remainingUses = (config as FirstAidConfig).GetMaxUses();
+            }
+        }
+
         private void Start()
         {
             player = GetComponent<PlayerControl>();

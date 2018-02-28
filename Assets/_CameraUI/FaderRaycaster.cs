@@ -56,7 +56,6 @@ namespace RPG.CameraUI
             Fader fader = hitRenderer.GetComponent<Fader>();
             if (fader == null) // fader script not attached to object hit
             {
-                Debug.Log("Adding Fader to: " + hitRenderer.gameObject.name);
                 fader = hitRenderer.gameObject.AddComponent<Fader>();
             }
             fader.BeTransparent();
