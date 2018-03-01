@@ -23,9 +23,12 @@ namespace RPG.Characters
         bool attackerIsAlive;
         bool targetIsAlive;
         bool isAttacking;
+        bool isBlocking;
 
         const string ATTACK_TRIGGER = "Attack";
+        const string BLOCK_TRIGGER = "Block";
         const string DEFAULT_ATTACK = "DEFAULT ATTACK";
+        const string BLOCK = "Unarmed-Block";
         const float ATTACK_RANGE_TOLERANCE = 0.5f;
 
         public float GetParryBonus() {  return parryBonus; }
@@ -102,6 +105,15 @@ namespace RPG.Characters
             Assert.AreNotEqual(numberOfDominantHands, 0, "No Dominant Hand on " + gameObject.name);
             Assert.IsFalse(numberOfDominantHands > 1, "Multiple Dominant Hands on " + gameObject.name);
             return dominantHands[0].gameObject;
+        }
+
+        public void Parry()
+        {
+            Debug.Log(gameObject + " blocked ");
+            animator.SetTrigger(BLOCK_TRIGGER);
+            var audioSource = GetComponent<AudioSource>();
+            audioSource.volume = UnityEngine.Random.Range(0.5f, 1f);
+            audioSource.PlayOneShot(currentWeaponConfig.GetParrySound());
         }
 
         public void StopAttacking()
@@ -205,7 +217,10 @@ namespace RPG.Characters
             }
             else
             {
-                StartCoroutine(HandleParryAfterDelay(damageDelay));
+                if (!isBlocking)
+                {
+                    StartCoroutine(HandleParryAfterDelay(damageDelay / 2f));  //TODO magic number
+                }
             }
         }
 
@@ -258,10 +273,11 @@ namespace RPG.Characters
 
         IEnumerator HandleParryAfterDelay(float delay)
         {
+            isBlocking = true;         
             yield return new WaitForSecondsRealtime(delay);
-            var audioSource = GetComponent<AudioSource>();
-            audioSource.volume = UnityEngine.Random.Range(0.5f, 1f);
-            audioSource.PlayOneShot(currentWeaponConfig.GetParrySound());
+            target.GetComponent<WeaponSystem>().Parry();
+            yield return new WaitForSecondsRealtime(delay);
+            isBlocking = false;
         }
 
         private float CalculateDamage(float damageAdj, float armourAvoidAdj, AnimationClip specialAttackAnimation)

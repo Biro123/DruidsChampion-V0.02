@@ -44,7 +44,7 @@ namespace RPG.Characters
             RemoveAnimationEvents();
             return thrustAnimation;
         }
-
+        
         public AudioClip GetParrySound()
         {
             return parrySounds[Random.Range(0, parrySounds.Length)];
@@ -91,7 +91,7 @@ namespace RPG.Characters
         private void RemoveAnimationEvents()
         {
             swingAnimation.events = new AnimationEvent[0];
-            thrustAnimation.events = new AnimationEvent[0];
+            thrustAnimation.events = new AnimationEvent[0];            
         }
     }
 }
