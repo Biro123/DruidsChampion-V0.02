@@ -22,6 +22,7 @@ namespace RPG.Characters
         float lastHitTime;
         bool attackerIsAlive;
         bool targetIsAlive;
+        bool targetInRange;
         bool isAttacking;
         bool isBlocking;
 
@@ -50,8 +51,6 @@ namespace RPG.Characters
 
         private void Update()
         {
-            bool targetInRange;
-
             attackerIsAlive = GetComponent<HealthSystem>().healthAsPercentage >= Mathf.Epsilon;
 
             if (target == null)
@@ -118,10 +117,8 @@ namespace RPG.Characters
 
         public void StopAttacking()
         {
-            StopAllCoroutines();
+            StopCoroutine("AttackTargetRepeatedly");
             animator.StopPlayback();
-            target = null;
-            targetHealthSystem = null;
             isAttacking = false;
         }
 
@@ -183,7 +180,7 @@ namespace RPG.Characters
                 yield return new WaitForSeconds(startDelay);
             }
 
-            while (attackerIsAlive && targetIsAlive)
+            while (attackerIsAlive && targetIsAlive && targetInRange)
             {
                 var animationClip = currentWeaponConfig.GetSwingAnimClip();
                 float animationClipTime = animationClip.length / character.GetAnimSpeedMultiplier();
@@ -219,7 +216,8 @@ namespace RPG.Characters
             {
                 if (!isBlocking)
                 {
-                    StartCoroutine(HandleParryAfterDelay(damageDelay / 2f));  //TODO magic number
+                    float blockDelay = damageDelay - 0.4f; //TODO magic number - should be on weapon maybe? Clamp?
+                    StartCoroutine(HandleParryAfterDelay(blockDelay));  
                 }
             }
         }
@@ -276,7 +274,7 @@ namespace RPG.Characters
             isBlocking = true;         
             yield return new WaitForSecondsRealtime(delay);
             target.GetComponent<WeaponSystem>().Parry();
-            yield return new WaitForSecondsRealtime(delay);
+            yield return new WaitForSecondsRealtime(0.5f);  //TODO another magic number.. time to finish block anim.. 
             isBlocking = false;
         }
 
