@@ -20,7 +20,7 @@ namespace RPG.Characters
         {
             if (!target) { return; }
 
-            GetComponent<WeaponSystem>().SpecialAttack(
+            GetComponent<OffenceSystem>().SpecialAttack(
                 target, 
                 (config as AimedShotConfig).GetAttackAdj(),
                 (config as AimedShotConfig).GetDamageAdj(),

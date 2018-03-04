@@ -9,7 +9,7 @@ namespace RPG.Characters
     {
         SpecialAbilities specialAbilities;
         Character character;
-        WeaponSystem weaponSystem;
+        OffenceSystem weaponSystem;
         GameObject currentTarget;
         bool isStrafing = false;
         int opponentLayerMask = 0;
@@ -20,7 +20,7 @@ namespace RPG.Characters
         {
             character = GetComponent<Character>();
             specialAbilities = GetComponent<SpecialAbilities>();
-            weaponSystem = GetComponent<WeaponSystem>();
+            weaponSystem = GetComponent<OffenceSystem>();
 
             opponentLayerMask = opponentLayerMask | (1 << COMBATANT_LAYER);
             RegisterForMouseEvents();
@@ -66,7 +66,7 @@ namespace RPG.Characters
                     isStrafing = false;
                     if (currentTarget && IsInRange(currentTarget))
                     {
-                        weaponSystem.AttackTarget(currentTarget);
+                        weaponSystem.StartAttackingTarget(currentTarget);
                     }
                 }
             }
@@ -102,7 +102,7 @@ namespace RPG.Characters
 
             if (Input.GetMouseButton(0) && IsInRange(enemy.gameObject))
             {
-                weaponSystem.AttackTarget(enemy.gameObject);
+                weaponSystem.StartAttackingTarget(enemy.gameObject);
             }
             else if (Input.GetMouseButton(0) && ! IsInRange(enemy.gameObject))
             {
@@ -162,14 +162,14 @@ namespace RPG.Characters
         IEnumerator MoveAndAttack (GameObject target)
         {
             yield return StartCoroutine(MoveToTarget(target));
-            weaponSystem.AttackTarget(target.gameObject);
+            weaponSystem.StartAttackingTarget(target.gameObject);
         }
 
         IEnumerator MoveAndSpecial (int specialAbilityIndex, GameObject target)
         {
             yield return StartCoroutine(MoveToTarget(target));
             specialAbilities.AttemptSpecialAbility(specialAbilityIndex, target.gameObject);
-            weaponSystem.AttackTarget(target.gameObject);
+            weaponSystem.StartAttackingTarget(target.gameObject);
         }
               
         private bool IsInRange(GameObject target)

@@ -5,42 +5,38 @@ using UnityEngine.Assertions;
 
 namespace RPG.Characters
 {
-    public class WeaponSystem : MonoBehaviour
+    public class OffenceSystem : MonoBehaviour
     {
         [SerializeField] float attackBonus = 100f;
-        [SerializeField] float parryBonus = 110f;
         [SerializeField] float baseDamage = 220f;
         [SerializeField] WeaponConfig currentWeaponConfig;
+
+        DefenceSystem targetDefenceSystem;
+        GlobalCombatConfig globalCombatConfig;
 
         GameObject target;
         HealthSystem targetHealthSystem;
         GameObject weaponObject;
         Animator animator;
         Character character;
-        GlobalCombatConfig globalCombatConfig;
-
+        
         float lastHitTime;
         bool attackerIsAlive;
         bool targetIsAlive;
         bool targetInRange;
         bool isAttacking;
-        bool isBlocking;
-
+        
         const string ATTACK_TRIGGER = "Attack";
-        const string BLOCK_TRIGGER = "Block";
         const string DEFAULT_ATTACK = "DEFAULT ATTACK";
-        const string BLOCK = "Unarmed-Block";
         const float ATTACK_RANGE_TOLERANCE = 0.5f;
-
-        public float GetParryBonus() {  return parryBonus; }
-
+        
         void Start()
         {
             animator = GetComponent<Animator>();
             character = GetComponent<Character>();
-            globalCombatConfig = FindObjectOfType<GlobalCombatConfig>();
 
-            if(!globalCombatConfig)
+            globalCombatConfig = FindObjectOfType<GlobalCombatConfig>();
+            if (!globalCombatConfig)
             {
                 Debug.LogError("Global Combat Config missing from scene");
             }
@@ -61,7 +57,6 @@ namespace RPG.Characters
             else
             {
                 targetIsAlive = targetHealthSystem.healthAsPercentage >= Mathf.Epsilon;
-
                 float distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
                 targetInRange = (distanceToTarget <= currentWeaponConfig.GetAttackRange() + ATTACK_RANGE_TOLERANCE); 
             }
@@ -105,16 +100,7 @@ namespace RPG.Characters
             Assert.IsFalse(numberOfDominantHands > 1, "Multiple Dominant Hands on " + gameObject.name);
             return dominantHands[0].gameObject;
         }
-
-        public void Parry()
-        {
-            Debug.Log(gameObject + " blocked ");
-            animator.SetTrigger(BLOCK_TRIGGER);
-            var audioSource = GetComponent<AudioSource>();
-            audioSource.volume = UnityEngine.Random.Range(0.5f, 1f);
-            audioSource.PlayOneShot(currentWeaponConfig.GetParrySound());
-        }
-
+        
         public void StopAttacking()
         {
             StopCoroutine("AttackTargetRepeatedly");
@@ -129,10 +115,12 @@ namespace RPG.Characters
             if (target)
             {
                 targetHealthSystem = target.GetComponent<HealthSystem>();
+                targetDefenceSystem = target.GetComponent<DefenceSystem>();
             }
             else
             {
                 targetHealthSystem = null;
+                targetDefenceSystem = null;
                 StopAttacking();
             }
         }
@@ -142,11 +130,11 @@ namespace RPG.Characters
             if (target && target != targetToSet)
             {
                 StopAllCoroutines();
-                AttackTarget(targetToSet);
+                StartAttackingTarget(targetToSet);
             }
         }
 
-        public void AttackTarget(GameObject targetToAttack)
+        public void StartAttackingTarget(GameObject targetToAttack)
         {
             SetTarget(targetToAttack);
             if (!isAttacking)
@@ -170,7 +158,6 @@ namespace RPG.Characters
                 StartCoroutine(AttackTargetRepeatedly(specialAttackAnimation.length));
             }
         }
-
 
         IEnumerator AttackTargetRepeatedly(float startDelay)
         {
@@ -200,133 +187,57 @@ namespace RPG.Characters
             isAttacking = false;
         }
 
-
         private void AttackTargetOnce(float attackAdj = 0f, float damageAdj = 0f, float armourAvoidAdj = 0f, AnimationClip specialAttackAnimation = null)
         {
-            if (targetHealthSystem == null || !targetIsAlive) { return; }            
-            
-            float damageDelay = currentWeaponConfig.GetDamageDelay();
-            float damageDone = CalculateDamage(damageAdj, armourAvoidAdj, specialAttackAnimation);
-            animator.SetTrigger(ATTACK_TRIGGER);
-            if (TryToHit(attackAdj) == true)
-            {
-                StartCoroutine(DamageAfterDelay(damageDone, damageDelay));
-            }
-            else
-            {
-                if (!isBlocking)
-                {
-                    float blockDelay = damageDelay - 0.4f; //TODO magic number - should be on weapon maybe? Clamp?
-                    StartCoroutine(HandleParryAfterDelay(blockDelay));  
-                }
-            }
-        }
+            if (!targetHealthSystem || !targetDefenceSystem || !targetIsAlive) { return; }
 
-        private bool TryToHit(float attackAdj)
-        {
+            float bladeDamageDone, bluntDamageDone, pierceDamageDone;
             float attackScore = UnityEngine.Random.Range(1, 100) + attackBonus + attackAdj;
 
-            float defenceBonus = target.GetComponent<WeaponSystem>().GetParryBonus();
-            float adjustedDefenceBonus = AdjustForAttackDirection(defenceBonus);
-            float defenceScore = UnityEngine.Random.Range(1, 100) + adjustedDefenceBonus;
-            
-            if(attackScore > defenceScore)
+            if (UnityEngine.Random.Range(0f, 1f) <= currentWeaponConfig.GetChanceForSwing())
             {
-                return true;
+                SetAttackAnimation( currentWeaponConfig.GetSwingAnimClip() );
+                bluntDamageDone = (baseDamage + damageAdj) * currentWeaponConfig.GetBluntDamageModification();
+                bladeDamageDone = (baseDamage + damageAdj) * currentWeaponConfig.GetBladeDamageModification();
+                pierceDamageDone = 0f;
             }
             else
             {
-                return false;
+                SetAttackAnimation( currentWeaponConfig.GetThrustAnimClip() );
+                bluntDamageDone = 0f;
+                bladeDamageDone = 0f;
+                pierceDamageDone = (baseDamage + damageAdj) * currentWeaponConfig.GetPierceDamageModification();
             }
-        }
+            if (specialAttackAnimation)
+            {
+                SetAttackAnimation(specialAttackAnimation);
+            }
 
-        private float AdjustForAttackDirection(float defenceBonus)
+            animator.SetTrigger(ATTACK_TRIGGER);
+
+            // Main call to Defence System
+            targetDefenceSystem.DefendAgainstAttack(
+                attackScore,
+                FindDirectionDefencePenalty(),
+                bluntDamageDone, 
+                bladeDamageDone,
+                pierceDamageDone,
+                armourAvoidAdj,
+                currentWeaponConfig.GetDamageDelay()
+                );  
+        }        
+
+        private float FindDirectionDefencePenalty()
         {
             Vector3 targetDir = transform.position - target.transform.position;
             float angleTargetAttackedFrom = Vector3.Angle(targetDir, target.transform.forward);
-            float defencePenalty = 0f;
 
             if (angleTargetAttackedFrom <= 45)
-            {
-                defencePenalty = 0f;
-            }
+            { return 0f; }
             else if (angleTargetAttackedFrom <= 135)
-            {
-                defencePenalty = globalCombatConfig.GetSideDefencePenalty;
-            }
-            else 
-            {
-                defencePenalty = globalCombatConfig.GetRearDefencePenalty;
-            }
-
-            float adjustedDefence = defenceBonus * (1 - defencePenalty);
-            return adjustedDefence;
-        }
-
-        IEnumerator DamageAfterDelay (float damage, float delay)
-        {
-            yield return new WaitForSecondsRealtime(delay);
-            targetHealthSystem.AdjustHealth(damage);
-        }
-
-        IEnumerator HandleParryAfterDelay(float delay)
-        {
-            isBlocking = true;         
-            yield return new WaitForSecondsRealtime(delay);
-            target.GetComponent<WeaponSystem>().Parry();
-            yield return new WaitForSecondsRealtime(0.5f);  //TODO another magic number.. time to finish block anim.. 
-            isBlocking = false;
-        }
-
-        private float CalculateDamage(float damageAdj, float armourAvoidAdj, AnimationClip specialAttackAnimation)
-        {
-            float damageDone = 0f;
-            AnimationClip animationToSet; 
-            ArmourSystem.ArmourProtection targetArmour = new ArmourSystem.ArmourProtection();
-            ArmourSystem targetArmourSystem = target.GetComponent<ArmourSystem>();
-            if (targetArmourSystem)
-            {
-                targetArmour = targetArmourSystem.CalculateArmour(armourAvoidAdj);
-            }
-            
-            if (UnityEngine.Random.Range(0f, 1f) <= currentWeaponConfig.GetChanceForSwing())
-            {
-                animationToSet = currentWeaponConfig.GetSwingAnimClip();
-                damageDone =  CalculateSwingDamage(targetArmour, damageAdj);
-            }
+            { return globalCombatConfig.GetSideDefencePenalty; }
             else
-            {
-                animationToSet = currentWeaponConfig.GetThrustAnimClip();
-                damageDone = CalculateThrustDamage(targetArmour, damageAdj);
-            }
-
-            if (specialAttackAnimation)
-            {
-                animationToSet = specialAttackAnimation;
-            }
-
-            SetAttackAnimation(animationToSet);
-            return damageDone;
-        }
-
-        private float CalculateSwingDamage(ArmourSystem.ArmourProtection targetArmour, float damageAdj)
-        {
-            float bluntDamageDone = (baseDamage+ damageAdj) * currentWeaponConfig.GetBluntDamageModification();
-            float bluntDamageTaken = Mathf.Clamp(bluntDamageDone - targetArmour.blunt, 0f, bluntDamageDone);
-
-            float bladeDamageDone = (baseDamage + damageAdj) * currentWeaponConfig.GetBladeDamageModification();
-            float bladeDamageTaken = Mathf.Clamp(bladeDamageDone - targetArmour.blade, 0f, bladeDamageDone);
-
-            // Debug.Log(Time.time + " Swing Dmg on " + target + ": " + bladeDamageTaken + " Blade, " + bluntDamageTaken + " Blunt." );
-            return bluntDamageTaken + bladeDamageTaken;
-        }
-        
-        private float CalculateThrustDamage(ArmourSystem.ArmourProtection targetArmour, float damageAdj)
-        {
-            float pierceDamageDone = (baseDamage + damageAdj) * currentWeaponConfig.GetPierceDamageModification();
-            float pierceDamageTaken = Mathf.Clamp(pierceDamageDone - targetArmour.pierce, 0f, pierceDamageDone);
-            // Debug.Log(Time.time + "Pierce Dmg on " + target + ": " + pierceDamageTaken);
-            return pierceDamageTaken;
+            { return globalCombatConfig.GetRearDefencePenalty; }
         }
 
         private void SetAttackAnimation(AnimationClip weaponAnimation)

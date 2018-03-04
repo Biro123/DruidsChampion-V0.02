@@ -51,7 +51,7 @@ namespace RPG.Characters
             if (other.GetComponent<PlayerControl>() && !isPickedUp)
             {
                 isPickedUp = true;
-                other.GetComponent<WeaponSystem>().PutWeaponInHand(weaponConfig);
+                other.GetComponent<OffenceSystem>().PutWeaponInHand(weaponConfig);
                 audioSource.clip = pickupSFX;
                 audioSource.Play();
                 Destroy(gameObject, audioSource.clip.length);

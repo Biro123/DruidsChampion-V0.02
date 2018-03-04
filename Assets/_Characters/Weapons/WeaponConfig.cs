@@ -5,23 +5,26 @@ namespace RPG.Characters
 {
     [CreateAssetMenu(menuName = ("RPG/Weapon"))]
     public class WeaponConfig : ScriptableObject
-    {
-
-        public Transform gripTransform;
-
+    {        
+        [Header("Setup")]
         [SerializeField] GameObject weaponPrefab;
         [SerializeField] AnimationClip swingAnimation;
         [SerializeField] AnimationClip thrustAnimation;
         [SerializeField] AnimatorOverrideController weaponSpecificAnimations;
         [SerializeField] AudioClip[] parrySounds;
-        [Range(0.1f, 1.2f)] [SerializeField] float quality = 0.8f;
-        [Range(0.1f, 1.0f)] [SerializeField] float condition = 0.8f;
         [SerializeField] float timeBetweenAnimationCycles = 1f;
         [SerializeField] float damageDelay = 0.5f;
+        [SerializeField] float blockDelay = 0.3f;
         [SerializeField] float attackRange = 2f;
+
+        [Header("Stats")]
+        [Range(0.1f, 1.2f)] [SerializeField] float quality = 0.8f;
+        [Range(0.1f, 1.0f)] [SerializeField] float condition = 0.8f;
         [Range(0f, 2.0f)] [SerializeField] float bladeDamageModifier = 0.5f;
         [Range(0f, 2.0f)] [SerializeField] float bluntDamageModifier = 0.5f;
         [Range(0f, 2.0f)] [SerializeField] float pierceDamageModifier = 0.5f;
+
+        public Transform gripTransform;
 
         public AnimatorOverrideController GetWeaponSpecificAnimations()
         {
@@ -48,6 +51,11 @@ namespace RPG.Characters
         public AudioClip GetParrySound()
         {
             return parrySounds[Random.Range(0, parrySounds.Length)];
+        }
+
+        public float GetBlockDelay()
+        {
+            return blockDelay;
         }
 
         public float GetTimeBetweenAnimationCycles()

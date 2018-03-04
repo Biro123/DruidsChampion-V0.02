@@ -172,7 +172,7 @@ namespace RPG.Characters
 
         public AnimatorOverrideController GetAnimatorOverrideController()
         {
-            var weapon = GetComponent<WeaponSystem>().GetCurrentWeapon();
+            var weapon = GetComponent<OffenceSystem>().GetCurrentWeapon();
             var weaponSpecificAnimationOverrides = weapon.GetWeaponSpecificAnimations();
             if(weaponSpecificAnimationOverrides)
             {

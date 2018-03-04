@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RPG.Characters
 {
     [RequireComponent(typeof(Character))]
-    [RequireComponent(typeof(WeaponSystem))]
+    [RequireComponent(typeof(OffenceSystem))]
     [RequireComponent(typeof(HealthSystem))]
     public class CombatantAI : MonoBehaviour
     {
@@ -25,7 +25,7 @@ namespace RPG.Characters
 
         Character character;
         Transform target = null;
-        WeaponSystem weaponSystem;
+        OffenceSystem weaponSystem;
         Vector3 nextWaypointPos;
         FearDestinations fearDestinations;
         int opponentLayerMask = 0;
@@ -120,7 +120,7 @@ namespace RPG.Characters
         private void Start()
         {
             character = GetComponent<Character>();
-            weaponSystem = GetComponent<WeaponSystem>();
+            weaponSystem = GetComponent<OffenceSystem>();
             fearDestinations = FindObjectOfType<FearDestinations>();
             currentWeaponRange = weaponSystem.GetCurrentWeapon().GetAttackRange();
   
@@ -193,7 +193,7 @@ namespace RPG.Characters
                     StopAllCoroutines();
                     state = State.attacking;
                     character.SetDestination(transform.position);
-                    weaponSystem.AttackTarget(target.gameObject);
+                    weaponSystem.StartAttackingTarget(target.gameObject);
                 }
             }
         }

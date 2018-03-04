@@ -11,8 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
   m_Name: Wooden Club
   m_EditorClassIdentifier: 
-  gripTransform: {fileID: 4689537459407266, guid: 0ea8322622c42cf4a8ed187640c56b8c,
-    type: 2}
   weaponPrefab: {fileID: 1285728164963844, guid: 1553fff436c6751408196999c04fd91a,
     type: 2}
   swingAnimation: {fileID: 7400000, guid: 158f3770cb63f864e9917904a4c1c9f1, type: 3}
@@ -22,11 +20,14 @@ MonoBehaviour:
   parrySounds:
   - {fileID: 8300000, guid: 2bc8225a23eb945578cfd49d8ba0dd67, type: 3}
   - {fileID: 8300000, guid: 5ca1c7b56e224434ca2a97b9c64f4e08, type: 3}
-  quality: 0.8
-  condition: 0.8
   timeBetweenAnimationCycles: 0.6
   damageDelay: 0.75
+  blockDelay: 0.5
   attackRange: 3.2
+  quality: 0.8
+  condition: 0.8
   bladeDamageModifier: 0
   bluntDamageModifier: 0.91
   pierceDamageModifier: 0
+  gripTransform: {fileID: 4689537459407266, guid: 0ea8322622c42cf4a8ed187640c56b8c,
+    type: 2}
