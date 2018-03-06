@@ -36,6 +36,8 @@ namespace RPG.Characters
 
         private void Update()
         {
+            if (!isActiveAndEnabled) { return; }
+
             ScanForAbilityKeyDown();
             ScanForStrafeKey();
         }
@@ -85,6 +87,8 @@ namespace RPG.Characters
 
         private void OnMouseOverWalkable(Vector3 targetLocation)
         {
+            if(!isActiveAndEnabled) { return; }
+
             if (Input.GetMouseButton(0))
             {
                 StopAllCoroutines();
@@ -95,6 +99,8 @@ namespace RPG.Characters
 
         private void OnMouseOverEnemy(CombatantAI enemy)
         {
+            if (!isActiveAndEnabled) { return; }
+
             if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             {
                 SetCurrentTarget(enemy);
