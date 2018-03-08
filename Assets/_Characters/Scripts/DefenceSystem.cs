@@ -51,10 +51,11 @@ namespace RPG.Characters
             float armourAvoidAdj,
             float damageDelay)
         {
-            if (TryToHit(attackScore, defencePenaly) == true)
+            if (SeeIfHit(attackScore, defencePenaly) == true)
             {
                 float damageTaken = AdjustDamageForArmour(bluntDamageDone, bladeDamageDone, pierceDamageDone, armourAvoidAdj);
                 StartCoroutine(TakeDamageAfterDelay(damageTaken, damageDelay));
+                print(Time.time + gameObject.name + " Takes Hit for " + damageTaken + " dmg delay " + damageDelay);
             }
             else
             {
@@ -64,6 +65,11 @@ namespace RPG.Characters
                     float BlockDelay = offenceSystem.GetCurrentWeapon().GetBlockDelay();
                     float blockDelay = Mathf.Clamp(damageDelay - BlockDelay, 0f, 1f);
                     StartCoroutine(HandleBlockAfterDelay(blockDelay));
+                    print(Time.time + gameObject.name + " Blocks - blockdelay =  " + blockDelay);
+                }
+                else
+                {
+                    print(Time.time + gameObject.name + " already blocking"); 
                 }
             }
         }
@@ -82,35 +88,34 @@ namespace RPG.Characters
 
         IEnumerator TakeDamageAfterDelay(float damage, float delay)
         {
-            yield return new WaitForSecondsRealtime(delay);
+            yield return new WaitForSeconds(delay);
             healthSystem.AdjustHealth(damage);
         }
 
-        private bool TryToHit(float attackScore, float defencePenalty)
+        private bool SeeIfHit(float attackScore, float defencePenalty)
         {
             //defencePenalty is a percentage directional penalty.
             float adjustedDefence = blockBonus * (1 - defencePenalty);
-            float defenceScore = UnityEngine.Random.Range(1, 100) + adjustedDefence; 
+            float defenceScore = UnityEngine.Random.Range(1, 100) + adjustedDefence;
+            print(Time.time + gameObject.name + " attack: " + attackScore + "  defence: " + defenceScore);
             return (attackScore > defenceScore);
         }
         
         IEnumerator HandleBlockAfterDelay(float delay)
         {
             isBlocking = true;
-            yield return new WaitForSecondsRealtime(delay);
+            yield return new WaitForSeconds(delay);
             Block();
-            yield return new WaitForSecondsRealtime(0.5f);  //TODO another magic number.. time to finish block anim.. 
+            yield return new WaitForSeconds(0.5f);  //TODO another magic number.. time to finish block anim.. 
             isBlocking = false;
         }
 
         void Block()
         {
-            Debug.Log(gameObject + " blocked ");
             animator.SetTrigger(BLOCK_TRIGGER);            
             audioSource.volume = UnityEngine.Random.Range(0.5f, 1f);
             audioSource.PlayOneShot(offenceSystem.GetCurrentWeapon().GetParrySound());
         }
-
 
         private ArmourProtection CalculateArmour(float armourAvoidAdj)
         {

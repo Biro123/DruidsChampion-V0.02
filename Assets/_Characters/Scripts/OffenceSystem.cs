@@ -214,6 +214,8 @@ namespace RPG.Characters
             }
 
             animator.SetTrigger(ATTACK_TRIGGER);
+            var displayDmgDone = bluntDamageDone + bladeDamageDone + pierceDamageDone;
+            print(Time.time + gameObject.name + " Attacks for " + displayDmgDone + " dmg delay " + currentWeaponConfig.GetDamageDelay());
 
             // Main call to Defence System
             targetDefenceSystem.DefendAgainstAttack(
