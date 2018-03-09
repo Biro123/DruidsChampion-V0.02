@@ -7,6 +7,8 @@ namespace RPG.Characters
 {
     public class PlayerControl : MonoBehaviour
     {
+        [SerializeField] float targetClickTolerance = 2f;
+
         SpecialAbilities specialAbilities;
         Character character;
         OffenceSystem weaponSystem;
@@ -89,18 +91,35 @@ namespace RPG.Characters
         {
             if(!isActiveAndEnabled) { return; }
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             {
-                StopAllCoroutines();
-                SetCurrentTarget(null);
-                character.SetDestination(targetLocation);                
+                Transform nearestTargetToClick = FindTargetInRange(targetLocation, targetClickTolerance);
+                if (nearestTargetToClick) // click on ground close to target
+                {
+                    HandleActionOnEnemy(nearestTargetToClick.GetComponent<CombatantAI>());
+                }
+                else
+                {
+                    if (Input.GetMouseButton(0)) // click on ground
+                    {
+                        StopAllCoroutines();
+                        SetCurrentTarget(null);
+                        character.SetDestination(targetLocation);
+                    }
+                }
             }
-        }
+        } 
 
         private void OnMouseOverEnemy(CombatantAI enemy)
         {
-            if (!isActiveAndEnabled) { return; }
+            if (isActiveAndEnabled)
+            {
+                HandleActionOnEnemy(enemy);
+            }
+        }
 
+        private void HandleActionOnEnemy(CombatantAI enemy)
+        {
             if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             {
                 SetCurrentTarget(enemy);
@@ -110,7 +129,7 @@ namespace RPG.Characters
             {
                 weaponSystem.StartAttackingTarget(enemy.gameObject);
             }
-            else if (Input.GetMouseButton(0) && ! IsInRange(enemy.gameObject))
+            else if (Input.GetMouseButton(0) && !IsInRange(enemy.gameObject))
             {
                 StartCoroutine(MoveAndAttack(enemy.gameObject));
             }
@@ -199,6 +218,34 @@ namespace RPG.Characters
                 }
             }
             return true;
+        }
+
+        private Transform FindTargetInRange(Vector3 clickLocation, float aggroRange)
+        {
+            // See what are in range
+            Collider[] opponentsInRange = Physics.OverlapSphere(clickLocation, aggroRange, opponentLayerMask);
+            if (opponentsInRange.Length == 0) { return null; }
+
+            // Find closest in range
+            float closestRange = 0;
+            Collider closestTarget = null;
+            foreach (var opponentInRange in opponentsInRange)
+            {
+                var opponentCombatantAI = opponentInRange.GetComponent<CombatantAI>();
+                if (opponentCombatantAI && opponentCombatantAI.GetIsEnemy())
+                {
+                    float currentRange = (clickLocation - opponentInRange.transform.position).magnitude;
+                    if (closestTarget == null || currentRange < closestRange)
+                    {
+                        closestTarget = opponentInRange;
+                        closestRange = currentRange;
+                    }
+                }
+            }
+            if (closestTarget)
+            { return closestTarget.transform; }
+            else
+            { return null; }
         }
     }
 }
