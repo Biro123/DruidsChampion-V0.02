@@ -16,7 +16,7 @@ namespace RPG.Characters
         [SerializeField] float bluntArmourAmount = 20f;
         [SerializeField] float pierceArmourAmount = 20f;
 
-        public float GetArmourCoverage() { return armourCoverage; }
+        public float GetArmourCoverage() { return armourCoverage * condition; }
         public float GetBladeArmourAmount() { return bladeArmourAmount * quality * condition; }
         public float GetBluntArmourAmount() { return bluntArmourAmount * quality * condition; }
         public float GetPierceArmourAmount() { return pierceArmourAmount * quality * condition; }

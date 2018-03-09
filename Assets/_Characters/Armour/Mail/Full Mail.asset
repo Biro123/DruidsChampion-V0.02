@@ -9,11 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f405bf07106c8514da37c6f5f7c940c5, type: 3}
-  m_Name: CuirBoulli
+  m_Name: Full Mail
   m_EditorClassIdentifier: 
   quality: 0.8
-  condition: 0.8
-  armourCoverage: 0.5
-  bladeArmourAmount: 30
-  bluntArmourAmount: 30
-  pierceArmourAmount: 40
+  condition: 1
+  armourCoverage: 0.9
+  bladeArmourAmount: 140
+  bluntArmourAmount: 20
+  pierceArmourAmount: 80

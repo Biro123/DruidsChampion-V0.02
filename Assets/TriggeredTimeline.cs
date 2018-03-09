@@ -34,7 +34,7 @@ namespace RPG.CameraUI
 
         private void OnTriggerEnter(Collider other)
         {
-            print("Timeline Trigger enter " + timeline.name);
+            print("Timeline Trigger enter " + other.name);
             if (other.gameObject.tag == "Player")
             {
                 timeline.Play();

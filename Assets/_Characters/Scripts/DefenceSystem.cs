@@ -21,6 +21,7 @@ namespace RPG.Characters
         AudioSource audioSource;
 
         bool isBlocking;
+        string displayHitLocation;
 
         const string BLOCK_TRIGGER = "Block";
 
@@ -83,6 +84,11 @@ namespace RPG.Characters
             float bladeDamageTaken = Mathf.Clamp(bladeDamageDone - armour.blade, 0f, bladeDamageDone);
             float pierceDamageTaken = Mathf.Clamp(pierceDamageDone - armour.pierce, 0f, pierceDamageDone);
 
+            Debug.Log(name + "'s" + displayHitLocation + "is hit for: "
+                + " Blunt " + bluntDamageTaken + "(-" + armour.blunt
+                + "), Blade " + bladeDamageTaken + "(-" + armour.blade
+                + "), Pierce " + pierceDamageTaken + "(-" + armour.pierce
+                + ")");
             return bluntDamageTaken + bladeDamageTaken + pierceDamageTaken;
         }
 
@@ -137,10 +143,22 @@ namespace RPG.Characters
         {
             var randomLocation = UnityEngine.Random.Range(0, 100);
 
-            if (randomLocation <= 20) { return headArmourConfig; }
-            else if (randomLocation <= 70) { return bodyArmourConfig; }
-            else if (randomLocation <= 90) { return armArmourConfig; }
-            else { return legArmourConfig; }
+            if (randomLocation <= 20) {
+                displayHitLocation = " head ";
+                return headArmourConfig;
+            }
+            else if (randomLocation <= 70) {
+                displayHitLocation = " body ";
+                return bodyArmourConfig;
+            }
+            else if (randomLocation <= 90) {
+                displayHitLocation = " arm ";
+                return armArmourConfig;
+            }
+            else {
+                displayHitLocation = " leg ";
+                return legArmourConfig;
+            }
         }
 
         private bool IsArmourHit(float armourAvoidAdj)

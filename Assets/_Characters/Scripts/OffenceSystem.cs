@@ -20,7 +20,6 @@ namespace RPG.Characters
         Animator animator;
         Character character;
         
-        float lastHitTime;
         bool attackerIsAlive;
         bool targetIsAlive;
         bool targetInRange;
@@ -179,8 +178,8 @@ namespace RPG.Characters
                     //* (1f + UnityEngine.Random.Range(-0.3f, 0.3f));
                 float timeToWait = animationClipTime + randomDelay;
 
-                if (GetComponent<PlayerControl>())
-                    print(Time.time + " delay: " + timeToWait);
+                //if (GetComponent<PlayerControl>())
+                //    print(Time.time + " delay: " + timeToWait);
 
                 yield return new WaitForSeconds(timeToWait);
             }
@@ -228,7 +227,6 @@ namespace RPG.Characters
                 armourAvoidAdj,
                 currentWeaponConfig.GetDamageDelay()
                 );
-            lastHitTime = Time.time;
         }        
 
         private float FindDirectionDefencePenalty()
