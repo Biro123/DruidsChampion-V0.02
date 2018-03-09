@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 1660783077893030, guid: 2de75bc6c366ef24d8f8f04cb29d285c,
     type: 2}
-  swingAnimation: {fileID: 7400000, guid: f0f38438b1a0602489d98f902699342b, type: 3}
+  swingAnimation: {fileID: 7400000, guid: 82d5b5f0c15f39540a67037f33d533b1, type: 3}
   thrustAnimation: {fileID: 7400000, guid: 3aaa6d549252f264ea45cedd218a92b8, type: 3}
   weaponSpecificAnimations: {fileID: 22100000, guid: c1c7a2e0f1ae0004cae422b5de3e06dc,
     type: 2}
@@ -21,13 +21,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7661b6c846dac48939a7917d8eb1b51c, type: 3}
   - {fileID: 8300000, guid: 5ca1c7b56e224434ca2a97b9c64f4e08, type: 3}
   - {fileID: 8300000, guid: b545b02783556493f811f82471c00734, type: 3}
-  timeBetweenAnimationCycles: 0.1
+  timeBetweenAnimationCycles: 0
   damageDelay: 0.9
   blockDelay: 0.2
   attackRange: 4
   quality: 0.7
   condition: 0.6
-  bladeDamageModifier: 0.4
+  bladeDamageModifier: 0.5
   bluntDamageModifier: 0.3
   pierceDamageModifier: 1.2
   gripTransform: {fileID: 4917214913903806, guid: cf1e98735fb9c3b48ac0bfb606ce25e1,

@@ -55,7 +55,7 @@ namespace RPG.Characters
             {
                 float damageTaken = AdjustDamageForArmour(bluntDamageDone, bladeDamageDone, pierceDamageDone, armourAvoidAdj);
                 StartCoroutine(TakeDamageAfterDelay(damageTaken, damageDelay));
-                print(Time.time + gameObject.name + " Takes Hit for " + damageTaken + " dmg delay " + damageDelay);
+                //print(Time.time + gameObject.name + " Takes Hit for " + damageTaken + " dmg delay " + damageDelay);
             }
             else
             {
@@ -65,11 +65,11 @@ namespace RPG.Characters
                     float BlockDelay = offenceSystem.GetCurrentWeapon().GetBlockDelay();
                     float blockDelay = Mathf.Clamp(damageDelay - BlockDelay, 0f, 1f);
                     StartCoroutine(HandleBlockAfterDelay(blockDelay));
-                    print(Time.time + gameObject.name + " Blocks - blockdelay =  " + blockDelay);
+                    //print(Time.time + gameObject.name + " Blocks - blockdelay =  " + blockDelay);
                 }
                 else
                 {
-                    print(Time.time + gameObject.name + " already blocking"); 
+                    //print(Time.time + gameObject.name + " already blocking"); 
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace RPG.Characters
             //defencePenalty is a percentage directional penalty.
             float adjustedDefence = blockBonus * (1 - defencePenalty);
             float defenceScore = UnityEngine.Random.Range(1, 100) + adjustedDefence;
-            print(Time.time + gameObject.name + " attack: " + attackScore + "  defence: " + defenceScore);
+            //print(Time.time + gameObject.name + " attack: " + attackScore + "  defence: " + defenceScore);
             return (attackScore > defenceScore);
         }
         

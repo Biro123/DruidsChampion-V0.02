@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ca1c7b56e224434ca2a97b9c64f4e08, type: 3}
   - {fileID: 8300000, guid: b545b02783556493f811f82471c00734, type: 3}
   - {fileID: 8300000, guid: 2bc8225a23eb945578cfd49d8ba0dd67, type: 3}
-  timeBetweenAnimationCycles: 0.5
+  timeBetweenAnimationCycles: 0.83
   damageDelay: 0.45
   blockDelay: 0.3
   attackRange: 2.8

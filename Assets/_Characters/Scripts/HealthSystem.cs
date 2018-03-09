@@ -78,7 +78,7 @@ namespace RPG.Characters
 
         private void ReduceHealth(float damage)
         {
-            print(Time.time + gameObject.name + " taking damage now: " + damage);
+            //print(Time.time + gameObject.name + " taking damage now: " + damage);
             currentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
             if (damage <= 0) { return; }  // don't play sound if being healed.
 

@@ -161,6 +161,8 @@ namespace RPG.Characters
 
         IEnumerator AttackTargetRepeatedly(float startDelay)
         {
+            if (GetComponent<PlayerControl>())
+                print(Time.time + " starting attack repeatedly");
             isAttacking = true;
             if(startDelay != 0f)   
             {
@@ -169,19 +171,17 @@ namespace RPG.Characters
 
             while (attackerIsAlive && targetIsAlive && targetInRange)
             {
+                AttackTargetOnce();
+
                 var animationClip = currentWeaponConfig.GetSwingAnimClip();
                 float animationClipTime = animationClip.length / character.GetAnimSpeedMultiplier();
-                float randomDelay = currentWeaponConfig.GetTimeBetweenAnimationCycles() 
-                    * (1f + UnityEngine.Random.Range(-0.5f, 0.5f));
+                float randomDelay = currentWeaponConfig.GetTimeBetweenAnimationCycles();  // TODO re-add random
+                    //* (1f + UnityEngine.Random.Range(-0.3f, 0.3f));
                 float timeToWait = animationClipTime + randomDelay;
 
-                bool isTimeToHit = Time.time - lastHitTime > timeToWait;
+                if (GetComponent<PlayerControl>())
+                    print(Time.time + " delay: " + timeToWait);
 
-                if(isTimeToHit)
-                {
-                    AttackTargetOnce();
-                    lastHitTime = Time.time;
-                }
                 yield return new WaitForSeconds(timeToWait);
             }
             isAttacking = false;
@@ -214,8 +214,9 @@ namespace RPG.Characters
             }
 
             animator.SetTrigger(ATTACK_TRIGGER);
+
             var displayDmgDone = bluntDamageDone + bladeDamageDone + pierceDamageDone;
-            print(Time.time + gameObject.name + " Attacks for " + displayDmgDone + " dmg delay " + currentWeaponConfig.GetDamageDelay());
+            //print(Time.time + gameObject.name + " Attacks for " + displayDmgDone + " dmg delay " + currentWeaponConfig.GetDamageDelay());
 
             // Main call to Defence System
             targetDefenceSystem.DefendAgainstAttack(
@@ -226,7 +227,8 @@ namespace RPG.Characters
                 pierceDamageDone,
                 armourAvoidAdj,
                 currentWeaponConfig.GetDamageDelay()
-                );  
+                );
+            lastHitTime = Time.time;
         }        
 
         private float FindDirectionDefencePenalty()
