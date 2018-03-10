@@ -46,19 +46,7 @@ namespace RPG.Characters
 
         private void Update()
         {
-            attackerIsAlive = GetComponent<HealthSystem>().healthAsPercentage >= Mathf.Epsilon;
-
-            if (target == null)
-            {
-                targetIsAlive = false;
-                targetInRange = false;
-            }
-            else
-            {
-                targetIsAlive = targetHealthSystem.healthAsPercentage >= Mathf.Epsilon;
-                float distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
-                targetInRange = (distanceToTarget <= currentWeaponConfig.GetAttackRange() + ATTACK_RANGE_TOLERANCE); 
-            }
+            SetAttackerAndTargetState();
 
             if (target && attackerIsAlive && targetInRange)
             {
@@ -70,6 +58,23 @@ namespace RPG.Characters
                 {
                     StopAttacking();
                 }
+            }
+        }
+
+        private void SetAttackerAndTargetState()
+        {
+            attackerIsAlive = GetComponent<HealthSystem>().healthAsPercentage >= Mathf.Epsilon;
+
+            if (target == null)
+            {
+                targetIsAlive = false;
+                targetInRange = false;
+            }
+            else
+            {
+                targetIsAlive = targetHealthSystem.healthAsPercentage >= Mathf.Epsilon;
+                float distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
+                targetInRange = (distanceToTarget <= currentWeaponConfig.GetAttackRange() + ATTACK_RANGE_TOLERANCE);
             }
         }
 
@@ -114,7 +119,7 @@ namespace RPG.Characters
             if (target)
             {
                 targetHealthSystem = target.GetComponent<HealthSystem>();
-                targetDefenceSystem = target.GetComponent<DefenceSystem>();
+                targetDefenceSystem = target.GetComponent<DefenceSystem>();                
             }
             else
             {
@@ -122,12 +127,14 @@ namespace RPG.Characters
                 targetDefenceSystem = null;
                 StopAttacking();
             }
+            SetAttackerAndTargetState();
         }
 
         public void ChangeTarget(GameObject targetToSet)
         {
             if (target && target != targetToSet)
             {
+                isAttacking = false;
                 StopAllCoroutines();
                 StartAttackingTarget(targetToSet);
             }
@@ -135,6 +142,7 @@ namespace RPG.Characters
 
         public void StartAttackingTarget(GameObject targetToAttack)
         {
+            print(name + " starting to attack " + targetToAttack.name);
             SetTarget(targetToAttack);
             if (!isAttacking)
             {
@@ -160,16 +168,17 @@ namespace RPG.Characters
 
         IEnumerator AttackTargetRepeatedly(float startDelay)
         {
-            if (GetComponent<PlayerControl>())
-                print(Time.time + " starting attack repeatedly");
+            print(Time.time + " " + name + " starting attackrepeatedly coroutine " + startDelay);
             isAttacking = true;
             if(startDelay != 0f)   
             {
+                print(Time.time + " " + name + " delaying start " + startDelay);
                 yield return new WaitForSeconds(startDelay);
             }
-
+            print(Time.time + " " + name + " starting while " + attackerIsAlive + targetIsAlive + targetInRange);
             while (attackerIsAlive && targetIsAlive && targetInRange)
             {
+                print(Time.time + " " + name + " about to attack once " + startDelay);
                 AttackTargetOnce();
 
                 var animationClip = currentWeaponConfig.GetSwingAnimClip();
@@ -183,6 +192,7 @@ namespace RPG.Characters
 
                 yield return new WaitForSeconds(timeToWait);
             }
+            print(Time.time + " " + name + " end while " );
             isAttacking = false;
         }
 

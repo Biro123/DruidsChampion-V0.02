@@ -25,7 +25,7 @@ namespace RPG.Characters
 
         Character character;
         Transform target = null;
-        OffenceSystem weaponSystem;
+        OffenceSystem offenceSystem;
         Vector3 nextWaypointPos;
         FearDestinations fearDestinations;
         int opponentLayerMask = 0;
@@ -53,9 +53,9 @@ namespace RPG.Characters
         {
             this.isEnemy = isEnemyToSet;
             StopAllCoroutines();
-            weaponSystem.StopAttacking();
+            offenceSystem.StopAttacking();
             target = null;
-            weaponSystem.SetTarget(null);
+            offenceSystem.SetTarget(null);
         }
 
         public void SetFormationPosition(Formation formationToSet, Transform positionToSet)
@@ -93,8 +93,8 @@ namespace RPG.Characters
             if (selectedDestination != Vector3.zero )
             {
                 StopAllCoroutines();
-                weaponSystem.SetTarget(null);
-                weaponSystem.StopAttacking();
+                offenceSystem.SetTarget(null);
+                offenceSystem.StopAttacking();
                 state = State.fleeing;
                 StartCoroutine(Flee(selectedDestination, transform.position, timeToFlee, toReturn));                
                 target = null;
@@ -120,9 +120,9 @@ namespace RPG.Characters
         private void Start()
         {
             character = GetComponent<Character>();
-            weaponSystem = GetComponent<OffenceSystem>();
+            offenceSystem = GetComponent<OffenceSystem>();
             fearDestinations = FindObjectOfType<FearDestinations>();
-            currentWeaponRange = weaponSystem.GetCurrentWeapon().GetAttackRange();
+            currentWeaponRange = offenceSystem.GetCurrentWeapon().GetAttackRange();
   
             opponentLayerMask = opponentLayerMask | (1 << COMBATANT_LAYER);
         }
@@ -177,7 +177,7 @@ namespace RPG.Characters
                 if (state != State.chasing)
                 {
                     StopAllCoroutines();
-                    weaponSystem.StopAttacking();
+                    offenceSystem.StopAttacking();
                     StartCoroutine(ChaseTarget());
                 }
             }
@@ -186,14 +186,14 @@ namespace RPG.Characters
             {
                 if (state == State.attacking)
                 {
-                    weaponSystem.ChangeTarget(target.gameObject); // handle target swap from ally to enemy
+                    offenceSystem.ChangeTarget(target.gameObject); // handle target swap from ally to enemy
                 }
                 else
                 {
                     StopAllCoroutines();
                     state = State.attacking;
                     character.SetDestination(transform.position);
-                    weaponSystem.StartAttackingTarget(target.gameObject);
+                    offenceSystem.StartAttackingTarget(target.gameObject);
                 }
             }
         }
@@ -203,7 +203,7 @@ namespace RPG.Characters
             if (patrolPath && state != State.patrolling)
             {
                 StopAllCoroutines();
-                weaponSystem.StopAttacking();
+                offenceSystem.StopAttacking();
                 StartCoroutine(Patrol());
             }
             else if (formation)
