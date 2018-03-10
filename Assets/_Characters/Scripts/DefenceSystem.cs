@@ -84,11 +84,11 @@ namespace RPG.Characters
             float bladeDamageTaken = Mathf.Clamp(bladeDamageDone - armour.blade, 0f, bladeDamageDone);
             float pierceDamageTaken = Mathf.Clamp(pierceDamageDone - armour.pierce, 0f, pierceDamageDone);
 
-            Debug.Log(name + "'s" + displayHitLocation + "is hit for: "
-                + " Blunt " + bluntDamageTaken + "(-" + armour.blunt
-                + "), Blade " + bladeDamageTaken + "(-" + armour.blade
-                + "), Pierce " + pierceDamageTaken + "(-" + armour.pierce
-                + ")");
+            //Debug.Log(Time.time + " " + name + "'s" + displayHitLocation + "is hit for: "
+            //    + " Blunt " + bluntDamageTaken + "(-" + armour.blunt
+            //    + "), Blade " + bladeDamageTaken + "(-" + armour.blade
+            //    + "), Pierce " + pierceDamageTaken + "(-" + armour.pierce
+            //    + ")");
             return bluntDamageTaken + bladeDamageTaken + pierceDamageTaken;
         }
 
@@ -118,9 +118,13 @@ namespace RPG.Characters
 
         void Block()
         {
-            animator.SetTrigger(BLOCK_TRIGGER);            
-            audioSource.volume = UnityEngine.Random.Range(0.5f, 1f);
-            audioSource.PlayOneShot(offenceSystem.GetCurrentWeapon().GetParrySound());
+            var blockSound = offenceSystem.GetCurrentWeapon().GetParrySound();
+            if (blockSound)
+            {
+                animator.SetTrigger(BLOCK_TRIGGER);
+                audioSource.volume = UnityEngine.Random.Range(0.5f, 1f);
+                audioSource.PlayOneShot(blockSound);
+            }
         }
 
         private ArmourProtection CalculateArmour(float armourAvoidAdj)

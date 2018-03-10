@@ -11,21 +11,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
   m_Name: BearClaw
   m_EditorClassIdentifier: 
-  gripTransform: {fileID: 4917214913903806, guid: eec8393306b8bfa4590e947a1316e8de,
-    type: 2}
   weaponPrefab: {fileID: 1059373861044202, guid: eec8393306b8bfa4590e947a1316e8de,
     type: 2}
   swingAnimation: {fileID: 7400000, guid: f0de5c62a6c14df4c946f81e4cee9a01, type: 3}
   thrustAnimation: {fileID: 7400000, guid: f0de5c62a6c14df4c946f81e4cee9a01, type: 3}
   weaponSpecificAnimations: {fileID: 22100000, guid: 86d9a8e33893a5943877389b5a034b7b,
     type: 2}
-  parrySounds:
-  - {fileID: 8300000, guid: 34aca9e3f1ade4802b9062b1380aa523, type: 3}
+  parrySounds: []
+  timeBetweenAnimationCycles: 2
+  damageDelay: 0.8
+  blockDelay: 0.15
+  attackRange: 3
   quality: 1
   condition: 1
-  timeBetweenAnimationCycles: 0.6
-  damageDelay: 0.5
-  attackRange: 3
   bladeDamageModifier: 0.5
   bluntDamageModifier: 0.5
   pierceDamageModifier: 0
+  gripTransform: {fileID: 4917214913903806, guid: eec8393306b8bfa4590e947a1316e8de,
+    type: 2}

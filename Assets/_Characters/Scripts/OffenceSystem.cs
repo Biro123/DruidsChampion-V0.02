@@ -139,7 +139,7 @@ namespace RPG.Characters
             if (!isAttacking)
             {
                 float startDelay = 0f;
-                if (GetComponent<CombatantAI>()) // slightly delay start of enemy attacking
+                if (GetComponent<CombatantAI>() && GetComponent<CombatantAI>().GetIsEnemy()) // slightly delay start of enemy attacking
                 {
                     startDelay = currentWeaponConfig.GetDamageDelay();
                 }
@@ -178,8 +178,8 @@ namespace RPG.Characters
                     //* (1f + UnityEngine.Random.Range(-0.3f, 0.3f));
                 float timeToWait = animationClipTime + randomDelay;
 
-                //if (GetComponent<PlayerControl>())
-                //    print(Time.time + " delay: " + timeToWait);
+                if (GetComponent<PlayerControl>())
+                    print(Time.time + " " + name + " delay: " + timeToWait);
 
                 yield return new WaitForSeconds(timeToWait);
             }

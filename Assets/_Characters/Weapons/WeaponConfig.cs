@@ -50,7 +50,14 @@ namespace RPG.Characters
         
         public AudioClip GetParrySound()
         {
-            return parrySounds[Random.Range(0, parrySounds.Length)];
+            if (parrySounds.Length > 0)
+            {
+                return parrySounds[Random.Range(0, parrySounds.Length)];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public float GetBlockDelay()

@@ -1037,7 +1037,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1579087591703866}
   m_LocalRotation: {x: -0, y: 0.81629294, z: -0, w: 0.57763815}
-  m_LocalPosition: {x: -9.51, y: 7.99, z: -206}
+  m_LocalPosition: {x: 59.907104, y: 8.002197, z: -232.3536}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224447586950243922}
@@ -1526,10 +1526,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f251b285f08d6140bd193582adc46c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 1000
+  maxHealthPoints: 800
   healthBar: {fileID: 114915164298555110}
   deathVanishSeconds: 5
-  hitSounds: []
+  hitSounds:
+  - {fileID: 8300000, guid: 3b705a5057e634935b26c379f520fce2, type: 3}
   deathSounds:
   - {fileID: 8300000, guid: 3b705a5057e634935b26c379f520fce2, type: 3}
   bloodSpurtPrefab: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc,
@@ -1561,10 +1562,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockBonus: 40
-  headArmourConfig: {fileID: 0}
-  bodyArmourConfig: {fileID: 0}
-  armArmourConfig: {fileID: 0}
-  legArmourConfig: {fileID: 0}
+  headArmourConfig: {fileID: 11400000, guid: 4e773ab2a4f6a82498773463f443bfa9, type: 2}
+  bodyArmourConfig: {fileID: 11400000, guid: 4e773ab2a4f6a82498773463f443bfa9, type: 2}
+  armArmourConfig: {fileID: 11400000, guid: 4e773ab2a4f6a82498773463f443bfa9, type: 2}
+  legArmourConfig: {fileID: 11400000, guid: 4e773ab2a4f6a82498773463f443bfa9, type: 2}
 --- !u!114 &114915164298555110
 MonoBehaviour:
   m_ObjectHideFlags: 1
