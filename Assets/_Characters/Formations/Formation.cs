@@ -27,6 +27,8 @@ namespace RPG.Characters
         private bool hasMovementTriggerred = false;
         private bool isEnemy = true;   // Only used for allies
 
+        const float TIME_TO_FLEE = 10f;
+
 
         public float GetFormationAggroDistance()
         {
@@ -134,7 +136,7 @@ namespace RPG.Characters
                     {
                         if (UnityEngine.Random.Range(0f,1f) <= fleeChance*Time.deltaTime)
                         {
-                            troopers[i].StartFleeing(10f, false);  //TODO Magic Number time to flee
+                            troopers[i].StartFleeing(TIME_TO_FLEE, false);  
                             troopers[i] = null;
                         }
                     }

@@ -24,6 +24,7 @@ namespace RPG.Characters
         string displayHitLocation;
 
         const string BLOCK_TRIGGER = "Block";
+        const float BLOCK_TIME = 0.5f;
 
         public struct ArmourProtection
         {
@@ -63,8 +64,8 @@ namespace RPG.Characters
                 if (!isBlocking)
                 {
                     //blockDelay should relate to the animation time of the weapon used to block 
-                    float BlockDelay = offenceSystem.GetCurrentWeapon().GetBlockDelay();
-                    float blockDelay = Mathf.Clamp(damageDelay - BlockDelay, 0f, 1f);
+                    float weaponBlockDelay = offenceSystem.GetCurrentWeapon().GetBlockDelay();
+                    float blockDelay = Mathf.Clamp(damageDelay - weaponBlockDelay, 0f, 1f);
                     StartCoroutine(HandleBlockAfterDelay(blockDelay));
                     //print(Time.time + gameObject.name + " Blocks - blockdelay =  " + blockDelay);
                 }
@@ -112,13 +113,13 @@ namespace RPG.Characters
             isBlocking = true;
             yield return new WaitForSeconds(delay);
             Block();
-            yield return new WaitForSeconds(0.5f);  //TODO another magic number.. time to finish block anim.. 
+            yield return new WaitForSeconds(BLOCK_TIME);  
             isBlocking = false;
         }
 
         void Block()
         {
-            var blockSound = offenceSystem.GetCurrentWeapon().GetParrySound();
+            var blockSound = offenceSystem.GetCurrentWeapon().GetParrySound();  // Gets random sound each time
             if (blockSound)
             {
                 animator.SetTrigger(BLOCK_TRIGGER);

@@ -19,6 +19,18 @@ namespace RPG.Characters
         GameObject weaponObject;
         Animator animator;
         Character character;
+        CombatantAI combatantAI;
+
+        // Weapon Stats
+        float attackRange;
+        float damageDelay;
+        float timeBetweenAnimationCycles;
+        float chanceForSwing;
+        float bluntDamageModification;
+        float bladeDamageModification;
+        float pierceDamageModification;
+        AnimationClip swingAnimationClip;
+        AnimationClip thrustAnimationClip;
         
         bool attackerIsAlive;
         bool targetIsAlive;
@@ -33,6 +45,7 @@ namespace RPG.Characters
         {
             animator = GetComponent<Animator>();
             character = GetComponent<Character>();
+            combatantAI = GetComponent<CombatantAI>();
 
             globalCombatConfig = FindObjectOfType<GlobalCombatConfig>();
             if (!globalCombatConfig)
@@ -40,8 +53,21 @@ namespace RPG.Characters
                 Debug.LogError("Global Combat Config missing from scene");
             }
 
-            PutWeaponInHand(currentWeaponConfig);
+            PutWeaponInHand(currentWeaponConfig);                     
             SetAttackAnimation(currentWeaponConfig.GetSwingAnimClip());   // TODO sets starting animation override - including movement
+        }
+
+        private void GetWeaponStats(WeaponConfig weaponConfig)
+        {
+            attackRange = weaponConfig.GetAttackRange();
+            damageDelay = weaponConfig.GetDamageDelay();
+            timeBetweenAnimationCycles = weaponConfig.GetTimeBetweenAnimationCycles();
+            chanceForSwing = weaponConfig.GetChanceForSwing();
+            bluntDamageModification = weaponConfig.GetBluntDamageModification();
+            bladeDamageModification = weaponConfig.GetBladeDamageModification();
+            pierceDamageModification = weaponConfig.GetPierceDamageModification();
+            swingAnimationClip = weaponConfig.GetSwingAnimClip();
+            thrustAnimationClip = weaponConfig.GetThrustAnimClip();
         }
 
         private void Update()
@@ -74,7 +100,7 @@ namespace RPG.Characters
             {
                 targetIsAlive = targetHealthSystem.healthAsPercentage >= Mathf.Epsilon;
                 float distanceToTarget = Vector3.Distance(this.transform.position, target.transform.position);
-                targetInRange = (distanceToTarget <= currentWeaponConfig.GetAttackRange() + ATTACK_RANGE_TOLERANCE);
+                targetInRange = (distanceToTarget <= attackRange + ATTACK_RANGE_TOLERANCE);
             }
         }
 
@@ -92,6 +118,7 @@ namespace RPG.Characters
             weaponObject = Instantiate(weaponPrefab, dominantHand.transform);
             weaponObject.transform.localPosition = currentWeaponConfig.gripTransform.localPosition;
             weaponObject.transform.localRotation = currentWeaponConfig.gripTransform.localRotation;
+            GetWeaponStats(currentWeaponConfig);
         }
 
         private GameObject RequestDominantHand()
@@ -142,14 +169,13 @@ namespace RPG.Characters
 
         public void StartAttackingTarget(GameObject targetToAttack)
         {
-            print(name + " starting to attack " + targetToAttack.name);
             SetTarget(targetToAttack);
             if (!isAttacking)
             {
                 float startDelay = 0f;
-                if (GetComponent<CombatantAI>() && GetComponent<CombatantAI>().GetIsEnemy()) // slightly delay start of enemy attacking
+                if (combatantAI && combatantAI.GetIsEnemy()) // slightly delay start of enemy attacking
                 {
-                    startDelay = currentWeaponConfig.GetDamageDelay();
+                    startDelay = damageDelay;
                 }
                 StartCoroutine(AttackTargetRepeatedly(startDelay));
             }
@@ -168,31 +194,23 @@ namespace RPG.Characters
 
         IEnumerator AttackTargetRepeatedly(float startDelay)
         {
-            print(Time.time + " " + name + " starting attackrepeatedly coroutine " + startDelay);
             isAttacking = true;
             if(startDelay != 0f)   
             {
-                print(Time.time + " " + name + " delaying start " + startDelay);
                 yield return new WaitForSeconds(startDelay);
             }
-            print(Time.time + " " + name + " starting while " + attackerIsAlive + targetIsAlive + targetInRange);
+
             while (attackerIsAlive && targetIsAlive && targetInRange)
             {
-                print(Time.time + " " + name + " about to attack once " + startDelay);
                 AttackTargetOnce();
 
-                var animationClip = currentWeaponConfig.GetSwingAnimClip();
-                float animationClipTime = animationClip.length / character.GetAnimSpeedMultiplier();
-                float randomDelay = currentWeaponConfig.GetTimeBetweenAnimationCycles();  // TODO re-add random
+                float animationClipTime = swingAnimationClip.length / character.GetAnimSpeedMultiplier();
+                float randomDelay = timeBetweenAnimationCycles;  // TODO re-add random
                     //* (1f + UnityEngine.Random.Range(-0.3f, 0.3f));
                 float timeToWait = animationClipTime + randomDelay;
 
-                if (GetComponent<PlayerControl>())
-                    print(Time.time + " " + name + " delay: " + timeToWait);
-
                 yield return new WaitForSeconds(timeToWait);
             }
-            print(Time.time + " " + name + " end while " );
             isAttacking = false;
         }
 
@@ -203,19 +221,19 @@ namespace RPG.Characters
             float bladeDamageDone, bluntDamageDone, pierceDamageDone;
             float attackScore = UnityEngine.Random.Range(1, 100) + attackBonus + attackAdj;
 
-            if (UnityEngine.Random.Range(0f, 1f) <= currentWeaponConfig.GetChanceForSwing())
+            if (UnityEngine.Random.Range(0f, 1f) <= chanceForSwing)
             {
-                SetAttackAnimation( currentWeaponConfig.GetSwingAnimClip() );
-                bluntDamageDone = (baseDamage + damageAdj) * currentWeaponConfig.GetBluntDamageModification();
-                bladeDamageDone = (baseDamage + damageAdj) * currentWeaponConfig.GetBladeDamageModification();
+                SetAttackAnimation(swingAnimationClip);
+                bluntDamageDone = (baseDamage + damageAdj) * bluntDamageModification;
+                bladeDamageDone = (baseDamage + damageAdj) * bladeDamageModification;
                 pierceDamageDone = 0f;
             }
             else
             {
-                SetAttackAnimation( currentWeaponConfig.GetThrustAnimClip() );
+                SetAttackAnimation(thrustAnimationClip);
                 bluntDamageDone = 0f;
                 bladeDamageDone = 0f;
-                pierceDamageDone = (baseDamage + damageAdj) * currentWeaponConfig.GetPierceDamageModification();
+                pierceDamageDone = (baseDamage + damageAdj) * pierceDamageModification;
             }
             if (specialAttackAnimation)
             {
@@ -235,7 +253,7 @@ namespace RPG.Characters
                 bladeDamageDone,
                 pierceDamageDone,
                 armourAvoidAdj,
-                currentWeaponConfig.GetDamageDelay()
+                damageDelay
                 );
         }        
 
