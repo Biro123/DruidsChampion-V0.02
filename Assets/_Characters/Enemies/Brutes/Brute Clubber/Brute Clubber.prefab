@@ -2205,8 +2205,8 @@ MonoBehaviour:
   colliderCentre: {x: 0, y: 0.9, z: 0}
   colliderRadius: 0.8
   colliderHeight: 1.8
-  moveSpeedMultiplier: 0.7
-  animationSpeedMultiplier: 0.8
+  moveSpeedMultiplier: 0.8
+  animationSpeedMultiplier: 1
   movingTurnSpeed: 270
   stationaryTurnSpeed: 180
   navMeshAgentSteeringSpeed: 1.2

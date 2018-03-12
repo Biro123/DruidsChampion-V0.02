@@ -110,6 +110,27 @@ namespace RPG.Characters
             weaponObject.transform.localRotation = currentWeaponConfig.gripTransform.localRotation;
             GetWeaponStats(currentWeaponConfig);
             SetWeaponAnimations();
+
+            if (animatorOverrideController[DEFAULT_THRUST_ATTACK])
+            {
+                float thrustAnimClipTime = animatorOverrideController[DEFAULT_THRUST_ATTACK].length
+                    / character.GetAnimSpeedMultiplier();
+                if (thrustAnimClipTime > timeBetweenAttacks)
+                {
+                    print(weaponObject.name + " timeBetweenAttacks < thrust anim time (" + thrustAnimClipTime + ")");
+
+                }
+            }
+
+            if (animatorOverrideController[DEFAULT_SWING_ATTACK])
+            {
+                float swingAnimClipTime = animatorOverrideController[DEFAULT_SWING_ATTACK].length
+                    / character.GetAnimSpeedMultiplier();
+                if (swingAnimClipTime > timeBetweenAttacks)
+                {
+                    print(weaponObject.name + " timeBetweenAttacks < swing anim time (" + swingAnimClipTime + ")");
+                }
+            }
         }
 
         private void SetWeaponAnimations()
@@ -154,7 +175,7 @@ namespace RPG.Characters
             chanceForSwing = weaponConfig.GetChanceForSwing();
             bluntDamageModification = weaponConfig.GetBluntDamageModification();
             bladeDamageModification = weaponConfig.GetBladeDamageModification();
-            pierceDamageModification = weaponConfig.GetPierceDamageModification();
+            pierceDamageModification = weaponConfig.GetPierceDamageModification();     
         }
 
         public void StopAttacking()

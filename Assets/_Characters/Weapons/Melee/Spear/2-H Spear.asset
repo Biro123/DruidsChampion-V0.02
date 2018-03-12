@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7661b6c846dac48939a7917d8eb1b51c, type: 3}
   - {fileID: 8300000, guid: 5ca1c7b56e224434ca2a97b9c64f4e08, type: 3}
   - {fileID: 8300000, guid: b545b02783556493f811f82471c00734, type: 3}
-  timeBetweenAttacks: 1.2
+  timeBetweenAttacks: 1.5
   damageDelay: 0.9
   blockDelay: 0.2
   attackRange: 4

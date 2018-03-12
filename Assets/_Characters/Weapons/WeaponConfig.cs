@@ -10,9 +10,9 @@ namespace RPG.Characters
         [SerializeField] GameObject weaponPrefab;
         [SerializeField] AnimatorOverrideController weaponSpecificAnimations;
         [SerializeField] AudioClip[] parrySounds;
-        [SerializeField] float timeBetweenAttacks = 1f;
+        [SerializeField] float timeBetweenAttacks = 1.2f;
         [SerializeField] float damageDelay = 0.5f;
-        [SerializeField] float blockDelay = 0.3f;
+        [SerializeField] float blockDelay = 0.15f;
         [SerializeField] float attackRange = 2f;
 
         [Header("Stats")]
