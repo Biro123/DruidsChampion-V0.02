@@ -13,14 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 1285728164963844, guid: 1553fff436c6751408196999c04fd91a,
     type: 2}
-  swingAnimation: {fileID: 7400000, guid: 158f3770cb63f864e9917904a4c1c9f1, type: 3}
-  thrustAnimation: {fileID: 7400000, guid: 685af2d0ecf553c45bede47bc1157b32, type: 3}
   weaponSpecificAnimations: {fileID: 22100000, guid: a29d86ec3492f2640ae1a763a248f174,
     type: 2}
   parrySounds:
   - {fileID: 8300000, guid: 2bc8225a23eb945578cfd49d8ba0dd67, type: 3}
   - {fileID: 8300000, guid: 5ca1c7b56e224434ca2a97b9c64f4e08, type: 3}
-  timeBetweenAnimationCycles: 0.6
+  timeBetweenAttacks: 2
   damageDelay: 1
   blockDelay: 0.15
   attackRange: 3.2

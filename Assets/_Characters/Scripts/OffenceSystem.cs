@@ -24,13 +24,12 @@ namespace RPG.Characters
         // Weapon Stats
         float attackRange;
         float damageDelay;
-        float timeBetweenAnimationCycles;
+        float timeBetweenAttacks;
         float chanceForSwing;
         float bluntDamageModification;
         float bladeDamageModification;
         float pierceDamageModification;
-        AnimationClip swingAnimationClip;
-        AnimationClip thrustAnimationClip;
+
         AnimatorOverrideController animatorOverrideController;
         
         bool attackerIsAlive;
@@ -59,7 +58,6 @@ namespace RPG.Characters
             }
 
             PutWeaponInHand(currentWeaponConfig);                     
-            //SetAttackAnimation(currentWeaponConfig.GetSwingAnimClip());   // TODO sets starting animation override - including movement
         }
 
         private void Update()
@@ -125,6 +123,15 @@ namespace RPG.Characters
             {
                 animatorOverrideController = character.GetAnimatorOverrideController();
                 animator.runtimeAnimatorController = animatorOverrideController;
+                // Remove hit events
+                if (animatorOverrideController[DEFAULT_THRUST_ATTACK])
+                {
+                    animatorOverrideController[DEFAULT_THRUST_ATTACK].events = new AnimationEvent[0];
+                }
+                if (animatorOverrideController[DEFAULT_SWING_ATTACK])
+                {
+                    animatorOverrideController[DEFAULT_SWING_ATTACK].events = new AnimationEvent[0];
+                }
             }
         }
 
@@ -143,13 +150,11 @@ namespace RPG.Characters
         {
             attackRange = weaponConfig.GetAttackRange();
             damageDelay = weaponConfig.GetDamageDelay();
-            timeBetweenAnimationCycles = weaponConfig.GetTimeBetweenAnimationCycles();
+            timeBetweenAttacks = weaponConfig.GetTimeBetweenAttacks();
             chanceForSwing = weaponConfig.GetChanceForSwing();
             bluntDamageModification = weaponConfig.GetBluntDamageModification();
             bladeDamageModification = weaponConfig.GetBladeDamageModification();
             pierceDamageModification = weaponConfig.GetPierceDamageModification();
-            swingAnimationClip = weaponConfig.GetSwingAnimClip();
-            thrustAnimationClip = weaponConfig.GetThrustAnimClip();
         }
 
         public void StopAttacking()
@@ -222,14 +227,12 @@ namespace RPG.Characters
 
             while (attackerIsAlive && targetIsAlive && targetInRange)
             {
-                AttackTargetOnce();
+                AttackTargetOnce();                                
 
-                float animationClipTime = swingAnimationClip.length / character.GetAnimSpeedMultiplier();
-                float randomDelay = timeBetweenAnimationCycles;  // TODO re-add random
-                    //* (1f + UnityEngine.Random.Range(-0.3f, 0.3f));
-                float timeToWait = animationClipTime + randomDelay;
+                float randomDelay = timeBetweenAttacks  
+                    * (1f + UnityEngine.Random.Range(-0.2f, 0.2f));
 
-                yield return new WaitForSeconds(timeToWait);
+                yield return new WaitForSeconds(randomDelay);
             }
             isAttacking = false;
         }
@@ -244,7 +247,6 @@ namespace RPG.Characters
 
             if (UnityEngine.Random.Range(0f, 1f) <= chanceForSwing)
             {
-                //SetAttackAnimation(swingAnimationClip);
                 bluntDamageDone = (baseDamage + damageAdj) * bluntDamageModification;
                 bladeDamageDone = (baseDamage + damageAdj) * bladeDamageModification;
                 pierceDamageDone = 0f;
@@ -252,7 +254,6 @@ namespace RPG.Characters
             }
             else
             {
-                //SetAttackAnimation(thrustAnimationClip);
                 bluntDamageDone = 0f;
                 bladeDamageDone = 0f;
                 pierceDamageDone = (baseDamage + damageAdj) * pierceDamageModification;

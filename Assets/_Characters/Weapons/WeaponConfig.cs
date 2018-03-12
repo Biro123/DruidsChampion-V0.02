@@ -8,11 +8,9 @@ namespace RPG.Characters
     {        
         [Header("Setup")]
         [SerializeField] GameObject weaponPrefab;
-        [SerializeField] AnimationClip swingAnimation;
-        [SerializeField] AnimationClip thrustAnimation;
         [SerializeField] AnimatorOverrideController weaponSpecificAnimations;
         [SerializeField] AudioClip[] parrySounds;
-        [SerializeField] float timeBetweenAnimationCycles = 1f;
+        [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] float damageDelay = 0.5f;
         [SerializeField] float blockDelay = 0.3f;
         [SerializeField] float attackRange = 2f;
@@ -35,19 +33,7 @@ namespace RPG.Characters
         {
             return weaponPrefab;
         }
-
-        public AnimationClip GetSwingAnimClip()
-        {
-            RemoveAnimationEvents();
-            return swingAnimation;
-        }
-
-        public AnimationClip GetThrustAnimClip()
-        {
-            RemoveAnimationEvents();
-            return thrustAnimation;
-        }
-        
+               
         public AudioClip GetParrySound()
         {
             if (parrySounds.Length > 0)
@@ -65,9 +51,9 @@ namespace RPG.Characters
             return blockDelay;
         }
 
-        public float GetTimeBetweenAnimationCycles()
+        public float GetTimeBetweenAttacks()
         {
-            return timeBetweenAnimationCycles;
+            return timeBetweenAttacks;
         }
 
         public float GetDamageDelay()
@@ -100,13 +86,6 @@ namespace RPG.Characters
             float mainSwingDamageMod = Mathf.Max(bladeDamageModifier, bluntDamageModifier);
             float chanceForSwing = mainSwingDamageMod / (mainSwingDamageMod + pierceDamageModifier);
             return chanceForSwing;
-        }
-
-        // So that asset packs cannot cause bugs by expecting 'hit event' methods.
-        private void RemoveAnimationEvents()
-        {
-            swingAnimation.events = new AnimationEvent[0];
-            thrustAnimation.events = new AnimationEvent[0];            
         }
     }
 }

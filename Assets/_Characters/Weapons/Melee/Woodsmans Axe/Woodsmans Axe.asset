@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Name: Woodsmans Axe
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 100000, guid: ee04c8e479165444cacd1a3a7b02cad1, type: 2}
-  swingAnimation: {fileID: 7400000, guid: f94c62a8b96f5a7469ce0da8ccac09b3, type: 3}
-  thrustAnimation: {fileID: 7400000, guid: f9a41b3feea198048b4d8a29a9268d72, type: 3}
   weaponSpecificAnimations: {fileID: 22100000, guid: e3095567ce38a7546877518c5cb041df,
     type: 2}
   parrySounds:
   - {fileID: 8300000, guid: b545b02783556493f811f82471c00734, type: 3}
-  timeBetweenAnimationCycles: 0.8
+  timeBetweenAttacks: 2
   damageDelay: 1.2
   blockDelay: 0.15
   attackRange: 3
