@@ -31,14 +31,19 @@ namespace RPG.Characters
         float pierceDamageModification;
         AnimationClip swingAnimationClip;
         AnimationClip thrustAnimationClip;
+        AnimatorOverrideController animatorOverrideController;
         
         bool attackerIsAlive;
         bool targetIsAlive;
         bool targetInRange;
         bool isAttacking;
         
-        const string ATTACK_TRIGGER = "Attack";
-        const string DEFAULT_ATTACK = "DEFAULT ATTACK";
+        const string SWING_ATTACK_TRIGGER = "SwingAttack";
+        const string THRUST_ATTACK_TRIGGER = "ThrustAttack";
+        const string SPECIAL_ABILITY_TRIGGER = "SpecialAbility";
+        const string DEFAULT_SWING_ATTACK = "DEFAULT SWING ATTACK";
+        const string DEFAULT_THRUST_ATTACK = "DEFAULT THRUST ATTACK";
+        const string SPECIAL_ABILITY = "DEFAULT SPECIAL ABILITY";
         const float ATTACK_RANGE_TOLERANCE = 0.5f;
         
         void Start()
@@ -54,20 +59,7 @@ namespace RPG.Characters
             }
 
             PutWeaponInHand(currentWeaponConfig);                     
-            SetAttackAnimation(currentWeaponConfig.GetSwingAnimClip());   // TODO sets starting animation override - including movement
-        }
-
-        private void GetWeaponStats(WeaponConfig weaponConfig)
-        {
-            attackRange = weaponConfig.GetAttackRange();
-            damageDelay = weaponConfig.GetDamageDelay();
-            timeBetweenAnimationCycles = weaponConfig.GetTimeBetweenAnimationCycles();
-            chanceForSwing = weaponConfig.GetChanceForSwing();
-            bluntDamageModification = weaponConfig.GetBluntDamageModification();
-            bladeDamageModification = weaponConfig.GetBladeDamageModification();
-            pierceDamageModification = weaponConfig.GetPierceDamageModification();
-            swingAnimationClip = weaponConfig.GetSwingAnimClip();
-            thrustAnimationClip = weaponConfig.GetThrustAnimClip();
+            //SetAttackAnimation(currentWeaponConfig.GetSwingAnimClip());   // TODO sets starting animation override - including movement
         }
 
         private void Update()
@@ -119,6 +111,21 @@ namespace RPG.Characters
             weaponObject.transform.localPosition = currentWeaponConfig.gripTransform.localPosition;
             weaponObject.transform.localRotation = currentWeaponConfig.gripTransform.localRotation;
             GetWeaponStats(currentWeaponConfig);
+            SetWeaponAnimations();
+        }
+
+        private void SetWeaponAnimations()
+        {
+            if (!character.GetAnimatorOverrideController())
+            {
+                Debug.Break();
+                Debug.LogAssertion("Please provide " + gameObject + " with an animator Override Controller");
+            }
+            else
+            {
+                animatorOverrideController = character.GetAnimatorOverrideController();
+                animator.runtimeAnimatorController = animatorOverrideController;
+            }
         }
 
         private GameObject RequestDominantHand()
@@ -131,7 +138,20 @@ namespace RPG.Characters
             Assert.IsFalse(numberOfDominantHands > 1, "Multiple Dominant Hands on " + gameObject.name);
             return dominantHands[0].gameObject;
         }
-        
+
+        private void GetWeaponStats(WeaponConfig weaponConfig)
+        {
+            attackRange = weaponConfig.GetAttackRange();
+            damageDelay = weaponConfig.GetDamageDelay();
+            timeBetweenAnimationCycles = weaponConfig.GetTimeBetweenAnimationCycles();
+            chanceForSwing = weaponConfig.GetChanceForSwing();
+            bluntDamageModification = weaponConfig.GetBluntDamageModification();
+            bladeDamageModification = weaponConfig.GetBladeDamageModification();
+            pierceDamageModification = weaponConfig.GetPierceDamageModification();
+            swingAnimationClip = weaponConfig.GetSwingAnimClip();
+            thrustAnimationClip = weaponConfig.GetThrustAnimClip();
+        }
+
         public void StopAttacking()
         {
             StopCoroutine("AttackTargetRepeatedly");
@@ -220,27 +240,30 @@ namespace RPG.Characters
 
             float bladeDamageDone, bluntDamageDone, pierceDamageDone;
             float attackScore = UnityEngine.Random.Range(1, 100) + attackBonus + attackAdj;
+            string animationToTrigger;
 
             if (UnityEngine.Random.Range(0f, 1f) <= chanceForSwing)
             {
-                SetAttackAnimation(swingAnimationClip);
+                //SetAttackAnimation(swingAnimationClip);
                 bluntDamageDone = (baseDamage + damageAdj) * bluntDamageModification;
                 bladeDamageDone = (baseDamage + damageAdj) * bladeDamageModification;
                 pierceDamageDone = 0f;
+                animationToTrigger = SWING_ATTACK_TRIGGER;
             }
             else
             {
-                SetAttackAnimation(thrustAnimationClip);
+                //SetAttackAnimation(thrustAnimationClip);
                 bluntDamageDone = 0f;
                 bladeDamageDone = 0f;
                 pierceDamageDone = (baseDamage + damageAdj) * pierceDamageModification;
+                animationToTrigger = THRUST_ATTACK_TRIGGER;
             }
             if (specialAttackAnimation)
             {
-                SetAttackAnimation(specialAttackAnimation);
+                animatorOverrideController[SPECIAL_ABILITY] = specialAttackAnimation;
+                animationToTrigger = SPECIAL_ABILITY_TRIGGER;
             }
-
-            animator.SetTrigger(ATTACK_TRIGGER);
+            animator.SetTrigger(animationToTrigger);
 
             var displayDmgDone = bluntDamageDone + bladeDamageDone + pierceDamageDone;
             //print(Time.time + gameObject.name + " Attacks for " + displayDmgDone + " dmg delay " + currentWeaponConfig.GetDamageDelay());
@@ -268,21 +291,6 @@ namespace RPG.Characters
             { return globalCombatConfig.GetSideDefencePenalty; }
             else
             { return globalCombatConfig.GetRearDefencePenalty; }
-        }
-
-        private void SetAttackAnimation(AnimationClip weaponAnimation)
-        {
-            if (!character.GetAnimatorOverrideController())
-            {
-                Debug.Break();
-                Debug.LogAssertion("Please provide " + gameObject + " with an animator Override Controller");
-            }
-            else
-            {
-                var animatorOverrideController = character.GetAnimatorOverrideController();
-                animator.runtimeAnimatorController = animatorOverrideController;
-                animatorOverrideController[DEFAULT_ATTACK] = weaponAnimation;
-            }
         }
     }
 }

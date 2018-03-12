@@ -12,8 +12,8 @@ namespace RPG.Characters
         AudioClip audioclip = null;
 
         const float PARTICLE_CLEAN_UP_DELAY = 2f;
-        const string ATTACK_TRIGGER = "Attack";
-        const string DEFAULT_ATTACK = "DEFAULT ATTACK";
+        const string SPECIAL_ABILITY_TRIGGER = "SpecialAbility";
+        const string SPECIAL_ABILITY = "DEFAULT SPECIAL ABILITY";
 
         // Abstract class is overridden in the child classes.
         public abstract void Use(GameObject target = null);
@@ -39,8 +39,8 @@ namespace RPG.Characters
             {
                 Animator animator = GetComponent<Animator>();                
                 animator.runtimeAnimatorController = animatorOverrideController;
-                animatorOverrideController[DEFAULT_ATTACK] = animationToPlay;                
-                animator.SetTrigger(ATTACK_TRIGGER);
+                animatorOverrideController[SPECIAL_ABILITY] = animationToPlay;                
+                animator.SetTrigger(SPECIAL_ABILITY_TRIGGER);
             }
         }
 
