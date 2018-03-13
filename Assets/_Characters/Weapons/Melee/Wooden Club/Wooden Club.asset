@@ -23,7 +23,7 @@ MonoBehaviour:
   blockDelay: 0.15
   attackRange: 3.2
   quality: 0.8
-  condition: 0.8
+  condition: 1
   bladeDamageModifier: 0
   bluntDamageModifier: 0.91
   pierceDamageModifier: 0

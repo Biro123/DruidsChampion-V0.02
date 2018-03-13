@@ -16,12 +16,12 @@ MonoBehaviour:
     type: 2}
   parrySounds:
   - {fileID: 8300000, guid: b545b02783556493f811f82471c00734, type: 3}
-  timeBetweenAttacks: 2
+  timeBetweenAttacks: 2.2
   damageDelay: 1.2
   blockDelay: 0.15
   attackRange: 3
   quality: 0.8
-  condition: 0.8
+  condition: 1
   bladeDamageModifier: 1
   bluntDamageModifier: 0.9
   pierceDamageModifier: 0

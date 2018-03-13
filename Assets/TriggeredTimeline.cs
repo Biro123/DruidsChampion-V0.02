@@ -8,8 +8,11 @@ namespace RPG.CameraUI
 {
     public class TriggeredTimeline : MonoBehaviour
     {
+        [SerializeField] bool isRepeatable = false;
+
         PlayableDirector timeline;
         bool inTriggerArea;
+        bool hasTriggered = false;
         GameObject playerInArea;
 
         void Start()
@@ -19,36 +22,25 @@ namespace RPG.CameraUI
 
         private void Update()
         {
-            if (playerInArea)
+            if (playerInArea && timeline.state != PlayState.Playing)
             {
-                if (timeline.state == PlayState.Playing)
-                {
-                    playerInArea.GetComponent<PlayerControl>().enabled = false;
-                }
-                else
-                {
-                    playerInArea.GetComponent<PlayerControl>().enabled = true;
-                }
+                playerInArea.GetComponent<PlayerControl>().enabled = true;
+                playerInArea = null;
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            print("Timeline Trigger enter " + other.name);
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.GetComponent<PlayerControl>())
             {
-                timeline.Play();
-                playerInArea = other.gameObject;
-                playerInArea.GetComponent<Character>().SetDestination(transform.position);
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.tag == "Player")
-            {
-                timeline.Stop();
-                playerInArea = null;
+                if (isRepeatable || !hasTriggered)
+                {
+                    hasTriggered = true;
+                    timeline.Play();
+                    playerInArea = other.gameObject;
+                    playerInArea.GetComponent<Character>().SetDestination(transform.position);
+                    playerInArea.GetComponent<PlayerControl>().enabled = false;
+                }
             }
         }
     }

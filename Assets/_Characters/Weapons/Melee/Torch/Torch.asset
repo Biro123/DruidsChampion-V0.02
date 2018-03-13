@@ -13,20 +13,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 1614066974363332, guid: 2e5b97aef3e46c848bc03f382972cdab,
     type: 2}
-  swingAnimation: {fileID: 7400000, guid: 9e5d42c64f4181e4e92729d62fa2d0fd, type: 3}
-  thrustAnimation: {fileID: 7400000, guid: 1fc94e9b71f1f5e4f97b6a0021007bf5, type: 3}
   weaponSpecificAnimations: {fileID: 22100000, guid: 31de11351dc94564b99bf6ad065049d9,
     type: 2}
   parrySounds:
   - {fileID: 8300000, guid: b545b02783556493f811f82471c00734, type: 3}
-  timeBetweenAnimationCycles: 1
+  timeBetweenAttacks: 1.2
   damageDelay: 0.45
   blockDelay: 0.15
   attackRange: 2
   quality: 0.8
-  condition: 0.8
-  bladeDamageModifier: 0.2
+  condition: 1
+  bladeDamageModifier: 0
   bluntDamageModifier: 0.6
-  pierceDamageModifier: 0.2
+  pierceDamageModifier: 0
   gripTransform: {fileID: 4917214913903806, guid: acf948fc9cc885547b62b72ea88631ec,
     type: 2}
