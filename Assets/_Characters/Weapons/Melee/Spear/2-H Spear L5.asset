@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
-  m_Name: 2-H Spear
+  m_Name: 2-H Spear L5
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 1660783077893030, guid: 2de75bc6c366ef24d8f8f04cb29d285c,
     type: 2}

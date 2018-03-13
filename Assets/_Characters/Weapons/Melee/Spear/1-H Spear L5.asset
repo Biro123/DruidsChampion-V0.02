@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
+  m_Name: 1-H Spear L5
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 1660783077893030, guid: 2de75bc6c366ef24d8f8f04cb29d285c,
+    type: 2}
+  weaponSpecificAnimations: {fileID: 22100000, guid: cb2b5c576761a15469275b5aedd14c55,
+    type: 2}
+  parrySounds:
+  - {fileID: 8300000, guid: 34aca9e3f1ade4802b9062b1380aa523, type: 3}
+  - {fileID: 8300000, guid: 5ca1c7b56e224434ca2a97b9c64f4e08, type: 3}
+  - {fileID: 8300000, guid: 7661b6c846dac48939a7917d8eb1b51c, type: 3}
+  timeBetweenAttacks: 1.4
+  damageDelay: 0.4
+  blockDelay: 0.15
+  attackRange: 3.5
+  quality: 0.8
+  condition: 1
+  bladeDamageModifier: 0.2
+  bluntDamageModifier: 0.3
+  pierceDamageModifier: 1
+  gripTransform: {fileID: 4917214913903806, guid: 5f496b27a7da494498661be4201f0255,
+    type: 2}
