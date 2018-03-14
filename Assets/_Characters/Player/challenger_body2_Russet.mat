@@ -9,7 +9,7 @@ Material:
   m_Name: challenger_body2_Russet
   m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _DETAIL_MULX2 _EMISSION _LIGHTMAPPING_DYNAMIC_LIGHTMAPS _LIGHTMAPPING_REALTIME
-    _NORMALMAP _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A _SPECGLOSSMAP _UVSEC_UV1
+    _NORMALMAP _SPECGLOSSMAP _UVSEC_UV1
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -92,7 +92,7 @@ Material:
     - _PlaneReflectionBumpScale: 0.4
     - _ProbesBoost: 1
     - _SmoothnessInAlbedo: 0
-    - _SmoothnessTextureChannel: 1
+    - _SmoothnessTextureChannel: 0
     - _SmoothnessTweak1: 0.7
     - _SmoothnessTweak2: 0
     - _SpecularHighlights: 1
