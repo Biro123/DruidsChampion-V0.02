@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: challenger_teeth
-  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _EMISSIONMAP _LIGHTMAPPING_DYNAMIC_LIGHTMAPS _LIGHTMAPPING_REALTIME
     _NORMALMAP _UVSEC_UV1
   m_LightmapFlags: 1
@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
-        m_Texture: {fileID: 2800000, guid: 5794e01efe77f944dbf2985b92afa924, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 19, y: -0.81}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
-        m_Texture: {fileID: 2800000, guid: 530f1bcdd1a12c745998eab674699d24, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -81,10 +81,10 @@ Material:
     - _EmissionScaleUI: 0
     - _EmissionTemperature: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.599
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _Lightmapping: 1
-    - _Metallic: 0
+    - _Metallic: 1
     - _Mode: 0
     - _OcclusionStrength: 0.8
     - _Orthonormalize: 0

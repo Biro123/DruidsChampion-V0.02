@@ -80,9 +80,9 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _Lightmapping: 1
-    - _Metallic: 0
+    - _Metallic: 1
     - _Mode: 0
-    - _OcclusionStrength: 1
+    - _OcclusionStrength: 0.872
     - _Parallax: 0.02
     - _PlaneReflectionBumpClamp: 0.05
     - _PlaneReflectionBumpScale: 0.4
