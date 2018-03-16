@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a24fe6b13d6c584db1aa4fc23349804, type: 3}
-  m_Name: 1H Axe
+  m_Name: 1H Axe L3
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 1501927137768688, guid: 0539189f5fd3a0747bc6558f995a8bc3,
     type: 2}
@@ -24,7 +24,7 @@ MonoBehaviour:
   blockDelay: 0.15
   attackRange: 2.8
   quality: 0.8
-  condition: 1
+  condition: 0.8
   bladeDamageModifier: 0.65
   bluntDamageModifier: 0.5
   pierceDamageModifier: 0

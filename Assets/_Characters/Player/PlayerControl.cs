@@ -78,6 +78,12 @@ namespace RPG.Characters
 
         private void ScanForAbilityKeyDown()
         {
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                specialAbilities.AttemptSpecialAbility(3);  // TODO handle keybinds better
+                return;
+            }
+
             for (int keyIndex = 1; keyIndex <= specialAbilities.GetNumberOfAbilities(); keyIndex++)
             {
                 if (Input.GetKeyDown(keyIndex.ToString()))

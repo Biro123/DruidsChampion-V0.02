@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 0f7a49582a7ad5c4fa7fd76d4e3bf7eb
+timeCreated: 1521153710
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: IrishUncialfabeta-Bold
+  fontNames:
+  - IrishUncialfabeta-Bold
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
