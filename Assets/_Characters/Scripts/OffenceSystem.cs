@@ -30,6 +30,8 @@ namespace RPG.Characters
         float bladeDamageModification;
         float pierceDamageModification;
 
+        float timeOfLastSpecialAttack;
+
         AnimatorOverrideController animatorOverrideController;
         
         bool attackerIsAlive;
@@ -230,6 +232,7 @@ namespace RPG.Characters
         public void SpecialAttack(GameObject targetToAttack, float attackAdj, float damageAdj, float armourAvoidAdj, AnimationClip specialAttackAnimation = null)
         {
             SetTarget(targetToAttack);
+            timeOfLastSpecialAttack = Time.time;
             AttackTargetOnce(attackAdj, damageAdj, armourAvoidAdj, specialAttackAnimation);
 
             if (!isAttacking)
@@ -248,12 +251,13 @@ namespace RPG.Characters
 
             while (attackerIsAlive && targetIsAlive && targetInRange)
             {
-                AttackTargetOnce();                                
-
-                float randomDelay = timeBetweenAttacks  
-                    * (1f + UnityEngine.Random.Range(-0.2f, 0.2f));
-
-                yield return new WaitForSeconds(randomDelay);
+                float delayForNextAttack = Time.time - timeOfLastSpecialAttack;
+                if (delayForNextAttack >= timeBetweenAttacks) // stops extra attack after death
+                {
+                    AttackTargetOnce();
+                    delayForNextAttack = timeBetweenAttacks * (1f + UnityEngine.Random.Range(-0.2f, 0.2f));                    
+                }
+                yield return new WaitForSeconds(delayForNextAttack);
             }
             isAttacking = false;
         }
@@ -292,6 +296,7 @@ namespace RPG.Characters
 
             // Main call to Defence System
             targetDefenceSystem.DefendAgainstAttack(
+                this.gameObject,
                 attackScore,
                 FindDirectionDefencePenalty(),
                 bluntDamageDone, 

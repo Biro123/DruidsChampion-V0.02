@@ -19,6 +19,7 @@ namespace RPG.Characters
         OffenceSystem offenceSystem;
         Animator animator;
         AudioSource audioSource;
+        GameObject currentAttacker;
 
         bool isBlocking;
         string displayHitLocation;
@@ -45,6 +46,7 @@ namespace RPG.Characters
 
 
         public void DefendAgainstAttack(
+            GameObject attacker,
             float attackScore,
             float defencePenaly,
             float bluntDamageDone, 
@@ -53,6 +55,7 @@ namespace RPG.Characters
             float armourAvoidAdj,
             float damageDelay)
         {
+            currentAttacker = attacker;
             if (SeeIfHit(attackScore, defencePenaly) == true)
             {
                 float damageTaken = AdjustDamageForArmour(bluntDamageDone, bladeDamageDone, pierceDamageDone, armourAvoidAdj);
@@ -96,7 +99,12 @@ namespace RPG.Characters
         IEnumerator TakeDamageAfterDelay(float damage, float delay)
         {
             yield return new WaitForSeconds(delay);
-            healthSystem.AdjustHealth(damage);
+
+            //Ensure attacker isn't dead
+            if (currentAttacker && currentAttacker.GetComponent<HealthSystem>().healthAsPercentage >= Mathf.Epsilon)
+            {
+                healthSystem.AdjustHealth(damage);
+            }
         }
 
         private bool SeeIfHit(float attackScore, float defencePenalty)
@@ -112,8 +120,13 @@ namespace RPG.Characters
         {
             isBlocking = true;
             yield return new WaitForSeconds(delay);
-            Block();
-            yield return new WaitForSeconds(BLOCK_TIME);  
+
+            //Ensure attacker isn't dead
+            if (currentAttacker && currentAttacker.GetComponent<HealthSystem>().healthAsPercentage >= Mathf.Epsilon)
+            {
+                Block();
+                yield return new WaitForSeconds(BLOCK_TIME);
+            }
             isBlocking = false;
         }
 

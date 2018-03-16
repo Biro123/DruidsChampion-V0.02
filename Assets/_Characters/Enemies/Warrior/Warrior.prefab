@@ -2477,7 +2477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96707d7169b1c204197a14724bdb4305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockBonus: 55
+  blockBonus: 85
   headArmourConfig: {fileID: 0}
   bodyArmourConfig: {fileID: 0}
   armArmourConfig: {fileID: 0}
@@ -2493,9 +2493,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0929f2459c8e3ac4e96e06a1ad74c8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackBonus: 60
+  attackBonus: 80
   baseDamage: 150
-  currentWeaponConfig: {fileID: 11400000, guid: d28d056d929445d4bb145b06db2a3edc,
+  currentWeaponConfig: {fileID: 11400000, guid: 978f988f30cbfca4aadc0ef271cf22c4,
     type: 2}
 --- !u!114 &114382684399638432
 MonoBehaviour:
@@ -2624,7 +2624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemy: 1
-  aggroDistance: 10
+  aggroDistance: 12
   patrolPath: {fileID: 0}
   waypointTolerance: 3
   waypointDwellTime: 0.5
@@ -2650,7 +2650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f251b285f08d6140bd193582adc46c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 300
+  maxHealthPoints: 450
   healthBar: {fileID: 114617707660232072}
   deathVanishSeconds: 5
   hitSounds:
