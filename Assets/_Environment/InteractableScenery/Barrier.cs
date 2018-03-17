@@ -12,7 +12,7 @@ public class Barrier : MonoBehaviour {
 
     public void DestroySelf()
     {
-        GameObject particleSystem = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+        GameObject particleSystem = Instantiate(particlePrefab, transform.position, transform.rotation);
         Destroy(particleSystem, particleSystem.GetComponent<ParticleSystem>().main.duration);
         Destroy(gameObject, 0.3f);
     }
