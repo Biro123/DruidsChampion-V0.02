@@ -18,6 +18,25 @@ namespace RPG.Characters
 
         const int COMBATANT_LAYER = 9;
 
+        public void MoveAndKick(Vector3 moveToPosition, GameObject kickObject)
+        {
+            character.SetDestination(moveToPosition);
+            StartCoroutine(KickWhenNear(moveToPosition, kickObject));
+        }
+
+        IEnumerator KickWhenNear(Vector3 moveToPosition, GameObject kickObject)
+        {
+            while (Vector3.Distance(transform.position, moveToPosition) > 1f)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            character.SetDestination(transform.position);
+            transform.LookAt(kickObject.transform.position);
+            GetComponent<Animator>().SetTrigger("Kick");
+            kickObject.GetComponent<Barrier>().DestroySelf();
+            yield return new WaitForEndOfFrame();
+        }
+
         private void Start()
         {
             character = GetComponent<Character>();

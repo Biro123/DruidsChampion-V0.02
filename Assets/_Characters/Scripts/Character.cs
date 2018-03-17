@@ -76,6 +76,7 @@ namespace RPG.Characters
             rigidBody = gameObject.AddComponent<Rigidbody>();
             rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
             rigidBody.mass = rigidBodyMass;
+            rigidBody.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
             var audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.playOnAwake = false;
