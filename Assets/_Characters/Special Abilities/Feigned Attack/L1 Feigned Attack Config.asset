@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 2}
   audioClips:
   - {fileID: 8300000, guid: c239f3ab8b0a645219252abc75b70d29, type: 3}
-  abilityAnimation: {fileID: 7400000, guid: fcc82476d966e864da60dc606a6adcb0, type: 3}
+  abilityAnimation: {fileID: 7400000, guid: e926e621b8f1c664cb310c28338c232f, type: 3}
   damageAdj: 50
   attackAdj: 35
   armourAvoidAdj: -0.1
