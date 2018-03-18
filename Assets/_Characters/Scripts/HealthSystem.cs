@@ -114,6 +114,11 @@ namespace RPG.Characters
             animator.SetTrigger(DEATH_TRIGGER);
             PlayDeathSound();
 
+            if (healthBar) // Hide Canvas
+            {
+                healthBar.transform.parent.gameObject.SetActive(false);
+            }
+
             var playerComponent = GetComponent<PlayerControl>();
             if (playerComponent && playerComponent.isActiveAndEnabled)
             {                

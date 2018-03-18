@@ -19,7 +19,7 @@ MonoBehaviour:
   timeBetweenAttacks: 2
   damageDelay: 0.8
   blockDelay: 0.15
-  attackRange: 3
+  attackRange: 3.5
   quality: 1
   condition: 1
   bladeDamageModifier: 0.5

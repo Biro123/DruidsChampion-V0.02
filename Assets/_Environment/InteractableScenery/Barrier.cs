@@ -10,10 +10,13 @@ public class Barrier : MonoBehaviour {
     [SerializeField] GameObject standPos;
     [SerializeField] GameObject particlePrefab;
 
+    bool isBeingDestroyed = false;
+
     public void DestroySelf()
     {
         GameObject particleSystem = Instantiate(particlePrefab, transform.position, transform.rotation);
         Destroy(particleSystem, particleSystem.GetComponent<ParticleSystem>().main.duration);
+        textBox.text = " ";
         Destroy(gameObject, 0.3f);
     }
 
@@ -22,10 +25,14 @@ public class Barrier : MonoBehaviour {
         PlayerControl playerControl = other.GetComponent<PlayerControl>();
         if (playerControl)
         {
-            textBox.text = "Press Space to destroy barrier";
+            if (!isBeingDestroyed)
+            {
+                textBox.text = "Press Space to destroy barrier";
+            }
 
             if(Input.GetKeyDown(KeyCode.Space))
             {
+                isBeingDestroyed = true;
                 playerControl.MoveAndKick(standPos.transform.position, this.gameObject);
             }
         }
@@ -36,7 +43,7 @@ public class Barrier : MonoBehaviour {
         PlayerControl playerControl = other.GetComponent<PlayerControl>();
         if (playerControl)
         {
-            textBox.text = null;
+            textBox.text = " ";
         }
     }
 }

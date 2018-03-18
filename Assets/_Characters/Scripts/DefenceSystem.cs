@@ -145,13 +145,21 @@ namespace RPG.Characters
         {
             ArmourProtection armourProtection = new ArmourProtection();
 
+            // TODO Temporaty balancing fix to even out rng
+            if (currentAttacker.GetComponent<PlayerControl>())
+            {
+                armourProtection.blade = 20f;
+                armourProtection.blunt = 20f;
+                armourProtection.pierce = 20f;
+            }
+
             armourConfigHit = DetermineLocationHit();
 
             if (armourConfigHit && IsArmourHit(armourAvoidAdj)) // Armour Bypassed (critical)
             {
-                armourProtection.blade = armourConfigHit.GetBladeArmourAmount();
-                armourProtection.blunt = armourConfigHit.GetBluntArmourAmount();
-                armourProtection.pierce = armourConfigHit.GetPierceArmourAmount();
+                armourProtection.blade += armourConfigHit.GetBladeArmourAmount();
+                armourProtection.blunt += armourConfigHit.GetBluntArmourAmount();
+                armourProtection.pierce += armourConfigHit.GetPierceArmourAmount();
             }
 
             return armourProtection;
